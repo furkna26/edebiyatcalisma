@@ -887,8 +887,8 @@ const questions = [
   {
     id: 59,
     type: "true_false",
-    question_de: "R/F 3: Merseburger Zaubersprüche wurden in der germanischen Zeitperiode gefunden (entstanden dort).",
-    question_tr: "D/Y 3: Merseburg Büyü Sözleri (Merseburger Zaubersprüche) Cermen dönemine aittir.",
+    question_de: "R/F 3: Merseburger Zaubersprüche wurden in der germanischen Zeitperiode gefunden.",
+    question_tr: "D/Y 3: Merseburg Büyü Sözleri (Merseburger Zaubersprüche) Cermen döneminde bulunmuştur / o döneme aittir.",
     options: [
       { de: "Richtig", tr: "Doğru" },
       { de: "Falsch", tr: "Yanlış" }

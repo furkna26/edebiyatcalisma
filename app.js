@@ -1,4 +1,4 @@
-// Bilingual German Literature Quiz App Logic (Vanilla JS)
+// Bilingual German Literature Quiz App Logic (Compact & Mobile-First Vanilla JS)
 
 (function () {
   // State
@@ -13,6 +13,7 @@
   let isExamFinished = false;
 
   // DOM Elements
+  const mainHeader = document.getElementById('main-header');
   const timerDisplay = document.getElementById('timer-display');
   const toggleTrBtn = document.getElementById('toggle-tr-btn');
   const toggleTrDot = document.getElementById('toggle-tr-dot');
@@ -55,6 +56,22 @@
   const resPercent = document.getElementById('res-percent');
   const restartBtn = document.getElementById('restart-btn');
   const reviewList = document.getElementById('review-list');
+
+  // Scroll-to-Hide Header Logic
+  let lastScrollY = window.scrollY;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 28) {
+        mainHeader.classList.add('header-hidden');
+      } else {
+        mainHeader.classList.remove('header-hidden');
+      }
+      lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+    },
+    { passive: true }
+  );
 
   // Format seconds as MM:SS
   function formatTime(totalSeconds) {
@@ -110,9 +127,9 @@
     filterButtons.forEach((btn) => {
       const f = btn.getAttribute('data-filter');
       if (f === activeFilter) {
-        btn.className = 'filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition';
+        btn.className = 'filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition';
       } else {
-        btn.className = 'filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+        btn.className = 'filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
       }
     });
   }
@@ -172,11 +189,11 @@
     if (q.type === 'true_false') {
       questionTypeBadge.textContent = 'Richtig / Falsch (Doğru / Yanlış)';
       questionTypeBadge.className =
-        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30';
+        'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30';
     } else {
       questionTypeBadge.textContent = 'Multiple Choice (Çoktan Seçmeli)';
       questionTypeBadge.className =
-        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+        'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
     }
 
     // Status Badge on Question
@@ -185,15 +202,15 @@
       questionStatusBadge.classList.remove('hidden');
       if (isRight) {
         questionStatusBadge.textContent = '✓ Richtig (Doğru)';
-        questionStatusBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
       } else {
         questionStatusBadge.textContent = '✗ Falsch (Yanlış)';
-        questionStatusBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/40';
+        questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40';
       }
     } else if (isSkipped) {
       questionStatusBadge.classList.remove('hidden');
-      questionStatusBadge.textContent = '↷ Übersprungen (Boş Bırakıldı)';
-      questionStatusBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40';
+      questionStatusBadge.textContent = '↷ Übersprungen (Boş)';
+      questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40';
     } else {
       questionStatusBadge.classList.add('hidden');
     }
@@ -202,11 +219,11 @@
     questionDe.textContent = q.question_de;
     questionTr.textContent = q.question_tr;
 
-    // Options Layout: 2 side-by-side buttons for true_false, 4 stacked buttons for multiple_choice
+    // Options Layout: 2 side-by-side buttons even on mobile for true_false, compact stacked buttons for multiple_choice
     if (q.type === 'true_false') {
-      optionsContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1';
+      optionsContainer.className = 'grid grid-cols-2 gap-2.5 pt-0.5';
     } else {
-      optionsContainer.className = 'grid grid-cols-1 gap-3.5 pt-1';
+      optionsContainer.className = 'grid grid-cols-1 gap-2 pt-0.5';
     }
 
     optionsContainer.innerHTML = '';
@@ -218,11 +235,11 @@
       btn.disabled = isAnswered;
 
       let baseClass =
-        'option-btn w-full text-left rounded-xl p-4 border border-slate-700/80 bg-slate-800/60 flex items-start gap-3.5 focus:outline-none';
+        'option-btn w-full text-left rounded-lg py-2 px-3 sm:py-2.5 sm:px-3.5 border border-slate-700/80 bg-slate-800/60 flex items-start gap-2.5 focus:outline-none';
 
       if (q.type === 'true_false') {
         baseClass =
-          'option-btn w-full text-center rounded-xl p-5 border border-slate-700/80 bg-slate-800/60 flex flex-col items-center justify-center gap-1.5 focus:outline-none';
+          'option-btn w-full text-center rounded-lg py-3 px-2.5 border border-slate-700/80 bg-slate-800/60 flex flex-col items-center justify-center gap-1 focus:outline-none';
       }
 
       // Highlighting if already answered
@@ -232,7 +249,7 @@
         } else if (idx === record.selectedIndex && idx !== q.correctAnswer) {
           baseClass += ' option-wrong';
         } else {
-          baseClass += ' opacity-60';
+          baseClass += ' opacity-55';
         }
       }
 
@@ -241,13 +258,13 @@
       if (q.type === 'true_false') {
         const iconHtml =
           idx === 0
-            ? `<span class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-extrabold text-base">R</span>`
-            : `<span class="w-9 h-9 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center font-extrabold text-base">F</span>`;
+            ? `<span class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-extrabold text-xs">R</span>`
+            : `<span class="w-7 h-7 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center font-extrabold text-xs">F</span>`;
 
         btn.innerHTML = `
           ${iconHtml}
-          <span class="text-lg sm:text-xl font-bold text-white tracking-wide">${opt.de}</span>
-          <span class="tr-text text-xs sm:text-sm italic text-slate-400">${opt.tr}</span>
+          <span class="text-sm sm:text-base font-bold text-white tracking-wide leading-tight">${opt.de}</span>
+          <span class="tr-text text-[11px] sm:text-xs italic text-slate-400 leading-tight">${opt.tr}</span>
         `;
       } else {
         let badgeStyle = 'bg-slate-700/80 text-slate-200 border-slate-600';
@@ -260,12 +277,12 @@
         }
 
         btn.innerHTML = `
-          <span class="w-8 h-8 rounded-lg border ${badgeStyle} font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">
+          <span class="w-6 h-6 rounded-md border ${badgeStyle} font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
             ${letters[idx]}
           </span>
-          <div class="space-y-1 flex-1">
-            <div class="text-base sm:text-lg font-semibold text-slate-100 leading-snug">${opt.de}</div>
-            <div class="tr-text text-xs sm:text-sm italic text-slate-400 leading-normal">${opt.tr}</div>
+          <div class="space-y-0.5 flex-1 min-w-0">
+            <div class="text-sm sm:text-base font-semibold text-slate-100 leading-snug">${opt.de}</div>
+            <div class="tr-text text-[11px] sm:text-xs italic text-slate-400 leading-snug">${opt.tr}</div>
           </div>
         `;
       }
@@ -360,9 +377,9 @@
         colorClass = 'bg-amber-500/25 text-amber-300 border-amber-500/50 font-bold';
       }
 
-      const activeRing = idx === currentIndex ? 'ring-2 ring-indigo-400 border-indigo-400' : '';
+      const activeRing = idx === currentIndex ? 'ring-1 ring-indigo-400 border-indigo-400' : '';
 
-      btn.className = `h-8 rounded-lg border text-xs font-mono transition flex items-center justify-center ${colorClass} ${activeRing}`;
+      btn.className = `h-7 rounded border text-[11px] font-mono transition flex items-center justify-center ${colorClass} ${activeRing}`;
       btn.addEventListener('click', () => {
         currentIndex = idx;
         renderCurrentQuestion();
@@ -409,13 +426,13 @@
       let borderClass = 'border-slate-800';
 
       if (isAnswered && isRight) {
-        statusBadge = `<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✓ Richtig (Doğru)</span>`;
+        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✓ Richtig (Doğru)</span>`;
         borderClass = 'border-emerald-500/30';
       } else if (isAnswered && !isRight) {
-        statusBadge = `<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">✗ Falsch (Yanlış)</span>`;
+        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">✗ Falsch (Yanlış)</span>`;
         borderClass = 'border-rose-500/30';
       } else {
-        statusBadge = `<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">↷ Übersprungen (Boş)</span>`;
+        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">↷ Übersprungen (Boş)</span>`;
         borderClass = 'border-amber-500/30';
       }
 
@@ -428,51 +445,51 @@
         q.type === 'multiple_choice' ? `${letters[q.correctAnswer]}) ` : '';
 
       const userAnswerHtml = userOpt
-        ? `<div class="p-3 rounded-xl ${
+        ? `<div class="p-2.5 rounded-lg ${
             isRight
               ? 'bg-emerald-950/30 border border-emerald-500/30'
               : 'bg-rose-950/30 border border-rose-500/30'
           }">
-            <div class="text-xs font-bold uppercase tracking-wider ${
+            <div class="text-[10px] font-bold uppercase tracking-wider ${
               isRight ? 'text-emerald-400' : 'text-rose-400'
-            } mb-1">Deine Antwort / Senin Cevabın:</div>
-            <div class="text-sm font-semibold text-white">${userPrefix}${userOpt.de}</div>
-            <div class="tr-text text-xs italic text-slate-400">${userOpt.tr}</div>
+            } mb-0.5">Deine Antwort / Senin Cevabın:</div>
+            <div class="text-xs sm:text-sm font-semibold text-white">${userPrefix}${userOpt.de}</div>
+            <div class="tr-text text-[11px] italic text-slate-400">${userOpt.tr}</div>
           </div>`
-        : `<div class="p-3 rounded-xl bg-amber-950/25 border border-amber-500/30">
-            <div class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Deine Antwort / Senin Cevabın:</div>
-            <div class="text-sm font-semibold text-amber-200">Übersprungen / Boş Bırakıldı</div>
+        : `<div class="p-2.5 rounded-lg bg-amber-950/25 border border-amber-500/30">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">Deine Antwort / Senin Cevabın:</div>
+            <div class="text-xs sm:text-sm font-semibold text-amber-200">Übersprungen / Boş Bırakıldı</div>
           </div>`;
 
       const correctAnswerHtml = `
-        <div class="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Richtige Antwort / Doğru Cevap:</div>
-          <div class="text-sm font-semibold text-white">${correctPrefix}${correctOpt.de}</div>
-          <div class="tr-text text-xs italic text-slate-400">${correctOpt.tr}</div>
+        <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-0.5">Richtige Antwort / Doğru Cevap:</div>
+          <div class="text-xs sm:text-sm font-semibold text-white">${correctPrefix}${correctOpt.de}</div>
+          <div class="tr-text text-[11px] italic text-slate-400">${correctOpt.tr}</div>
         </div>
       `;
 
       const card = document.createElement('div');
-      card.className = `bg-slate-900 border ${borderClass} rounded-2xl p-5 space-y-4`;
+      card.className = `bg-slate-900 border ${borderClass} rounded-xl p-3.5 sm:p-4 space-y-2.5`;
       card.innerHTML = `
-        <div class="flex items-center justify-between gap-2 flex-wrap">
-          <span class="text-xs font-mono font-semibold text-slate-400">Frage #${idx + 1} (${
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-[11px] font-mono font-semibold text-slate-400">Frage #${idx + 1} (${
             q.type === 'true_false' ? 'Richtig/Falsch' : 'Multiple Choice'
           })</span>
           ${statusBadge}
         </div>
-        <div class="space-y-1">
-          <h4 class="text-base sm:text-lg font-bold text-white">${q.question_de}</h4>
-          <p class="tr-text text-xs sm:text-sm italic text-slate-400">${q.question_tr}</p>
+        <div class="space-y-0.5">
+          <h4 class="text-sm sm:text-base font-bold text-white leading-snug">${q.question_de}</h4>
+          <p class="tr-text text-xs italic text-slate-400 leading-snug">${q.question_tr}</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           ${userAnswerHtml}
           ${correctAnswerHtml}
         </div>
-        <div class="p-3.5 rounded-xl bg-slate-800/70 border border-slate-700/70 space-y-1">
-          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Erklärung / Açıklama</div>
-          <p class="text-xs sm:text-sm text-slate-200">${q.explanation_de}</p>
-          <p class="tr-text text-xs italic text-slate-400">${q.explanation_tr}</p>
+        <div class="p-2.5 rounded-lg bg-slate-800/70 border border-slate-700/70 space-y-0.5">
+          <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Erklärung / Açıklama</div>
+          <p class="text-xs text-slate-200 leading-snug">${q.explanation_de}</p>
+          <p class="tr-text text-[11px] italic text-slate-400 leading-snug">${q.explanation_tr}</p>
         </div>
       `;
 
@@ -485,12 +502,12 @@
     showTurkish = !showTurkish;
     if (showTurkish) {
       document.body.classList.remove('hide-tr');
-      toggleTrLabel.textContent = 'Türkçe Çevirileri Gizle';
-      toggleTrDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+      toggleTrLabel.textContent = 'TR Gizle';
+      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
     } else {
       document.body.classList.add('hide-tr');
-      toggleTrLabel.textContent = 'Türkçe Çevirileri Göster';
-      toggleTrDot.className = 'w-2 h-2 rounded-full bg-slate-500';
+      toggleTrLabel.textContent = 'TR Göster';
+      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-slate-500';
     }
   });
 

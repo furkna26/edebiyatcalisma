@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deutsche Literaturgeschichte Quiz | Almanca Edebiyat Çalışma</title>
+  <title>Deutsche Literatur Quiz | Almanca Edebiyat</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -25,27 +25,24 @@
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
 
-  <!-- TOP HEADER BAR -->
-  <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <!-- App Title -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 font-extrabold text-lg">
+  <!-- COMPACT SCROLL-TO-HIDE HEADER BAR -->
+  <header id="main-header" class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md">
+    <div class="max-w-3xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+      <!-- Compact Brand -->
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-extrabold text-xs shrink-0">
           DE
         </div>
-        <div>
-          <h1 class="font-bold text-base sm:text-lg tracking-tight text-white leading-tight">
-            Deutsche Literatur Quiz
-          </h1>
-          <p class="text-xs text-slate-400">Almanca Edebiyat Tarihi (Çift Dilli Soru Bankası)</p>
-        </div>
+        <h1 class="font-bold text-xs sm:text-sm tracking-tight text-white truncate">
+          Almanca Edebiyat Quiz
+        </h1>
       </div>
 
-      <!-- Controls: Timer, Translation Toggle, Finish Button -->
-      <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+      <!-- Compact Controls: Timer, TR Toggle, Finish Button -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- Live Timer -->
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-amber-400 font-mono text-sm font-semibold" title="Geçen Süre / Gesamtzeit">
-          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-center gap-1 px-2 py-1 rounded-md bg-slate-800/90 border border-slate-700 text-amber-400 font-mono text-xs font-semibold" title="Geçen Süre / Gesamtzeit">
+          <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span id="timer-display">00:00</span>
@@ -55,135 +52,137 @@
         <button
           id="toggle-tr-btn"
           type="button"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-xs sm:text-sm font-medium transition"
+          class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-[11px] sm:text-xs font-medium transition"
+          title="Türkçe Çevirileri Göster/Gizle"
         >
-          <span id="toggle-tr-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span id="toggle-tr-label">Türkçe Çevirileri Gizle</span>
+          <span id="toggle-tr-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span id="toggle-tr-label">TR Gizle</span>
         </button>
 
         <!-- Finish Exam Button -->
         <button
           id="finish-exam-btn"
           type="button"
-          class="px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 text-xs sm:text-sm font-semibold transition"
+          class="px-2 py-1 rounded-md bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 text-[11px] sm:text-xs font-semibold transition"
         >
-          Test beenden (Testi Bitir)
+          Bitir
         </button>
       </div>
     </div>
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="max-w-4xl mx-auto px-4 py-6 sm:py-8">
+  <main class="max-w-3xl mx-auto px-2.5 sm:px-4 py-2.5 sm:py-4">
 
     <!-- QUIZ SCREEN -->
-    <section id="quiz-screen" class="space-y-6">
+    <section id="quiz-screen" class="space-y-2.5 sm:space-y-3">
 
-      <!-- Category / Mode Filter & Live Mini Stats -->
-      <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/70 border border-slate-800 rounded-xl p-3">
-        <div class="flex items-center gap-1.5 flex-wrap">
-          <button data-filter="all" class="filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition">
-            Alle (Tümü: 66)
-          </button>
-          <button data-filter="multiple_choice" class="filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
-            Multiple Choice (56)
-          </button>
-          <button data-filter="true_false" class="filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
-            Richtig / Falsch (10)
-          </button>
+      <!-- Unified Slim Top Strip: Filters + Live Counters + Progress -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5 space-y-2">
+        <div class="flex flex-wrap items-center justify-between gap-1.5">
+          <!-- Filter Pills -->
+          <div class="flex items-center gap-1">
+            <button data-filter="all" class="filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition">
+              Tümü (66)
+            </button>
+            <button data-filter="multiple_choice" class="filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              Çoktan Seçmeli (56)
+            </button>
+            <button data-filter="true_false" class="filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+              D / Y (10)
+            </button>
+          </div>
+
+          <!-- Compact Live Score Pills -->
+          <div class="flex items-center gap-1.5 text-[11px] font-semibold">
+            <span class="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30" title="Doğru / Richtig">
+              D: <strong id="live-correct">0</strong>
+            </span>
+            <span class="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30" title="Yanlış / Falsch">
+              Y: <strong id="live-wrong">0</strong>
+            </span>
+            <span class="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30" title="Boş / Übersprungen">
+              B: <strong id="live-skipped">0</strong>
+            </span>
+          </div>
         </div>
 
-        <!-- Live Score Pills -->
-        <div class="flex items-center gap-3 text-xs font-semibold">
-          <span class="px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-            Richtig: <strong id="live-correct">0</strong>
-          </span>
-          <span class="px-2.5 py-1 rounded-md bg-rose-500/15 text-rose-400 border border-rose-500/30">
-            Falsch: <strong id="live-wrong">0</strong>
-          </span>
-          <span class="px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30">
-            Übersprungen: <strong id="live-skipped">0</strong>
-          </span>
+        <!-- Compact Progress Row -->
+        <div class="flex items-center gap-2">
+          <span id="progress-text" class="text-[11px] text-slate-300 font-semibold shrink-0">Frage 1 / 66</span>
+          <div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300" style="width: 2%"></div>
+          </div>
+          <span id="progress-percent" class="text-[11px] text-indigo-400 font-mono shrink-0">2%</span>
         </div>
       </div>
 
-      <!-- Progress Bar -->
-      <div class="space-y-2">
-        <div class="flex items-center justify-between text-xs sm:text-sm font-medium">
-          <span id="progress-text" class="text-slate-300 font-semibold">Frage 1 / 66</span>
-          <span id="progress-percent" class="text-indigo-400 font-mono">2%</span>
-        </div>
-        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700/60">
-          <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300" style="width: 2%"></div>
-        </div>
-      </div>
-
-      <!-- QUESTION CARD -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 shadow-2xl space-y-6 animate-fade-in">
+      <!-- COMPACT QUESTION CARD -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 sm:p-5 shadow-xl space-y-3 animate-fade-in">
 
         <!-- Top Badge Row -->
-        <div class="flex items-center justify-between gap-2 flex-wrap">
-          <span id="question-type-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+        <div class="flex items-center justify-between gap-2">
+          <span id="question-type-badge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
             Multiple Choice
           </span>
-          <span id="question-status-badge" class="hidden text-xs font-semibold px-2.5 py-1 rounded-md"></span>
+          <span id="question-status-badge" class="hidden text-[11px] font-semibold px-2 py-0.5 rounded"></span>
         </div>
 
         <!-- Question Text (DE + TR Hierarchy) -->
-        <div class="space-y-2">
-          <h2 id="question-de" class="text-xl sm:text-2xl font-bold text-white leading-snug">
+        <div class="space-y-1">
+          <h2 id="question-de" class="text-base sm:text-lg font-bold text-white leading-snug">
             <!-- German Question -->
           </h2>
-          <p id="question-tr" class="tr-text text-sm sm:text-base italic text-slate-400 leading-relaxed">
+          <p id="question-tr" class="tr-text text-xs sm:text-sm italic text-slate-400 leading-snug">
             <!-- Turkish Translation -->
           </p>
         </div>
 
         <!-- Options Container -->
-        <div id="options-container" class="grid grid-cols-1 gap-3.5">
+        <div id="options-container" class="grid grid-cols-1 gap-2">
           <!-- Options rendered dynamically via JS -->
         </div>
 
         <!-- Explanation Box (Shown immediately after selection) -->
-        <div id="explanation-box" class="hidden rounded-xl p-4 sm:p-5 bg-slate-800/90 border border-indigo-500/40 space-y-2 animate-fade-in">
-          <div class="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
-            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div id="explanation-box" class="hidden rounded-lg p-3 bg-slate-800/90 border border-indigo-500/40 space-y-1 animate-fade-in">
+          <div class="flex items-center gap-1.5 text-indigo-400 font-bold text-[11px] uppercase tracking-wider">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <span>Erklärung / Açıklama</span>
           </div>
-          <p id="explanation-de" class="text-sm sm:text-base text-slate-100 font-medium leading-relaxed"></p>
-          <p id="explanation-tr" class="tr-text text-xs sm:text-sm italic text-slate-400 leading-relaxed"></p>
+          <p id="explanation-de" class="text-xs sm:text-sm text-slate-100 font-medium leading-snug"></p>
+          <p id="explanation-tr" class="tr-text text-[11px] sm:text-xs italic text-slate-400 leading-snug"></p>
         </div>
 
       </div>
 
-      <!-- NAVIGATION CONTROLS -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+      <!-- COMPACT NAVIGATION CONTROLS -->
+      <div class="flex items-center justify-between gap-2">
         <button
           id="prev-btn"
           type="button"
-          class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none border border-slate-700 text-slate-200 text-sm font-semibold transition"
+          class="flex items-center gap-1 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition"
         >
           <span>&larr;</span>
           <span>Zurück (Geri)</span>
         </button>
 
-        <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           <!-- Skip / Leave Blank Button -->
           <button
             id="skip-btn"
             type="button"
-            class="px-4 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-sm font-semibold transition"
+            class="px-3 py-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-semibold transition"
           >
-            Überspringen (Boş Bırak)
+            Überspringen (Boş)
           </button>
 
           <!-- Next Button -->
           <button
             id="next-btn"
             type="button"
-            class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/25 transition"
+            class="flex items-center gap-1 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold shadow-md shadow-indigo-600/25 transition"
           >
             <span id="next-btn-label">Weiter (İleri)</span>
             <span>&rarr;</span>
@@ -191,71 +190,74 @@
         </div>
       </div>
 
-      <!-- QUESTION NAVIGATOR GRID -->
-      <div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
-        <div class="flex items-center justify-between text-xs text-slate-400">
-          <span class="font-semibold uppercase tracking-wider">Fragenübersicht / Soru Gezgini</span>
-          <div class="flex items-center gap-3">
-            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Doğru</span>
-            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Yanlış</span>
-            <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Boş</span>
+      <!-- COLLAPSIBLE QUESTION NAVIGATOR GRID -->
+      <details class="bg-slate-900/70 border border-slate-800 rounded-xl p-2.5 sm:p-3 group">
+        <summary class="flex items-center justify-between text-xs text-slate-400 cursor-pointer select-none list-none">
+          <span class="font-semibold uppercase tracking-wider flex items-center gap-1.5">
+            <span>Fragenübersicht / Soru Gezgini</span>
+            <span class="text-[10px] text-slate-500">(Aç/Kapat)</span>
+          </span>
+          <div class="flex items-center gap-2 text-[11px]">
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>D</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span>Y</span>
+            <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span>B</span>
           </div>
-        </div>
-        <div id="question-grid" class="grid grid-cols-10 sm:grid-cols-12 md:grid-cols-16 gap-1.5">
+        </summary>
+        <div id="question-grid" class="grid grid-cols-10 sm:grid-cols-12 md:grid-cols-16 gap-1 pt-2.5 mt-2 border-t border-slate-800/80">
           <!-- Numbered buttons generated dynamically -->
         </div>
-      </div>
+      </details>
 
     </section>
 
     <!-- RESULTS SCREEN (AUSWERTUNG) -->
-    <section id="result-screen" class="hidden space-y-8 animate-fade-in">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl text-center space-y-6">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-bold uppercase tracking-widest">
+    <section id="result-screen" class="hidden space-y-5 animate-fade-in">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6 shadow-xl text-center space-y-4">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-[11px] font-bold uppercase tracking-widest">
           Auswertung / Sınav Sonucu
         </div>
 
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
-          Test Abgeschlossen! <span class="block text-base sm:text-lg font-normal text-slate-400 mt-1">Sınav Tamamlandı</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white">
+          Test Abgeschlossen! <span class="block text-xs sm:text-sm font-normal text-slate-400 mt-0.5">Sınav Tamamlandı</span>
         </h2>
 
         <!-- Stats Cards Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 text-left">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3 text-left">
           <!-- Total Time -->
-          <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4">
-            <p class="text-xs text-slate-400 font-medium">Gesamtzeit / Süre</p>
-            <p id="res-time" class="text-xl sm:text-2xl font-extrabold text-amber-400 font-mono mt-1">00:00</p>
+          <div class="bg-slate-800/80 border border-slate-700/80 rounded-lg p-3">
+            <p class="text-[11px] text-slate-400 font-medium">Gesamtzeit / Süre</p>
+            <p id="res-time" class="text-lg sm:text-xl font-extrabold text-amber-400 font-mono mt-0.5">00:00</p>
           </div>
           <!-- Correct -->
-          <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-4">
-            <p class="text-xs text-emerald-300 font-medium">Richtig / Doğru</p>
-            <p id="res-correct" class="text-xl sm:text-2xl font-extrabold text-emerald-400 mt-1">0</p>
+          <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-lg p-3">
+            <p class="text-[11px] text-emerald-300 font-medium">Richtig / Doğru</p>
+            <p id="res-correct" class="text-lg sm:text-xl font-extrabold text-emerald-400 mt-0.5">0</p>
           </div>
           <!-- Wrong -->
-          <div class="bg-rose-950/40 border border-rose-500/30 rounded-xl p-4">
-            <p class="text-xs text-rose-300 font-medium">Falsch / Yanlış</p>
-            <p id="res-wrong" class="text-xl sm:text-2xl font-extrabold text-rose-400 mt-1">0</p>
+          <div class="bg-rose-950/40 border border-rose-500/30 rounded-lg p-3">
+            <p class="text-[11px] text-rose-300 font-medium">Falsch / Yanlış</p>
+            <p id="res-wrong" class="text-lg sm:text-xl font-extrabold text-rose-400 mt-0.5">0</p>
           </div>
           <!-- Skipped / Blank -->
-          <div class="bg-amber-950/40 border border-amber-500/30 rounded-xl p-4">
-            <p class="text-xs text-amber-300 font-medium">Übersprungen / Boş</p>
-            <p id="res-skipped" class="text-xl sm:text-2xl font-extrabold text-amber-400 mt-1">0</p>
+          <div class="bg-amber-950/40 border border-amber-500/30 rounded-lg p-3">
+            <p class="text-[11px] text-amber-300 font-medium">Übersprungen / Boş</p>
+            <p id="res-skipped" class="text-lg sm:text-xl font-extrabold text-amber-400 mt-0.5">0</p>
           </div>
           <!-- Success Rate -->
-          <div class="col-span-2 sm:col-span-1 bg-indigo-950/40 border border-indigo-500/30 rounded-xl p-4">
-            <p class="text-xs text-indigo-300 font-medium">Erfolgsquote / Başarı</p>
-            <p id="res-percent" class="text-xl sm:text-2xl font-extrabold text-indigo-400 mt-1">0%</p>
+          <div class="col-span-2 sm:col-span-1 bg-indigo-950/40 border border-indigo-500/30 rounded-lg p-3">
+            <p class="text-[11px] text-indigo-300 font-medium">Erfolgsquote / Başarı</p>
+            <p id="res-percent" class="text-lg sm:text-xl font-extrabold text-indigo-400 mt-0.5">0%</p>
           </div>
         </div>
 
         <!-- Restart Button -->
-        <div class="pt-2">
+        <div class="pt-1">
           <button
             id="restart-btn"
             type="button"
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm sm:text-base shadow-xl shadow-indigo-600/30 transition"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 transition"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
             <span>Neu starten (Testi Yeniden Başlat)</span>
@@ -264,15 +266,15 @@
       </div>
 
       <!-- Detailed Answer Review Section -->
-      <div class="space-y-4">
+      <div class="space-y-3">
         <div class="flex items-center justify-between flex-wrap gap-2">
-          <h3 class="text-lg sm:text-xl font-bold text-white">
+          <h3 class="text-base sm:text-lg font-bold text-white">
             Antworten überprüfen / Cevapları İncele
           </h3>
-          <span class="text-xs text-slate-400">Tüm sorular, verdiğiniz cevaplar ve açıklamaları</span>
+          <span class="text-[11px] text-slate-400">Tüm sorular, verdiğiniz cevaplar ve açıklamaları</span>
         </div>
 
-        <div id="review-list" class="space-y-4">
+        <div id="review-list" class="space-y-2.5">
           <!-- Populated dynamically via JS -->
         </div>
       </div>
