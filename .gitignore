@@ -1,0 +1,9 @@
+# Ignore system, IDE, and raw image directories
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+node_modules/
+edebiyat/
+*.log
