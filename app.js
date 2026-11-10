@@ -1,13 +1,14 @@
-// Bilingual German Literature Quiz App Logic (Compact & Mobile-First Vanilla JS)
+// Bilingual German Literature Quiz App Logic (Compact, Mobile-First & Shuffle Support)
 
 (function () {
   // State
   let activeFilter = 'all';
-  let activeQuestions = [...questions];
+  let activeQuestions = [];
   let currentIndex = 0;
   // userAnswers stores: { [questionId]: { status: 'answered' | 'skipped', selectedIndex: number | null } }
   let userAnswers = {};
   let showTurkish = true;
+  let isShuffled = false;
   let elapsedSeconds = 0;
   let timerInterval = null;
   let isExamFinished = false;
@@ -15,6 +16,10 @@
   // DOM Elements
   const mainHeader = document.getElementById('main-header');
   const timerDisplay = document.getElementById('timer-display');
+  const shuffleBtn = document.getElementById('shuffle-btn');
+  const inlineShuffleBtn = document.getElementById('inline-shuffle-btn');
+  const restartShuffleBtn = document.getElementById('restart-shuffle-btn');
+  const shuffleModeBadge = document.getElementById('shuffle-mode-badge');
   const toggleTrBtn = document.getElementById('toggle-tr-btn');
   const toggleTrDot = document.getElementById('toggle-tr-dot');
   const toggleTrLabel = document.getElementById('toggle-tr-label');
@@ -73,6 +78,60 @@
     { passive: true }
   );
 
+  // Fisher-Yates Array Shuffle
+  function shuffleArray(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  // Deep Clone and optionally Shuffle Questions & Options
+  function buildQuestionList(filterType, shouldShuffle) {
+    const baseList =
+      filterType === 'all'
+        ? questions
+        : questions.filter((q) => q.type === filterType);
+
+    // Clone each question so original questions array stays untouched
+    let cloned = baseList.map((q) => ({
+      ...q,
+      options: q.options.map((opt) => ({ ...opt }))
+    }));
+
+    if (shouldShuffle) {
+      // 1) Shuffle question order
+      cloned = shuffleArray(cloned);
+
+      // 2) Shuffle option order for each question and update correctAnswer index
+      cloned = cloned.map((q) => {
+        const taggedOptions = q.options.map((opt, idx) => ({
+          opt,
+          isCorrect: idx === q.correctAnswer
+        }));
+        const shuffledTagged = shuffleArray(taggedOptions);
+        const newCorrectIndex = shuffledTagged.findIndex((item) => item.isCorrect);
+        return {
+          ...q,
+          options: shuffledTagged.map((item) => item.opt),
+          correctAnswer: newCorrectIndex
+        };
+      });
+    }
+
+    return cloned;
+  }
+
+  // Format question text with dynamic index when shuffled
+  function formatQuestionTitle(rawText, displayNumber, isTrueFalse) {
+    if (!isShuffled) return rawText;
+    // Replace leading "12. " or "R/F 3: " or "D/Y 3: " with current position number
+    const stripped = rawText.replace(/^(\d+\.\s*|R\/F\s*\d+:\s*|D\/Y\s*\d+:\s*)/i, '');
+    return `${displayNumber}. ${stripped}`;
+  }
+
   // Format seconds as MM:SS
   function formatTime(totalSeconds) {
     const mins = Math.floor(totalSeconds / 60);
@@ -98,13 +157,10 @@
   }
 
   // Initialize / Reset Quiz
-  function initQuiz(filterType = activeFilter) {
+  function initQuiz(filterType = activeFilter, shuffleMode = isShuffled) {
     activeFilter = filterType;
-    if (filterType === 'all') {
-      activeQuestions = [...questions];
-    } else {
-      activeQuestions = questions.filter((q) => q.type === filterType);
-    }
+    isShuffled = shuffleMode;
+    activeQuestions = buildQuestionList(activeFilter, isShuffled);
 
     currentIndex = 0;
     userAnswers = {};
@@ -115,6 +171,14 @@
     quizScreen.classList.remove('hidden');
     resultScreen.classList.add('hidden');
     finishExamBtn.classList.remove('hidden');
+
+    if (isShuffled) {
+      shuffleModeBadge.classList.remove('hidden');
+      shuffleModeBadge.classList.add('inline-flex');
+    } else {
+      shuffleModeBadge.classList.add('hidden');
+      shuffleModeBadge.classList.remove('inline-flex');
+    }
 
     updateFilterButtonsUI();
     startTimer();
@@ -216,8 +280,8 @@
     }
 
     // Question Text
-    questionDe.textContent = q.question_de;
-    questionTr.textContent = q.question_tr;
+    questionDe.textContent = formatQuestionTitle(q.question_de, currentIndex + 1, q.type === 'true_false');
+    questionTr.textContent = formatQuestionTitle(q.question_tr, currentIndex + 1, q.type === 'true_false');
 
     // Options Layout: 2 side-by-side buttons even on mobile for true_false, compact stacked buttons for multiple_choice
     if (q.type === 'true_false') {
@@ -256,10 +320,10 @@
       btn.className = baseClass;
 
       if (q.type === 'true_false') {
-        const iconHtml =
-          idx === 0
-            ? `<span class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-extrabold text-xs">R</span>`
-            : `<span class="w-7 h-7 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center font-extrabold text-xs">F</span>`;
+        const isRichtigOpt = opt.de.toLowerCase() === 'richtig';
+        const iconHtml = isRichtigOpt
+          ? `<span class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-extrabold text-xs">R</span>`
+          : `<span class="w-7 h-7 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center font-extrabold text-xs">F</span>`;
 
         btn.innerHTML = `
           ${iconHtml}
@@ -479,8 +543,8 @@
           ${statusBadge}
         </div>
         <div class="space-y-0.5">
-          <h4 class="text-sm sm:text-base font-bold text-white leading-snug">${q.question_de}</h4>
-          <p class="tr-text text-xs italic text-slate-400 leading-snug">${q.question_tr}</p>
+          <h4 class="text-sm sm:text-base font-bold text-white leading-snug">${formatQuestionTitle(q.question_de, idx + 1, q.type === 'true_false')}</h4>
+          <p class="tr-text text-xs italic text-slate-400 leading-snug">${formatQuestionTitle(q.question_tr, idx + 1, q.type === 'true_false')}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           ${userAnswerHtml}
@@ -497,7 +561,17 @@
     });
   }
 
+  // Trigger Shuffle of Both Questions & Options
+  function handleShuffleAll() {
+    initQuiz(activeFilter, true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   // Event Listeners
+  shuffleBtn.addEventListener('click', handleShuffleAll);
+  inlineShuffleBtn.addEventListener('click', handleShuffleAll);
+  restartShuffleBtn.addEventListener('click', handleShuffleAll);
+
   toggleTrBtn.addEventListener('click', () => {
     showTurkish = !showTurkish;
     if (showTurkish) {
@@ -532,19 +606,17 @@
   finishExamBtn.addEventListener('click', finishExam);
 
   restartBtn.addEventListener('click', () => {
-    initQuiz(activeFilter);
+    initQuiz(activeFilter, false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const selectedFilter = btn.getAttribute('data-filter');
-      if (selectedFilter !== activeFilter) {
-        initQuiz(selectedFilter);
-      }
+      initQuiz(selectedFilter, isShuffled);
     });
   });
 
   // Start immediately on page load
-  initQuiz('all');
+  initQuiz('all', false);
 })();

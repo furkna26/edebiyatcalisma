@@ -27,32 +27,45 @@
 
   <!-- COMPACT SCROLL-TO-HIDE HEADER BAR -->
   <header id="main-header" class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md">
-    <div class="max-w-3xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
+    <div class="max-w-3xl mx-auto px-2.5 sm:px-3 py-2 flex items-center justify-between gap-1.5">
       <!-- Compact Brand -->
-      <div class="flex items-center gap-2 min-w-0">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-extrabold text-xs shrink-0">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-extrabold text-[11px] sm:text-xs shrink-0">
           DE
         </div>
         <h1 class="font-bold text-xs sm:text-sm tracking-tight text-white truncate">
-          Almanca Edebiyat Quiz
+          Edebiyat Quiz
         </h1>
       </div>
 
-      <!-- Compact Controls: Timer, TR Toggle, Finish Button -->
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <!-- Compact Controls: Timer, KARIŞTIR, TR Toggle, Finish Button -->
+      <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
         <!-- Live Timer -->
-        <div class="flex items-center gap-1 px-2 py-1 rounded-md bg-slate-800/90 border border-slate-700 text-amber-400 font-mono text-xs font-semibold" title="Geçen Süre / Gesamtzeit">
-          <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded-md bg-slate-800/90 border border-slate-700 text-amber-400 font-mono text-[11px] sm:text-xs font-semibold" title="Geçen Süre / Gesamtzeit">
+          <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span id="timer-display">00:00</span>
         </div>
 
+        <!-- KARIŞTIR (Shuffle Questions & Options) Button -->
+        <button
+          id="shuffle-btn"
+          type="button"
+          class="flex items-center gap-1 px-2 py-1 rounded-md bg-purple-600/25 hover:bg-purple-600/40 active:scale-95 border border-purple-500/50 text-purple-200 text-[11px] sm:text-xs font-bold transition"
+          title="Soruları ve Şıkları Karıştır (Fragen & Optionen mischen)"
+        >
+          <svg class="w-3.5 h-3.5 text-purple-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path>
+          </svg>
+          <span id="shuffle-btn-label">KARIŞTIR</span>
+        </button>
+
         <!-- Translation Toggle Button -->
         <button
           id="toggle-tr-btn"
           type="button"
-          class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-[11px] sm:text-xs font-medium transition"
+          class="flex items-center gap-1 px-2 py-1 rounded-md bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-[11px] sm:text-xs font-medium transition"
           title="Türkçe Çevirileri Göster/Gizle"
         >
           <span id="toggle-tr-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
@@ -77,11 +90,11 @@
     <!-- QUIZ SCREEN -->
     <section id="quiz-screen" class="space-y-2.5 sm:space-y-3">
 
-      <!-- Unified Slim Top Strip: Filters + Live Counters + Progress -->
+      <!-- Unified Slim Top Strip: Filters + Shuffle Action + Live Counters + Progress -->
       <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5 space-y-2">
         <div class="flex flex-wrap items-center justify-between gap-1.5">
-          <!-- Filter Pills -->
-          <div class="flex items-center gap-1">
+          <!-- Filter Pills + Inline Shuffle Toggle -->
+          <div class="flex items-center gap-1 flex-wrap">
             <button data-filter="all" class="filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition">
               Tümü (66)
             </button>
@@ -90,6 +103,15 @@
             </button>
             <button data-filter="true_false" class="filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
               D / Y (10)
+            </button>
+            <button
+              id="inline-shuffle-btn"
+              type="button"
+              class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-purple-600/25 hover:bg-purple-600/40 text-purple-200 border border-purple-500/40 transition"
+              title="Soru sıralamasını ve şıkların yerini rastgele karıştır"
+            >
+              <span>🔀</span>
+              <span id="inline-shuffle-text">KARIŞTIR</span>
             </button>
           </div>
 
@@ -121,10 +143,15 @@
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 sm:p-5 shadow-xl space-y-3 animate-fade-in">
 
         <!-- Top Badge Row -->
-        <div class="flex items-center justify-between gap-2">
-          <span id="question-type-badge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-            Multiple Choice
-          </span>
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <div class="flex items-center gap-1.5">
+            <span id="question-type-badge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              Multiple Choice
+            </span>
+            <span id="shuffle-mode-badge" class="hidden items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+              🔀 Karışık Mod
+            </span>
+          </div>
           <span id="question-status-badge" class="hidden text-[11px] font-semibold px-2 py-0.5 rounded"></span>
         </div>
 
@@ -250,8 +277,8 @@
           </div>
         </div>
 
-        <!-- Restart Button -->
-        <div class="pt-1">
+        <!-- Restart & Shuffle Restart Buttons -->
+        <div class="pt-1 flex flex-wrap items-center justify-center gap-2.5">
           <button
             id="restart-btn"
             type="button"
@@ -260,7 +287,16 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
-            <span>Neu starten (Testi Yeniden Başlat)</span>
+            <span>Neu starten (Yeniden Başlat)</span>
+          </button>
+
+          <button
+            id="restart-shuffle-btn"
+            type="button"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600/25 hover:bg-purple-600/40 border border-purple-500/50 text-purple-200 font-bold text-xs sm:text-sm transition"
+          >
+            <span>🔀</span>
+            <span>Karıştırarak Yeniden Başlat</span>
           </button>
         </div>
       </div>
