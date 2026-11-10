@@ -127,9 +127,9 @@
   // Format question text with dynamic index when shuffled
   function formatQuestionTitle(rawText, displayNumber, isTrueFalse) {
     if (!isShuffled) return rawText;
-    // Replace leading "12. " or "R/F 3: " or "D/Y 3: " with current position number
-    const stripped = rawText.replace(/^(\d+\.\s*|R\/F\s*\d+:\s*|D\/Y\s*\d+:\s*)/i, '');
-    return `${displayNumber}. ${stripped}`;
+    // Replace leading "12- " or "12. " or "R/F 3: " or "D/Y 3: " with current position number
+    const stripped = rawText.replace(/^(\d+[-.]\s*|R\/F\s*\d+:\s*|D\/Y\s*\d+:\s*)/i, '');
+    return `${displayNumber}- ${stripped}`;
   }
 
   // Format seconds as MM:SS
