@@ -1,8 +1,10 @@
-// Bilingual German Literature Quiz App Logic (Compact, Mobile-First & Shuffle Support)
+// Deutsche Literaturwissenschaft — Editorial & Archival Exam Engine
+// Preserves full 66-question state machine, dual-level shuffle, timer, TR toggle & review filter
 
 (function () {
   // State
   let activeFilter = 'all';
+  let activeReviewFilter = 'all';
   let activeQuestions = [];
   let currentIndex = 0;
   // userAnswers stores: { [questionId]: { status: 'answered' | 'skipped', selectedIndex: number | null } }
@@ -23,12 +25,15 @@
   const toggleTrBtn = document.getElementById('toggle-tr-btn');
   const toggleTrDot = document.getElementById('toggle-tr-dot');
   const toggleTrLabel = document.getElementById('toggle-tr-label');
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+  const themeToggleLabel = document.getElementById('theme-toggle-label');
   const finishExamBtn = document.getElementById('finish-exam-btn');
 
   const quizScreen = document.getElementById('quiz-screen');
   const resultScreen = document.getElementById('result-screen');
 
-  const filterButtons = document.querySelectorAll('.filter-btn');
+  const filterButtons = document.querySelectorAll('[data-filter]');
+  const reviewFilterButtons = document.querySelectorAll('[data-review-filter]');
   const liveCorrect = document.getElementById('live-correct');
   const liveWrong = document.getElementById('live-wrong');
   const liveSkipped = document.getElementById('live-skipped');
@@ -61,6 +66,30 @@
   const resPercent = document.getElementById('res-percent');
   const restartBtn = document.getElementById('restart-btn');
   const reviewList = document.getElementById('review-list');
+
+  // Theme Initialization (Editorial Ink Dark vs Archival Paper Light)
+  function initTheme() {
+    try {
+      const savedTheme = localStorage.getItem('edebiyat_theme');
+      if (savedTheme === 'paper') {
+        document.documentElement.classList.add('theme-paper');
+        if (themeToggleLabel) themeToggleLabel.textContent = 'Mürekkep';
+      } else {
+        document.documentElement.classList.remove('theme-paper');
+        if (themeToggleLabel) themeToggleLabel.textContent = 'Kağıt';
+      }
+    } catch (_) {}
+  }
+
+  function toggleTheme() {
+    const isPaper = document.documentElement.classList.toggle('theme-paper');
+    if (themeToggleLabel) {
+      themeToggleLabel.textContent = isPaper ? 'Mürekkep' : 'Kağıt';
+    }
+    try {
+      localStorage.setItem('edebiyat_theme', isPaper ? 'paper' : 'ink');
+    } catch (_) {}
+  }
 
   // Scroll-to-Hide Header Logic
   let lastScrollY = window.scrollY;
@@ -95,17 +124,14 @@
         ? questions
         : questions.filter((q) => q.type === filterType);
 
-    // Clone each question so original questions array stays untouched
     let cloned = baseList.map((q) => ({
       ...q,
       options: q.options.map((opt) => ({ ...opt }))
     }));
 
     if (shouldShuffle) {
-      // 1) Shuffle question order
       cloned = shuffleArray(cloned);
 
-      // 2) Shuffle option order for each question and update correctAnswer index
       cloned = cloned.map((q) => {
         const taggedOptions = q.options.map((opt, idx) => ({
           opt,
@@ -125,11 +151,10 @@
   }
 
   // Format question text with dynamic index when shuffled
-  function formatQuestionTitle(rawText, displayNumber, isTrueFalse) {
+  function formatQuestionTitle(rawText, displayNumber) {
     if (!isShuffled) return rawText;
-    // Replace leading "12- " or "12. " or "R/F 3: " or "D/Y 3: " with current position number
     const stripped = rawText.replace(/^(\d+[-.]\s*|R\/F\s*\d+:\s*|D\/Y\s*\d+:\s*)/i, '');
-    return `${displayNumber}- ${stripped}`;
+    return `${displayNumber}. ${stripped}`;
   }
 
   // Format seconds as MM:SS
@@ -139,7 +164,6 @@
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   }
 
-  // Start Timer
   function startTimer() {
     stopTimer();
     timerInterval = setInterval(() => {
@@ -148,7 +172,6 @@
     }, 1000);
   }
 
-  // Stop Timer
   function stopTimer() {
     if (timerInterval) {
       clearInterval(timerInterval);
@@ -191,9 +214,20 @@
     filterButtons.forEach((btn) => {
       const f = btn.getAttribute('data-filter');
       if (f === activeFilter) {
-        btn.className = 'filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-600 text-white transition';
+        btn.classList.add('active');
       } else {
-        btn.className = 'filter-btn px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function updateReviewFilterButtonsUI() {
+    reviewFilterButtons.forEach((btn) => {
+      const rf = btn.getAttribute('data-review-filter');
+      if (rf === activeReviewFilter) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
       }
     });
   }
@@ -243,47 +277,51 @@
     const isAnswered = record && record.status === 'answered';
     const isSkipped = record && record.status === 'skipped';
 
-    // Progress Bar
+    // Tabular Progress Bar
     const pct = Math.round(((currentIndex + 1) / total) * 100);
-    progressText.textContent = `Frage ${currentIndex + 1} / ${total}`;
-    progressPercent.textContent = `${pct}%`;
+    const numStr = String(currentIndex + 1).padStart(2, '0');
+    const totalStr = String(total).padStart(2, '0');
+    progressText.textContent = `${numStr} / ${totalStr}`;
+    progressPercent.textContent = `(${pct}%)`;
     progressBar.style.width = `${pct}%`;
 
-    // Question Type Badge
+    // Editorial Section Classification
     if (q.type === 'true_false') {
-      questionTypeBadge.textContent = 'Richtig / Falsch (Doğru / Yanlış)';
-      questionTypeBadge.className =
-        'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-purple-500/20 text-purple-300 border border-purple-500/30';
+      questionTypeBadge.textContent = 'II. Richtig / Falsch · Doğru / Yanlış';
     } else {
-      questionTypeBadge.textContent = 'Multiple Choice (Çoktan Seçmeli)';
-      questionTypeBadge.className =
-        'inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-500/30';
+      questionTypeBadge.textContent = 'I. Multiple Choice · Çoktan Seçmeli';
     }
 
-    // Status Badge on Question
+    // Status Stamp on Question Sheet
     if (isAnswered) {
       const isRight = record.selectedIndex === q.correctAnswer;
       questionStatusBadge.classList.remove('hidden');
       if (isRight) {
-        questionStatusBadge.textContent = '✓ Richtig (Doğru)';
-        questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        questionStatusBadge.textContent = 'Richtig · Doğru';
+        questionStatusBadge.style.backgroundColor = 'var(--status-correct-bg)';
+        questionStatusBadge.style.borderColor = 'var(--status-correct-border)';
+        questionStatusBadge.style.color = 'var(--status-correct-text)';
       } else {
-        questionStatusBadge.textContent = '✗ Falsch (Yanlış)';
-        questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40';
+        questionStatusBadge.textContent = 'Falsch · Yanlış';
+        questionStatusBadge.style.backgroundColor = 'var(--status-wrong-bg)';
+        questionStatusBadge.style.borderColor = 'var(--status-wrong-border)';
+        questionStatusBadge.style.color = 'var(--status-wrong-text)';
       }
     } else if (isSkipped) {
       questionStatusBadge.classList.remove('hidden');
-      questionStatusBadge.textContent = '↷ Übersprungen (Boş)';
-      questionStatusBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40';
+      questionStatusBadge.textContent = 'Übersprungen · Boş';
+      questionStatusBadge.style.backgroundColor = 'var(--status-skip-bg)';
+      questionStatusBadge.style.borderColor = 'var(--status-skip-border)';
+      questionStatusBadge.style.color = 'var(--status-skip-text)';
     } else {
       questionStatusBadge.classList.add('hidden');
     }
 
-    // Question Text
-    questionDe.textContent = formatQuestionTitle(q.question_de, currentIndex + 1, q.type === 'true_false');
-    questionTr.textContent = formatQuestionTitle(q.question_tr, currentIndex + 1, q.type === 'true_false');
+    // Question Stem
+    questionDe.textContent = formatQuestionTitle(q.question_de, currentIndex + 1);
+    questionTr.textContent = formatQuestionTitle(q.question_tr, currentIndex + 1);
 
-    // Options Layout: 2 side-by-side buttons even on mobile for true_false, compact stacked buttons for multiple_choice
+    // Options Layout
     if (q.type === 'true_false') {
       optionsContainer.className = 'grid grid-cols-2 gap-2.5 pt-0.5';
     } else {
@@ -298,64 +336,39 @@
       btn.type = 'button';
       btn.disabled = isAnswered;
 
-      let baseClass =
-        'option-btn w-full text-left rounded-lg py-2 px-3 sm:py-2.5 sm:px-3.5 border border-slate-700/80 bg-slate-800/60 flex items-start gap-2.5 focus:outline-none';
-
-      if (q.type === 'true_false') {
-        baseClass =
-          'option-btn w-full text-center rounded-lg py-3 px-2.5 border border-slate-700/80 bg-slate-800/60 flex flex-col items-center justify-center gap-1 focus:outline-none';
-      }
-
-      // Highlighting if already answered
+      let stateClass = 'option-btn';
       if (isAnswered) {
         if (idx === q.correctAnswer) {
-          baseClass += ' option-correct';
+          stateClass += ' option-correct';
         } else if (idx === record.selectedIndex && idx !== q.correctAnswer) {
-          baseClass += ' option-wrong';
+          stateClass += ' option-wrong';
         } else {
-          baseClass += ' opacity-55';
+          stateClass += ' option-muted';
         }
       }
 
-      btn.className = baseClass;
+      btn.className = stateClass;
 
-      if (q.type === 'true_false') {
-        const isRichtigOpt = opt.de.toLowerCase() === 'richtig';
-        const iconHtml = isRichtigOpt
-          ? `<span class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center font-extrabold text-xs">R</span>`
-          : `<span class="w-7 h-7 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 flex items-center justify-center font-extrabold text-xs">F</span>`;
+      const keyLabel =
+        q.type === 'true_false'
+          ? opt.de.toLowerCase().includes('richtig')
+            ? 'R'
+            : 'F'
+          : letters[idx];
 
-        btn.innerHTML = `
-          ${iconHtml}
-          <span class="text-sm sm:text-base font-bold text-white tracking-wide leading-tight">${opt.de}</span>
-          <span class="tr-text text-[11px] sm:text-xs italic text-slate-400 leading-tight">${opt.tr}</span>
-        `;
-      } else {
-        let badgeStyle = 'bg-slate-700/80 text-slate-200 border-slate-600';
-        if (isAnswered) {
-          if (idx === q.correctAnswer) {
-            badgeStyle = 'bg-emerald-500 text-slate-950 border-emerald-400';
-          } else if (idx === record.selectedIndex) {
-            badgeStyle = 'bg-rose-500 text-white border-rose-400';
-          }
-        }
-
-        btn.innerHTML = `
-          <span class="w-6 h-6 rounded-md border ${badgeStyle} font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-            ${letters[idx]}
-          </span>
-          <div class="space-y-0.5 flex-1 min-w-0">
-            <div class="text-sm sm:text-base font-semibold text-slate-100 leading-snug">${opt.de}</div>
-            <div class="tr-text text-[11px] sm:text-xs italic text-slate-400 leading-snug">${opt.tr}</div>
-          </div>
-        `;
-      }
+      btn.innerHTML = `
+        <span class="option-key">${keyLabel}</span>
+        <div class="space-y-0.5 flex-1 min-w-0">
+          <div class="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] leading-snug">${opt.de}</div>
+          <div class="tr-text text-[11.5px] sm:text-xs text-[var(--text-tr)] leading-snug">${opt.tr}</div>
+        </div>
+      `;
 
       btn.addEventListener('click', () => handleSelectOption(idx));
       optionsContainer.appendChild(btn);
     });
 
-    // Explanation Box
+    // Explanation Footnote Box
     if (isAnswered) {
       explanationDe.textContent = q.explanation_de;
       explanationTr.textContent = q.explanation_tr;
@@ -364,14 +377,9 @@
       explanationBox.classList.add('hidden');
     }
 
-    // Navigation Buttons State
+    // Navigation Controls State
     prevBtn.disabled = currentIndex === 0;
     skipBtn.disabled = isAnswered;
-    if (isAnswered) {
-      skipBtn.classList.add('opacity-40', 'pointer-events-none');
-    } else {
-      skipBtn.classList.remove('opacity-40', 'pointer-events-none');
-    }
 
     if (currentIndex === total - 1) {
       nextBtnLabel.textContent = 'Auswertung (Bitir)';
@@ -382,12 +390,14 @@
     renderQuestionGrid();
   }
 
-  // Handle Option Click
+  // Handle Option Selection
   function handleSelectOption(selectedIndex) {
     const q = activeQuestions[currentIndex];
+    if (!q || selectedIndex < 0 || selectedIndex >= q.options.length) return;
+
     const existing = userAnswers[q.id];
     if (existing && existing.status === 'answered') {
-      return; // Locked once answered
+      return;
     }
 
     userAnswers[q.id] = {
@@ -399,7 +409,7 @@
     renderCurrentQuestion();
   }
 
-  // Handle Skip ("Überspringen / Boş Bırak")
+  // Handle Skip ("Boş Bırak")
   function handleSkipQuestion() {
     const q = activeQuestions[currentIndex];
     const existing = userAnswers[q.id];
@@ -420,30 +430,32 @@
     }
   }
 
-  // Render Question Navigator Grid
+  // Render 66-Question Matrix Grid
   function renderQuestionGrid() {
     questionGrid.innerHTML = '';
     activeQuestions.forEach((q, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = idx + 1;
+      btn.textContent = String(idx + 1).padStart(2, '0');
 
       const record = userAnswers[q.id];
-      let colorClass = 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700';
+      let cellClass = 'matrix-cell';
 
       if (record && record.status === 'answered') {
         if (record.selectedIndex === q.correctAnswer) {
-          colorClass = 'bg-emerald-500/25 text-emerald-300 border-emerald-500/50 font-bold';
+          cellClass += ' is-correct';
         } else {
-          colorClass = 'bg-rose-500/25 text-rose-300 border-rose-500/50 font-bold';
+          cellClass += ' is-wrong';
         }
       } else if (record && record.status === 'skipped') {
-        colorClass = 'bg-amber-500/25 text-amber-300 border-amber-500/50 font-bold';
+        cellClass += ' is-skipped';
       }
 
-      const activeRing = idx === currentIndex ? 'ring-1 ring-indigo-400 border-indigo-400' : '';
+      if (idx === currentIndex) {
+        cellClass += ' is-current';
+      }
 
-      btn.className = `h-7 rounded border text-[11px] font-mono transition flex items-center justify-center ${colorClass} ${activeRing}`;
+      btn.className = cellClass;
       btn.addEventListener('click', () => {
         currentIndex = idx;
         renderCurrentQuestion();
@@ -453,7 +465,7 @@
     });
   }
 
-  // Finish Exam & Show Results Screen (Auswertung)
+  // Finish Exam & Transition to Evaluation Dossier
   function finishExam() {
     isExamFinished = true;
     stopTimer();
@@ -468,6 +480,9 @@
     resSkipped.textContent = stats.finalSkipped;
     resPercent.textContent = `${percentage}%`;
 
+    activeReviewFilter = 'all';
+    updateReviewFilterButtonsUI();
+
     quizScreen.classList.add('hidden');
     finishExamBtn.classList.add('hidden');
     resultScreen.classList.remove('hidden');
@@ -476,96 +491,153 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Render Full Review List
+  // Render Review List with Filter Support
   function renderReviewList() {
     reviewList.innerHTML = '';
     const letters = ['A', 'B', 'C', 'D'];
+    let visibleCount = 0;
 
     activeQuestions.forEach((q, idx) => {
       const record = userAnswers[q.id];
       const isAnswered = record && record.status === 'answered';
       const isRight = isAnswered && record.selectedIndex === q.correctAnswer;
+      const isWrong = isAnswered && !isRight;
+      const isSkippedOrBlank = !isAnswered;
 
-      let statusBadge = '';
-      let borderClass = 'border-slate-800';
+      if (activeReviewFilter === 'correct' && !isRight) return;
+      if (activeReviewFilter === 'wrong' && !isWrong) return;
+      if (activeReviewFilter === 'skipped' && !isSkippedOrBlank) return;
 
-      if (isAnswered && isRight) {
-        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">✓ Richtig (Doğru)</span>`;
-        borderClass = 'border-emerald-500/30';
-      } else if (isAnswered && !isRight) {
-        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">✗ Falsch (Yanlış)</span>`;
-        borderClass = 'border-rose-500/30';
+      visibleCount++;
+
+      let statusStamp = '';
+      if (isRight) {
+        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-correct-bg);border-color:var(--status-correct-border);color:var(--status-correct-text)">Richtig · Doğru</span>`;
+      } else if (isWrong) {
+        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-wrong-bg);border-color:var(--status-wrong-border);color:var(--status-wrong-text)">Falsch · Yanlış</span>`;
       } else {
-        statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">↷ Übersprungen (Boş)</span>`;
-        borderClass = 'border-amber-500/30';
+        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-skip-bg);border-color:var(--status-skip-border);color:var(--status-skip-text)">Offen · Boş</span>`;
       }
 
       const userOpt = isAnswered ? q.options[record.selectedIndex] : null;
       const correctOpt = q.options[q.correctAnswer];
 
       const userPrefix =
-        isAnswered && q.type === 'multiple_choice' ? `${letters[record.selectedIndex]}) ` : '';
+        isAnswered && q.type === 'multiple_choice' ? `[${letters[record.selectedIndex]}] ` : '';
       const correctPrefix =
-        q.type === 'multiple_choice' ? `${letters[q.correctAnswer]}) ` : '';
+        q.type === 'multiple_choice' ? `[${letters[q.correctAnswer]}] ` : '';
 
       const userAnswerHtml = userOpt
-        ? `<div class="p-2.5 rounded-lg ${
-            isRight
-              ? 'bg-emerald-950/30 border border-emerald-500/30'
-              : 'bg-rose-950/30 border border-rose-500/30'
+        ? `<div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:${
+            isRight ? 'var(--status-correct-border)' : 'var(--status-wrong-border)'
           }">
-            <div class="text-[10px] font-bold uppercase tracking-wider ${
-              isRight ? 'text-emerald-400' : 'text-rose-400'
-            } mb-0.5">Deine Antwort / Senin Cevabın:</div>
-            <div class="text-xs sm:text-sm font-semibold text-white">${userPrefix}${userOpt.de}</div>
-            <div class="tr-text text-[11px] italic text-slate-400">${userOpt.tr}</div>
+            <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:${
+              isRight ? 'var(--status-correct-text)' : 'var(--status-wrong-text)'
+            }">Senin Cevabın · Deine Antwort</div>
+            <div class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">${userPrefix}${userOpt.de}</div>
+            <div class="tr-text text-[11px] text-[var(--text-tr)]">${userOpt.tr}</div>
           </div>`
-        : `<div class="p-2.5 rounded-lg bg-amber-950/25 border border-amber-500/30">
-            <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">Deine Antwort / Senin Cevabın:</div>
-            <div class="text-xs sm:text-sm font-semibold text-amber-200">Übersprungen / Boş Bırakıldı</div>
+        : `<div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:var(--status-skip-border)">
+            <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:var(--status-skip-text)">Senin Cevabın · Deine Antwort</div>
+            <div class="text-xs sm:text-sm font-medium text-[var(--text-secondary)]">Boş Bırakıldı · Übersprungen</div>
           </div>`;
 
       const correctAnswerHtml = `
-        <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30">
-          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-0.5">Richtige Antwort / Doğru Cevap:</div>
-          <div class="text-xs sm:text-sm font-semibold text-white">${correctPrefix}${correctOpt.de}</div>
-          <div class="tr-text text-[11px] italic text-slate-400">${correctOpt.tr}</div>
+        <div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:var(--status-correct-border)">
+          <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:var(--status-correct-text)">Doğru Cevap · Richtige Antwort</div>
+          <div class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">${correctPrefix}${correctOpt.de}</div>
+          <div class="tr-text text-[11px] text-[var(--text-tr)]">${correctOpt.tr}</div>
         </div>
       `;
 
-      const card = document.createElement('div');
-      card.className = `bg-slate-900 border ${borderClass} rounded-xl p-3.5 sm:p-4 space-y-2.5`;
+      const card = document.createElement('article');
+      card.className = 'editorial-sheet p-3.5 sm:p-4 space-y-2.5';
       card.innerHTML = `
-        <div class="flex items-center justify-between gap-2">
-          <span class="text-[11px] font-mono font-semibold text-slate-400">Frage #${idx + 1} (${
-            q.type === 'true_false' ? 'Richtig/Falsch' : 'Multiple Choice'
-          })</span>
-          ${statusBadge}
+        <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-[var(--border-hairline)]">
+          <span class="font-mono-tabular text-[11px] font-semibold text-[var(--text-muted)]">
+            #${String(idx + 1).padStart(2, '0')} · ${
+              q.type === 'true_false' ? 'Richtig / Falsch' : 'Multiple Choice'
+            }
+          </span>
+          ${statusStamp}
         </div>
         <div class="space-y-0.5">
-          <h4 class="text-sm sm:text-base font-bold text-white leading-snug">${formatQuestionTitle(q.question_de, idx + 1, q.type === 'true_false')}</h4>
-          <p class="tr-text text-xs italic text-slate-400 leading-snug">${formatQuestionTitle(q.question_tr, idx + 1, q.type === 'true_false')}</p>
+          <h4 class="font-serif-editorial text-sm sm:text-[16px] font-semibold text-[var(--text-primary)] leading-snug">${formatQuestionTitle(
+            q.question_de,
+            idx + 1
+          )}</h4>
+          <p class="tr-text text-xs text-[var(--text-tr)] leading-snug">${formatQuestionTitle(
+            q.question_tr,
+            idx + 1
+          )}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           ${userAnswerHtml}
           ${correctAnswerHtml}
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-800/70 border border-slate-700/70 space-y-0.5">
-          <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Erklärung / Açıklama</div>
-          <p class="text-xs text-slate-200 leading-snug">${q.explanation_de}</p>
-          <p class="tr-text text-[11px] italic text-slate-400 leading-snug">${q.explanation_tr}</p>
+        <div class="footnote-box space-y-0.5">
+          <div class="font-mono-tabular text-[10px] font-semibold uppercase tracking-widest text-[var(--accent-brass)]">Anmerkung · Açıklama</div>
+          <p class="text-xs text-[var(--text-primary)] leading-snug">${q.explanation_de}</p>
+          <p class="tr-text text-[11px] text-[var(--text-tr)] leading-snug">${q.explanation_tr}</p>
         </div>
       `;
 
       reviewList.appendChild(card);
     });
+
+    if (visibleCount === 0) {
+      reviewList.innerHTML = `
+        <div class="editorial-sheet p-6 text-center text-xs font-mono-tabular text-[var(--text-muted)]">
+          Bu filtrede görüntülenecek soru bulunmuyor.
+        </div>
+      `;
+    }
   }
 
-  // Trigger Shuffle of Both Questions & Options
+  // Shuffle All Trigger
   function handleShuffleAll() {
     initQuiz(activeFilter, true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Keyboard Navigation & Option Selection on Desktop
+  window.addEventListener('keydown', (e) => {
+    if (isExamFinished) return;
+    if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+    const q = activeQuestions[currentIndex];
+    if (!q) return;
+
+    const key = e.key.toLowerCase();
+
+    if (q.type === 'multiple_choice') {
+      if (key === '1' || key === 'a') handleSelectOption(0);
+      else if (key === '2' || key === 'b') handleSelectOption(1);
+      else if (key === '3' || key === 'c') handleSelectOption(2);
+      else if (key === '4' || key === 'd') handleSelectOption(3);
+    } else if (q.type === 'true_false') {
+      if (key === '1') handleSelectOption(0);
+      else if (key === '2') handleSelectOption(1);
+      else if (key === 'r' || key === 'd') {
+        const rIdx = q.options.findIndex((o) => o.de.toLowerCase().includes('richtig'));
+        if (rIdx !== -1) handleSelectOption(rIdx);
+      } else if (key === 'f' || key === 'y') {
+        const fIdx = q.options.findIndex((o) => o.de.toLowerCase().includes('falsch'));
+        if (fIdx !== -1) handleSelectOption(fIdx);
+      }
+    }
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextBtn.click();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevBtn.click();
+    } else if (key === 's') {
+      e.preventDefault();
+      if (!skipBtn.disabled) skipBtn.click();
+    }
+  });
 
   // Event Listeners
   shuffleBtn.addEventListener('click', handleShuffleAll);
@@ -576,14 +648,18 @@
     showTurkish = !showTurkish;
     if (showTurkish) {
       document.body.classList.remove('hide-tr');
-      toggleTrLabel.textContent = 'TR Gizle';
-      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+      toggleTrLabel.textContent = 'TR';
+      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-[#3b825a]';
     } else {
       document.body.classList.add('hide-tr');
-      toggleTrLabel.textContent = 'TR Göster';
-      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-slate-500';
+      toggleTrLabel.textContent = 'TR Kapalı';
+      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]';
     }
   });
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', toggleTheme);
+  }
 
   prevBtn.addEventListener('click', () => {
     if (currentIndex > 0) {
@@ -602,7 +678,6 @@
   });
 
   skipBtn.addEventListener('click', handleSkipQuestion);
-
   finishExamBtn.addEventListener('click', finishExam);
 
   restartBtn.addEventListener('click', () => {
@@ -617,6 +692,15 @@
     });
   });
 
-  // Start immediately on page load
+  reviewFilterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeReviewFilter = btn.getAttribute('data-review-filter');
+      updateReviewFilterButtonsUI();
+      renderReviewList();
+    });
+  });
+
+  // Initialize Theme & Start Quiz
+  initTheme();
   initQuiz('all', false);
 })();
