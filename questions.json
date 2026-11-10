@@ -23,8 +23,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Germanische Zeitperiode).",
-    "explanation_tr": "Tahtadaki cevap: (Germanische Zeitperiode - Cermen Dönemi)."
+    "explanation_de": "Die Germanische Zeitperiode (vor der Christianisierung) wird als die heidnische Zeitperiode bezeichnet.",
+    "explanation_tr": "Hristiyanlaşma öncesi Cermen Dönemi (Germanische Zeitperiode), putperest/pagan dönem olarak adlandırılmaktadır."
   },
   {
     "id": 2,
@@ -50,8 +50,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (mündliche lit. Formen).",
-    "explanation_tr": "Tahtadaki cevap: (mündliche lit. Formen - Sözlü edebi biçimler)."
+    "explanation_de": "In der germanischen Zeitperiode wurden Dichtungen nicht aufgeschrieben, sondern existierten als mündliche literarische Formen.",
+    "explanation_tr": "Cermen döneminde edebi ürünler yazıya geçirilmemiş, sözlü edebi biçimler (mündliche lit. Formen) olarak varlığını sürdürmüştür."
   },
   {
     "id": 3,
@@ -77,8 +77,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (mündliche Formen).",
-    "explanation_tr": "Tahtadaki cevap: (mündliche Formen - Sözlü biçimler)."
+    "explanation_de": "Die Rätsel gehörten wie Zaubersprüche und Heldenlieder zu den mündlichen Formen der germanischen Dichtung.",
+    "explanation_tr": "Bilmeceler (Rätsel), büyü sözleri ve kahramanlık şarkıları gibi Cermen edebiyatının sözlü biçimlerinden (mündliche Formen) biriydi."
   },
   {
     "id": 4,
@@ -104,8 +104,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Merseburger Zaubersprüche).",
-    "explanation_tr": "Tahtadaki cevap: (Merseburger Zaubersprüche - Merseburg Büyü Sözleri)."
+    "explanation_de": "Die Merseburger Zaubersprüche sind das bekannteste und älteste überlieferte Beispiel für heidnisch-germanische Zaubersprüche.",
+    "explanation_tr": "Merseburger Zaubersprüche (Merseburg Büyü Sözleri), pagan Cermen büyü sözlerinin bilinen ilk ve en ünlü örneğidir."
   },
   {
     "id": 5,
@@ -131,8 +131,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (der erste Spruch der M.B Zaubersprüche).",
-    "explanation_tr": "Tahtadaki cevap: (der erste Spruch der M.B Zaubersprüche)."
+    "explanation_de": "Der erste Merseburger Zauberspruch (Lösespruch) diente der Befreiung von Kriegsgefangenen aus ihren Fesseln.",
+    "explanation_tr": "Merseburg Büyü Sözleri'nin ilk büyüsü (der erste Spruch der M.B. Zaubersprüche), savaş esirlerinin zincirlerinden kurtulması için okunurdu."
   },
   {
     "id": 6,
@@ -158,8 +158,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Hildebrandslied).",
-    "explanation_tr": "Tahtadaki cevap: (Hildebrandslied)."
+    "explanation_de": "Im Hildebrandslied stehen sich der Vater Hildebrand und sein Sohn Hadubrand auf dem Schlachtfeld gegenüber.",
+    "explanation_tr": "Hildebrandslied'de baba Hildebrand ile oğlu Hadubrand savaş alanında karşı karşıya gelerek çarpışır."
   },
   {
     "id": 7,
@@ -185,8 +185,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Die Bibel und die Geistlichen).",
-    "explanation_tr": "Tahtadaki cevap: (Die Bibel und die Geistlichen - İncil ve din adamları)."
+    "explanation_de": "Im Frühen Mittelalter standen die Christianisierung, die Bibel und die Geistlichen (Mönche/Kleriker) völlig im Vordergrund.",
+    "explanation_tr": "Erken Orta Çağ'da İncil ve din adamları (Die Bibel und die Geistlichen) edebiyat ve kültür hayatının merkezindeydi."
   },
   {
     "id": 8,
@@ -212,8 +212,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Hohesmittelalter).",
-    "explanation_tr": "Tahtadaki cevap: (Hohesmittelalter - Yüksek Orta Çağ)."
+    "explanation_de": "Im Hohen Mittelalter (ca. 1170–1250) bildeten die Ritter und die höfische Kultur das Zentrum der Literatur.",
+    "explanation_tr": "Yüksek Orta Çağ'da (Hohes Mittelalter) şövalyeler ve saray kültürü toplumsal ve edebi yaşamın en önemli unsurlarıydı."
   },
   {
     "id": 9,
@@ -239,8 +239,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (geistlich).",
-    "explanation_tr": "Tahtadaki cevap: (geistlich - dini / ruhani)."
+    "explanation_de": "Die Dichtung des Frühen Mittelalters war geistlich geprägt und diente der Verbreitung des christlichen Glaubens.",
+    "explanation_tr": "Erken Orta Çağ edebiyatı dini niteliktedir (geistlich) ve manastırlarda din adamları tarafından üretilmiştir."
   },
   {
     "id": 10,
@@ -266,8 +266,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Karl der Grosse).",
-    "explanation_tr": "Tahtadaki cevap: (Karl der Grosse - Büyük Karl)."
+    "explanation_de": "Karl der Große hat die germanischen Stämme (insbesondere die Sachsen) im Frühen Mittelalter christianisiert.",
+    "explanation_tr": "Cermen boylarını Hristiyanlaştıran ve kültürel birliği sağlayan hükümdar Büyük Karl'dır (Karl der Große)."
   },
   {
     "id": 11,
@@ -293,8 +293,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Hohes Mittelalter).",
-    "explanation_tr": "Tahtadaki cevap: (Hohes Mittelalter - Yüksek Orta Çağ)."
+    "explanation_de": "Im Hohen Mittelalter stand das ritterliche Tugendsystem (z. B. mâze, staete, triuwe, minne) im Mittelpunkt.",
+    "explanation_tr": "Şövalyelik erdemlerinden (Tugenden) Yüksek Orta Çağ'da (Hohes Mittelalter) bahsedilmektedir."
   },
   {
     "id": 12,
@@ -320,8 +320,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Hohes Mittelalter).",
-    "explanation_tr": "Tahtadaki cevap: (Hohes Mittelalter - Yüksek Orta Çağ)."
+    "explanation_de": "Das mittelhochdeutsche Heldenepos Nibelungenlied entstand um 1200 im Hohen Mittelalter.",
+    "explanation_tr": "Orta Yüksek Almanca dönemi eseri olan Nibelungenlied, Yüksek Orta Çağ'da (Hohes Mittelalter) kaleme alınmıştır."
   },
   {
     "id": 13,
@@ -347,8 +347,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (W. von Eschenbach).",
-    "explanation_tr": "Tahtadaki cevap: (W. von Eschenbach)."
+    "explanation_de": "Der höfische Versroman bzw. das Epos 'Parzival' wurde von Wolfram von Eschenbach verfasst.",
+    "explanation_tr": "'Parzival' adlı ünlü şövalye destanı Wolfram von Eschenbach tarafından yazılmıştır."
   },
   {
     "id": 14,
@@ -374,8 +374,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (N. von Reuenthal).",
-    "explanation_tr": "Tahtadaki cevap: (N. von Reuenthal)."
+    "explanation_de": "Neidhart von Reuenthal (N. von Reuenthal) belustigte die Hofgesellschaft mit seiner dörflichen Dichtung.",
+    "explanation_tr": "Neidhart von Reuenthal (N. von Reuenthal), köylüleri konu alan alaycı şiirleriyle saray topluluğunu eğlendirmiştir."
   },
   {
     "id": 15,
@@ -401,8 +401,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (minne).",
-    "explanation_tr": "Tahtadaki cevap: (minne)."
+    "explanation_de": "'Minne' (die edle, höfische Liebe und Verehrung) ist ein zentrales Beispiel für die ritterlichen Tugenden.",
+    "explanation_tr": "'minne' (soylu saray aşkı), Yüksek Orta Çağ şövalye erdemlerinin (Tugend) en bilinen örneklerinden biridir."
   },
   {
     "id": 16,
@@ -428,8 +428,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (weltlich).",
-    "explanation_tr": "Tahtadaki cevap: (weltlich - dünyevi)."
+    "explanation_de": "Im Späten Mittelalter verlor die Kirche ihr Bildungsmonopol; die Dichtung wurde zunehmend weltlich und bürgerlich.",
+    "explanation_tr": "Geç Orta Çağ'da edebiyat dini ve saraylı kimliğinden sıyrılarak dünyevi (weltlich) bir nitelik kazanmıştır."
   },
   {
     "id": 17,
@@ -455,8 +455,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Volksbücher).",
-    "explanation_tr": "Tahtadaki cevap: (Volksbücher - Halk kitapları)."
+    "explanation_de": "Die im Späten Mittelalter und der frühen Neuzeit entstandenen Volksbücher waren die Wegbereiter des deutschen Prosaromans.",
+    "explanation_tr": "Halk kitapları (Volksbücher), manzum destanlardan düzyazıya geçişi sağlayarak Alman romanının öncüsü olmuştur."
   },
   {
     "id": 18,
@@ -482,8 +482,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Boccacio).",
-    "explanation_tr": "Tahtadaki cevap: (Boccacio)."
+    "explanation_de": "Der italienische Dichter Boccaccio (mit seinem 'Decamerone') gab den Anstoß für die Entstehung kürzerer Erzählungen.",
+    "explanation_tr": "İtalyan yazar Boccaccio ('Decameron' adlı eseriyle), kısa anlatı türünün doğmasına ve yayılmasına öncülük etmiştir."
   },
   {
     "id": 19,
@@ -509,8 +509,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Spätes Mittelalter).",
-    "explanation_tr": "Tahtadaki cevap: (Spätes Mittelalter - Geç Orta Çağ)."
+    "explanation_de": "Im Übergang vom Späten Mittelalter zur Neuzeit treten Renaissance, Humanismus und Reformation auf.",
+    "explanation_tr": "Rönesans, Reform ve Hümanizm hareketleri Geç Orta Çağ (Spätes Mittelalter) döneminde görülmektedir."
   },
   {
     "id": 20,
@@ -536,8 +536,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Manuskripte der Antiken Schriftsteller).",
-    "explanation_tr": "Tahtadaki cevap: (Manuskripte der Antiken Schriftsteller)."
+    "explanation_de": "Nach der Eroberung Konstantinopels (1453) brachten griechische Gelehrte die Manuskripte der antiken Schriftsteller nach Italien.",
+    "explanation_tr": "Konstantinopolis'ten İtalya'ya giden bilginler, Antik Çağ yazarlarının el yazmalarını (Manuskripte der Antiken Schriftsteller) götürerek Rönesans ve Hümanizm'i tetiklemiştir."
   },
   {
     "id": 21,
@@ -563,8 +563,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (der Humanismus).",
-    "explanation_tr": "Tahtadaki cevap: (der Humanismus)."
+    "explanation_de": "Im Humanismus galt der Leitspruch 'Ad Fontes' (Zurück zu den Quellen der klassischen Antike).",
+    "explanation_tr": "Klasik antik kaynaklara dönüşü ifade eden 'Ad Fontes' sloganı Hümanizm (der Humanismus) döneminde hâkim olmuştur."
   },
   {
     "id": 22,
@@ -590,8 +590,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Wissenschaft).",
-    "explanation_tr": "Tahtadaki cevap: (Wissenschaft - Bilim)."
+    "explanation_de": "Die Humanisten strebten danach, die Wissenschaft und das Denken von der Vormundschaft der Kirche zu befreien.",
+    "explanation_tr": "Hümanistler, bilimi (Wissenschaft) kilisenin vesayetinden ve skolastik baskısından özgürleştirmeyi amaçlamışlardır."
   },
   {
     "id": 23,
@@ -617,8 +617,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Johannes Reuchlin).",
-    "explanation_tr": "Tahtadaki cevap: (Johannes Reuchlin)."
+    "explanation_de": "Der bedeutende deutsche Humanist Johannes Reuchlin prägte den Gedanken, dass Sprachverständnis gleich Weltverständnis ist.",
+    "explanation_tr": "Alman hümanist Johannes Reuchlin, dili anlamanın dünyayı anlamak olduğunu (Sprachverständnis ist Weltverständnis) vurgulamıştır."
   },
   {
     "id": 24,
@@ -644,8 +644,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Das Latein).",
-    "explanation_tr": "Tahtadaki cevap: (Das Latein - Latince)."
+    "explanation_de": "Die Sprache der deutschen Gelehrten war in der Zeit des Humanismus und der Reformation das Latein.",
+    "explanation_tr": "Reform döneminde Alman bilginlerin bilim ve yazı dili Latince (Das Latein) idi."
   },
   {
     "id": 25,
@@ -671,8 +671,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Marthin Luther).",
-    "explanation_tr": "Tahtadaki cevap: (Marthin Luther)."
+    "explanation_de": "Martin Luther übersetzte das Neue Testament (1522) und später die gesamte Bibel ins Deutsche.",
+    "explanation_tr": "İncil'i Almancaya çevirerek ortak Alman yazı dilinin temellerini atan kişi Martin Luther'dir."
   },
   {
     "id": 26,
@@ -698,8 +698,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (die Reformation).",
-    "explanation_tr": "Tahtadaki cevap: (die Reformation - Reform Dönemi)."
+    "explanation_de": "Durch Luthers Bibelübersetzung in der Reformation setzte sich das Frühneuhochdeutsch als gemeinsame Sprachform durch.",
+    "explanation_tr": "'Frühneuhochdeutsch' (Erken Yeni Yüksek Almanca), Luther'in İncil çevirisiyle birlikte Reform döneminde (die Reformation) öne çıkmıştır."
   },
   {
     "id": 27,
@@ -725,8 +725,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (die Mittelschaft der Kirche).",
-    "explanation_tr": "Tahtadaki cevap: (die Mittelschaft der Kirche - Kilisenin aracılığı)."
+    "explanation_de": "Nach Martin Luther steht der Gläubige direkt vor Gott und braucht die Mittelschaft der Kirche (Papst und Priester) nicht.",
+    "explanation_tr": "Martin Luther'e göre günahkâr insan Tanrı ile doğrudan bağ kurabilir; kilisenin aracılığına (die Mittelschaft der Kirche) ihtiyacı yoktur."
   },
   {
     "id": 28,
@@ -752,8 +752,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Ablassgeldern).",
-    "explanation_tr": "Tahtadaki cevap: (Ablassgeldern - Endüljans paraları)."
+    "explanation_de": "Martin Luther kämpfte entschieden gegen den kirchlichen Verkauf von Ablassbriefen (Ablassgeldern) zur Sündenvergebung.",
+    "explanation_tr": "Martin Luther, kilisenin para karşılığında günahları affetmek için topladığı endüljans paralarına (Ablassgeldern) şiddetle karşı çıkmıştır."
   },
   {
     "id": 29,
@@ -779,8 +779,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Marthin Luther).",
-    "explanation_tr": "Tahtadaki cevap: (Marthin Luther)."
+    "explanation_de": "Martin Luther schlug am 31. Oktober 1517 seine 95 Thesen an die Tür der Schlosskirche zu Wittenberg an.",
+    "explanation_tr": "95 Tez'ini Wittenberg Şato Kilisesi'nin kapısına asarak Reform hareketini başlatan kişi Martin Luther'dir."
   },
   {
     "id": 30,
@@ -806,8 +806,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Aus dem Portugiesischen).",
-    "explanation_tr": "Tahtadaki cevap: (Aus dem Portugiesischen - Portekizceden)."
+    "explanation_de": "Das Wort 'Barock' stammt aus dem Portugiesischen ('barroco') und bezeichnete ursprünglich eine unregelmäßig geformte Perle.",
+    "explanation_tr": "'Barock' kelimesi Portekizceden (Aus dem Portugiesischen - 'barroco') gelmektedir ve düzensiz şekilli inci anlamını taşır."
   },
   {
     "id": 31,
@@ -833,8 +833,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Fanatische Zuspitzung zwischen den Konfessionen).",
-    "explanation_tr": "Tahtadaki cevap: (Fanatische Zuspitzung zwischen den Konfessionen)."
+    "explanation_de": "Die fanatische Zuspitzung zwischen den christlichen Konfessionen (Katholiken und Protestanten) führte zum Dreißigjährigen Krieg (1618–1648).",
+    "explanation_tr": "Mezhepler arasındaki fanatik kutuplaşma ve gerilim (Fanatische Zuspitzung zwischen den Konfessionen) Otuz Yıl Savaşları'na neden olmuştur."
   },
   {
     "id": 32,
@@ -860,8 +860,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Ewigkeit <-> Vergänglichkeit).",
-    "explanation_tr": "Tahtadaki cevap: (Ewigkeit <-> Vergänglichkeit)."
+    "explanation_de": "Das Lebensgefühl des Barock war geprägt von der antithetischen Zerrissenheit zwischen Ewigkeit (Jenseits) und Vergänglichkeit (Vanitas/Diesseits).",
+    "explanation_tr": "Barok döneminde zihinler Ebediyet ve Fanilik (Ewigkeit <-> Vergänglichkeit) kavramları arasındaki derin çelişkiyle sarsılmıştır."
   },
   {
     "id": 33,
@@ -887,8 +887,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Marthin Opitz).",
-    "explanation_tr": "Tahtadaki cevap: (Marthin Opitz)."
+    "explanation_de": "Martin Opitz gilt mit seinem 'Buch von der Deutschen Poeterey' (1624) als der wichtigste Literaturtheoretiker der Barockzeit.",
+    "explanation_tr": "Martin Opitz, 'Buch von der Deutschen Poeterey' adlı eseriyle Barok döneminin en önemli kuramcısıdır."
   },
   {
     "id": 34,
@@ -914,8 +914,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (der Komödie).",
-    "explanation_tr": "Tahtadaki cevap: (der Komödie - Komedya)."
+    "explanation_de": "Während der Held in der Tragödie scheitert oder stirbt, überlebt er in der Komödie (Lustspiel) und es gibt ein glückliches Ende.",
+    "explanation_tr": "Tragedyada kahraman yıkıma uğrarken, komedyada (der Komödie) kahraman hayatta kalır ve oyun mutlu sonla biter."
   },
   {
     "id": 35,
@@ -941,8 +941,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Barock).",
-    "explanation_tr": "Tahtadaki cevap: (Barock)."
+    "explanation_de": "Im Barock (17. Jahrhundert) wurden zahlreiche deutsche Sprachgesellschaften (wie die Fruchtbringende Gesellschaft) gegründet.",
+    "explanation_tr": "Alman dilini korumak ve geliştirmek amacıyla kurulan dil cemiyetleri Barok (Barock) döneminde ortaya çıkmıştır."
   },
   {
     "id": 36,
@@ -968,8 +968,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (von fremden einflussen).",
-    "explanation_tr": "Tahtadaki cevap: (von fremden einflussen - Yabancı etkilerden)."
+    "explanation_de": "Die Sprachgesellschaften des Barock wollten die deutsche Sprache von fremden Einflüssen (Fremdwörtern, besonders aus dem Französischen und Lateinischen) reinhalten.",
+    "explanation_tr": "Barok dönemi dil cemiyetleri, Almancayı yabancı etkilerden ve yabancı kelimelerden (von fremden Einflüssen) temiz tutmayı amaçlamıştır."
   },
   {
     "id": 37,
@@ -995,8 +995,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Andreas Gryphus).",
-    "explanation_tr": "Tahtadaki cevap: (Andreas Gryphus)."
+    "explanation_de": "Andreas Gryphius gilt mit seinen bedeutenden Trauerspielen und Komödien als das erste große dramatische Genie der deutschen Barockzeit.",
+    "explanation_tr": "Andreas Gryphius, yazdığı trajedi ve komedilerle Barok döneminin ilk büyük dramatik dehası kabul edilir."
   },
   {
     "id": 38,
@@ -1022,8 +1022,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Ort, Zeit und Handlung).",
-    "explanation_tr": "Tahtadaki cevap: (Ort, Zeit und Handlung)."
+    "explanation_de": "Die aristotelischen drei Einheiten des klassischen Dramas sind die Einheit von Ort, Zeit und Handlung.",
+    "explanation_tr": "Tiyatrodaki üç birlik kuralı; Yer, Zaman ve Olay/Eylem birliğidir (Ort, Zeit und Handlung)."
   },
   {
     "id": 39,
@@ -1049,8 +1049,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (aus den höfischen Versepen).",
-    "explanation_tr": "Tahtadaki cevap: (aus den höfischen Versepen)."
+    "explanation_de": "Der deutsche Prosaroman entwickelte sich durch die Auflösung und Prosaauflösung aus den mittelalterlichen höfischen Versepen.",
+    "explanation_tr": "Düzyazı roman (Prosaroman), Orta Çağ'daki saray manzum destanlarının (aus den höfischen Versepen) düzyazıya aktarılmasıyla gelişmiştir."
   },
   {
     "id": 40,
@@ -1076,8 +1076,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Grimmelshausen).",
-    "explanation_tr": "Tahtadaki cevap: (Grimmelshausen)."
+    "explanation_de": "H. J. C. von Grimmelshausen ist mit seinem Werk 'Der abenteuerliche Simplicissimus' der bedeutendste Vertreter des deutschen Schelmenromans.",
+    "explanation_tr": "Grimmelshausen ('Simplicissimus' eseriyle), Alman edebiyatında pikaresk romanın (Schelmenroman) en önemli temsilcisidir."
   },
   {
     "id": 41,
@@ -1103,8 +1103,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel (Pfeil von Grimmelshausen auf 'er'): (der erste Bildungsroman).",
-    "explanation_tr": "Tahtadaki cevap (Grimmelshausen'den 'er' kelimesine ok işaretiyle): (der erste Bildungsroman)."
+    "explanation_de": "Grimmelshausens 'Simplicissimus' schildert die Entwicklung eines jungen Menschen und gilt zugleich als der erste Bildungsroman.",
+    "explanation_tr": "Grimmelshausen, bireyin içsel ve dışsal gelişimini konu alan ilk oluşum/gelişim romanını (der erste Bildungsroman) yazmıştır."
   },
   {
     "id": 42,
@@ -1130,8 +1130,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Aufklärung).",
-    "explanation_tr": "Tahtadaki cevap: (Aufklärung - Aydınlanma Çağı)."
+    "explanation_de": "In der Aufklärung (18. Jahrhundert) drängte der Rationalismus den Einfluss kirchlich-dogmatischer Theorien zurück.",
+    "explanation_tr": "Aydınlanma Çağı'nda (Aufklärung), rasyonalist felsefe kilise dogmalarının ve kör inancın etkisini kırmıştır."
   },
   {
     "id": 43,
@@ -1157,8 +1157,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (die Toleranz).",
-    "explanation_tr": "Tahtadaki cevap: (die Toleranz - Hoşgörü)."
+    "explanation_de": "Die Toleranz (insbesondere die religiöse und weltanschauliche Duldung) ist eines der wichtigsten Kennzeichen der Aufklärung.",
+    "explanation_tr": "Hoşgörü (die Toleranz), Aydınlanma Çağı'nın en temel ve ayırt edici özelliklerinden biridir."
   },
   {
     "id": 44,
@@ -1184,8 +1184,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (in Diesseits).",
-    "explanation_tr": "Tahtadaki cevap: (in Diesseits - Bu dünyada)."
+    "explanation_de": "Anders als im Mittelalter und Barock suchte und fand der Mensch der Aufklärung sein Glück im Diesseits (im irdischen Leben).",
+    "explanation_tr": "Aydınlanma Çağı insanı, mutluluğu öteki dünyada değil, bu dünyada (in Diesseits) akıl ve erdemle yaşamakta bulmuştur."
   },
   {
     "id": 45,
@@ -1211,8 +1211,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Immanuel Kant).",
-    "explanation_tr": "Tahtadaki cevap: (Immanuel Kant)."
+    "explanation_de": "Immanuel Kant (1724–1804) ist der bedeutendste Philosoph der deutschen und europäischen Aufklärung.",
+    "explanation_tr": "Immanuel Kant, Alman Aydınlanma felsefesinin (Aufklärung) en büyük ve en etkili filozofudur."
   },
   {
     "id": 46,
@@ -1238,8 +1238,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (die Sonne).",
-    "explanation_tr": "Tahtadaki cevap: (die Sonne - Güneş)."
+    "explanation_de": "Die Sonne (bzw. das Licht der Vernunft, das die Dunkelheit der Unwissenheit vertreibt) ist das zentrale Symbol der Aufklärung.",
+    "explanation_tr": "Cehaletin karanlığını aydınlatan aklın ışığını temsil eden Güneş (die Sonne), Aydınlanma Çağı'nın sembolüdür."
   },
   {
     "id": 47,
@@ -1265,8 +1265,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Aufklärung).",
-    "explanation_tr": "Tahtadaki cevap: (Aufklärung - Aydınlanma Çağı)."
+    "explanation_de": "Kant definierte in der Aufklärung: 'Aufklärung ist der Ausgang des Menschen aus seiner selbstverschuldeten Unmündigkeit.'",
+    "explanation_tr": "Immanuel Kant'ın ünlü tanımıyla 'kendi suçu olan erginleşmemişlikten çıkış' kavramı Aydınlanma Çağı'na (Aufklärung) aittir."
   },
   {
     "id": 48,
@@ -1292,8 +1292,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Sapere Aude).",
-    "explanation_tr": "Tahtadaki cevap: (Sapere Aude)."
+    "explanation_de": "'Sapere Aude!' (Habe Mut, dich deines eigenen Verstandes zu bedienen!) ist nach Kant der Wahlspruch der Aufklärung.",
+    "explanation_tr": "'Sapere Aude' (Bilmeye cesaret et / Kendi aklını kullanma cesaretini göster!), Aydınlanma Çağı'nın temel parolasıdır."
   },
   {
     "id": 49,
@@ -1319,8 +1319,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Gottsched).",
-    "explanation_tr": "Tahtadaki cevap: (Gottsched)."
+    "explanation_de": "Johann Christoph Gottsched war mit seinem Werk 'Versuch einer Critischen Dichtkunst' der führende Literaturtheoretiker der frühen Aufklärung.",
+    "explanation_tr": "Gottsched, akılcı kurallara dayanan poetikasıyla Aydınlanma Çağı'nın (Aufklärung) en önemli edebiyat kuramcısıdır."
   },
   {
     "id": 50,
@@ -1346,8 +1346,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Gottsched).",
-    "explanation_tr": "Tahtadaki cevap: (Gottsched)."
+    "explanation_de": "Die Schweizer Literaturtheoretiker Bodmer und Breitinger wandten sich im Leipziger-Zürcher Literaturstreit gegen Gottscheds starren Rationalismus.",
+    "explanation_tr": "Bodmer ve Breitinger, sanatta hayal gücünü ve mucizevi olanı savunarak Gottsched'in katı kuralcılığına karşı çıkmışlardır."
   },
   {
     "id": 51,
@@ -1373,8 +1373,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (Shakespeare).",
-    "explanation_tr": "Tahtadaki cevap: (Shakespeare)."
+    "explanation_de": "Im 17. Literaturbrief erklärte Lessing, dass das Genie William Shakespeares dem deutschen Geschmack viel mehr entspricht als das französische Theater.",
+    "explanation_tr": "Lessing, Fransız klasisizmi yerine Shakespeare'in doğal ve güçlü tiyatrosunun Alman zevkine çok daha uygun olduğunu savunmuştur."
   },
   {
     "id": 52,
@@ -1400,8 +1400,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Lessing).",
-    "explanation_tr": "Tahtadaki cevap: (Lessing)."
+    "explanation_de": "Das dramatische Gedicht 'Nathan der Weise' (mit der berühmten Ringparabel über religiöse Toleranz) wurde 1779 von Lessing geschrieben.",
+    "explanation_tr": "Dinler arası hoşgörüyü yüzük meseliyle anlatan 'Nathan der Weise' (Bilge Nathan) eseri Lessing tarafından yazılmıştır."
   },
   {
     "id": 53,
@@ -1427,8 +1427,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: (Nathan der Weise).",
-    "explanation_tr": "Tahtadaki cevap: (Nathan der Weise)."
+    "explanation_de": "Wegen seiner Botschaft der religiösen Toleranz und der edlen jüdischen Hauptfigur wurde 'Nathan der Weise' im Dritten Reich verboten.",
+    "explanation_tr": "Yahudi bir bilgeyi başkahraman yapması ve hoşgörü mesajı vermesi nedeniyle 'Nathan der Weise' Nazi döneminde (Drittes Reich) yasaklanmıştır."
   },
   {
     "id": 54,
@@ -1454,8 +1454,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: (Winckelmann).",
-    "explanation_tr": "Tahtadaki cevap: (Winckelmann)."
+    "explanation_de": "Winckelmanns Ideal der 'edlen Einfalt und stillen Größe' prägte die Griechenbegeisterung der deutschen Klassik maßgeblich.",
+    "explanation_tr": "Arkeolog ve sanat tarihçisi Winckelmann'ın düşünceleri, Alman Klasisizmi'nin Antik Yunan hayranlığını derinden şekillendirmiştir."
   },
   {
     "id": 55,
@@ -1481,8 +1481,8 @@
       }
     ],
     "correctAnswer": 2,
-    "explanation_de": "Antwort laut Tafel: (die Empfindsamkeit und der Pietismus).",
-    "explanation_tr": "Tahtadaki cevap: (die Empfindsamkeit und der Pietismus)."
+    "explanation_de": "Parallel zur rationalen Aufklärung betonten die Empfindsamkeit (im Säkularen) und der Pietismus (im Religiösen) das tiefe Gefühl.",
+    "explanation_tr": "Aydınlanma Çağı'nda duyguları ön plana çıkaran iki alt akım 'die Empfindsamkeit und der Pietismus' (Duyarlılık ve Pietizm) olmuştur."
   },
   {
     "id": 56,
@@ -1508,8 +1508,8 @@
       }
     ],
     "correctAnswer": 3,
-    "explanation_de": "Antwort laut Tafel: (Aufklärung).",
-    "explanation_tr": "Tahtadaki cevap: (Aufklärung - Aydınlanma Çağı)."
+    "explanation_de": "In der Aufklärung gilt die menschliche Vernunft (Ratio) als oberster Maßstab für Erkenntnis, Moral und Gesellschaft.",
+    "explanation_tr": "Akıl (Vernunft), Aydınlanma Çağı'nın (Aufklärung) en merkezi kavramı ve yol gösterici ilkesidir."
   },
   {
     "id": 57,
@@ -1527,8 +1527,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Wolfram von Eschenbach hat das Epos Parzival im Hohen Mittelalter geschrieben.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Wolfram von Eschenbach bir reformcu değil, Parzival destanının yazarıdır."
+    "explanation_de": "Falsch! Wolfram von Eschenbach war kein Reformator, sondern ein höfischer Dichter des Hohen Mittelalters (Autor des 'Parzival'). Der berühmte Reformator war Martin Luther.",
+    "explanation_tr": "Yanlış! Wolfram von Eschenbach bir reformcu değil, Yüksek Orta Çağ'da 'Parzival' destanını yazan bir şövalye şairiydi. Ünlü reformcu Martin Luther'dir."
   },
   {
     "id": 58,
@@ -1546,8 +1546,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Von den Tugenden spricht man im Hohen Mittelalter.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Şövalye erdemlerinden Yüksek Orta Çağ'da (Hohes Mittelalter) bahsedilir."
+    "explanation_de": "Falsch! Ritterliche Tugenden (wie Minne, Mâze, Triuwe) gehören in das Hohe Mittelalter, nicht in das geistlich geprägte Frühe Mittelalter.",
+    "explanation_tr": "Yanlış! Şövalyelik erdemleri Erken Orta Çağ'da değil, şövalye kültürünün zirveye ulaştığı Yüksek Orta Çağ'da (Hohes Mittelalter) görülür."
   },
   {
     "id": 59,
@@ -1565,8 +1565,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: Richtig (R).",
-    "explanation_tr": "Tahtadaki cevap: Richtig (Doğru)."
+    "explanation_de": "Richtig! Die Merseburger Zaubersprüche stammen aus der heidnisch-germanischen Zeitperiode und sind das älteste bekannte Beispiel für Zaubersprüche.",
+    "explanation_tr": "Doğru! Merseburg Büyü Sözleri, pagan Cermen dönemine (Germanische Zeitperiode) ait en eski sözlü büyü metinleridir."
   },
   {
     "id": 60,
@@ -1584,8 +1584,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Parzival wurde von W. von Eschenbach geschrieben.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Parzival destanını W. von Eschenbach yazmıştır."
+    "explanation_de": "Falsch! Das Epos 'Parzival' wurde von Wolfram von Eschenbach geschrieben (Hartmann von Aue schrieb u. a. 'Erec', 'Iwein' und 'Der arme Heinrich').",
+    "explanation_tr": "Yanlış! 'Parzival' destanı Hartmann von Aue tarafından değil, Wolfram von Eschenbach tarafından yazılmıştır."
   },
   {
     "id": 61,
@@ -1603,8 +1603,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Die Dichtung des Frühenmittelalters war geistlich.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Erken Orta Çağ edebiyatı dini (geistlich) nitelikteydi."
+    "explanation_de": "Falsch! Die Dichtung des Frühen Mittelalters war geistlich (kirchlich). Erst im Hohen Mittelalter war die Dichtung höfisch.",
+    "explanation_tr": "Yanlış! Erken Orta Çağ edebiyatı saraylı (höfisch) değil, dini/ruhani (geistlich) nitelikteydi. Saray edebiyatı Yüksek Orta Çağ'dadır."
   },
   {
     "id": 62,
@@ -1622,8 +1622,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: Richtig (R).",
-    "explanation_tr": "Tahtadaki cevap: Richtig (Doğru)."
+    "explanation_de": "Richtig! Das aus dem Portugiesischen ('barroco') stammende Wort 'Barock' bedeutet eine unregelmäßig geformte Perle.",
+    "explanation_tr": "Doğru! Portekizceden gelen 'Barock' kelimesi, düzgün olmayan / yamuk şekilli 'inci' (Perle) anlamına gelmektedir."
   },
   {
     "id": 63,
@@ -1641,8 +1641,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Der 30. Jährige Krieg war in der Barockzeit.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). 30 Yıl Savaşları Yüksek Orta Çağ'da değil, Barok dönemindedir."
+    "explanation_de": "Falsch! Der Dreißigjährige Krieg (1618–1648) fand in der Barockzeit (17. Jahrhundert) statt, nicht im Hohen Mittelalter.",
+    "explanation_tr": "Yanlış! Otuz Yıl Savaşları (1618–1648) Yüksek Orta Çağ'da değil, 17. yüzyılda Barok döneminde yaşanmıştır."
   },
   {
     "id": 64,
@@ -1660,8 +1660,8 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Volksbücher entstanden im Späten Mittelalter.",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Halk kitapları (Volksbücher) Geç Orta Çağ'da ortaya çıkmıştır."
+    "explanation_de": "Falsch! Die Volksbücher entstanden im Späten Mittelalter (und der frühen Neuzeit) durch die Erfindung des Buchdrucks, nicht in der mündlichen germanischen Zeitperiode.",
+    "explanation_tr": "Yanlış! Halk kitapları (Volksbücher) sözlü Cermen döneminde değil, Geç Orta Çağ'da (Spätes Mittelalter) ortaya çıkmıştır."
   },
   {
     "id": 65,
@@ -1679,8 +1679,8 @@
       }
     ],
     "correctAnswer": 0,
-    "explanation_de": "Antwort laut Tafel: Richtig (R). Marthin Opitz ist der Theoretiker der Barockzeit.",
-    "explanation_tr": "Tahtadaki cevap: Richtig (Doğru). Marthin Opitz Barok döneminin kuramcısıdır."
+    "explanation_de": "Richtig! Martin Opitz ist der bedeutendste Literaturtheoretiker der Barockzeit ('Buch von der Deutschen Poeterey').",
+    "explanation_tr": "Doğru! Martin Opitz, Barok döneminin en önemli edebiyat kuramcısıdır (Theoretiker der Barockzeit)."
   },
   {
     "id": 66,
@@ -1698,7 +1698,7 @@
       }
     ],
     "correctAnswer": 1,
-    "explanation_de": "Antwort laut Tafel: Falsch (F). Lessing ist ein Vertreter der Aufklärung (Reformator war Marthin Luther).",
-    "explanation_tr": "Tahtadaki cevap: Falsch (Yanlış). Lessing Aydınlanma Çağı yazarıdır, reformcu olan Marthin Luther'dir."
+    "explanation_de": "Falsch! Gotthold Ephraim Lessing war der wichtigste Dichter und Dramatiker der Aufklärung, kein kirchlicher Reformator des 16. Jahrhunderts.",
+    "explanation_tr": "Yanlış! Lessing bir Reform dönemi din adamı (Reformator) değil, 18. yüzyıl Aydınlanma Çağı'nın (Aufklärung) en önemli yazar ve oyun yazarıdır."
   }
 ]
