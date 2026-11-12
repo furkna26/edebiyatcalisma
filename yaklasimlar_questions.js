@@ -1,6 +1,5 @@
-// YABANCI DİL ÖĞRETİMİNDE YAKLAŞIMLAR VE YÖNTEMLER - 120 ÖZGÜN VE ARINDIRILMIŞ SORU
-// GÜM (42 Soru), Doğrudan Yöntem (37 Soru), İşitsel-Dilsel Yöntem (41 Soru)
-const yaklasimlarQuestions = [
+// Fremdsprachendidaktik Yaklaşımlar Soru Bankası (120 Özgün Soru)
+window.YAKLASIMLAR_QUESTIONS = [
   {
     "id": 1,
     "method": "gum",
@@ -18,7 +17,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Dil Bilgisi - Çeviri Yöntemi' seçeneğidir."
+    "explanation_tr": "Dil Bilgisi - Çeviri Yöntemi'nde (GÜM) kural tahtada tümdengelimli (deduktiv) olarak formüle edilir ve hemen ardından edebi/klasik metinlerin çevirisine geçilir."
   },
   {
     "id": 2,
@@ -37,7 +36,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "GÜM'de yeni kelimeler iki dilli listeler (Almanca-Türkçe karşılıklar) halinde ve bağlamdan kopuk olarak ezberletilir."
+    "explanation_tr": "GÜM'de yeni sözcükler metin bağlamından bağımsız olarak iki dilli listeler (Almanca-Türkçe karşılıklar) halinde ezberletilir."
   },
   {
     "id": 3,
@@ -56,7 +55,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'de doğal sıralama (Dinleme &rarr; Konuşma &rarr; Okuma &rarr; Yazma) esastır; konuşma her zaman yazıdan önce gelir."
+    "explanation_tr": "GÜM dersleri yazılı metin analizi ve dil bilgisi kurallarına dayandığından konuşma ve dinleme becerileri neredeyse tamamen göz ardı edilir."
   },
   {
     "id": 4,
@@ -75,7 +74,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Yaş grupları arasında dil edinim hızı bakımından bir uçurum olması' seçeneğidir."
+    "explanation_tr": "Klasik GÜM tasarımında öğrenci grubu yaş ve bilişsel düzey açısından homojen kabul edilir; yaş grupları arasında uçurum olması homojenlik varsayımıyla bağdaşmaz."
   },
   {
     "id": 5,
@@ -94,7 +93,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Ezber ve kural uygulamaya dayalı edilgin alıcı' seçeneğidir."
+    "explanation_tr": "GÜM'de öğretmen mutlak otoritedir; öğrenci ise sunulan kuralları ezberleyen ve çeviride uygulayan edilgin (pasif) bir alıcıdır."
   },
   {
     "id": 6,
@@ -113,7 +112,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Hedef dilin konuşulan biçimi, diyaloglar ve durumsal bağlamlar derste geniş yer tutar' seçeneğidir."
+    "explanation_tr": "GÜM'de konuşulan dil ve durumsal diyaloglar yer almaz; temel malzeme yazılı edebi metinler ve izole dil bilgisi cümleleridir."
   },
   {
     "id": 7,
@@ -132,7 +131,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "19. yüzyılda modern diller, okullarda saygınlık kazanabilmek için kabul görmüş Klasik Yöntem'i (Latince/Yunanca modelini) benimsemiştir."
+    "explanation_tr": "19. yüzyılda Amerika Birleşik Devletleri'nde Alman okul geleneği ve Gymnasium yapısı örnek alındığından GÜM uzun süre 'Prusya Yöntemi' olarak anılmıştır."
   },
   {
     "id": 8,
@@ -151,7 +150,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Edward Anthony'nin modelinde 'teknik', sınıfta fiilen uygulanan en somut işlemlerdir (çeviri, boşluk doldurma vb.)."
+    "explanation_tr": "Anthony modelinde 'teknik' sınıftaki somut uygulamadır (çeviri gibi); yöntemi belirleyen asıl unsur ise onun kuramsal yaklaşımı ve dil anlayışıdır."
   },
   {
     "id": 9,
@@ -170,7 +169,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Öğrencinin hedef dili hayatında hiç kullanmayacağı varsayılsa bile, kural çözümlemenin zihni keskinleştireceği ve kişiliği biçimlendireceği inancını' seçeneğidir."
+    "explanation_tr": "Formale Bildung (zihinsel disiplin), dilin pratikte kullanılmasa dahi kural çözümlemenin zihni keskinleştirip kişiliği eğiteceği inancını ifade eder."
   },
   {
     "id": 10,
@@ -189,7 +188,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Dil, kurallar ve sözcüklerden oluşan kapalı bir sistemdir, edinimi ise bu kuralların bilinçli olarak öğrenilmesi ve çeviride uygulanmasıyla gerçekleşir' seçeneğidir."
+    "explanation_tr": "GÜM dili kapalı bir kurallar dizgesi olarak görür; dil öğrenimi ise bu kuralların bilinçli biçimde kavranıp çeviriye aktarılması olarak tanımlanır."
   },
   {
     "id": 11,
@@ -208,7 +207,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Ana dil, temel öğretim dili, kuralların açıklanması ve çeviri yoluyla anlama düzeyinin kontrol edilmesi için bir araç olarak kullanılır' seçeneğidir."
+    "explanation_tr": "GÜM'de dersin temel iletişim aracı ana dildir; kurallar ana dilde anlatılır ve anlama düzeyi ana dile çeviriyle ölçülür."
   },
   {
     "id": 12,
@@ -227,7 +226,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Klasik dillerin 'Abitur' sınavının merkezinde olması, zihinsel disiplin (formale Bildung) aracı sayılması ve modern dillerin de akademik meşruiyet kazanmak için bu kabul görmüş modele benzemeye çalışması' seçeneğidir."
+    "explanation_tr": "19. yüzyıl Gymnasium okullarında modern diller, akademik saygınlık kazanabilmek için Latince ve Yunanca öğretiminde kökleşmiş olan klasik GÜM modelini taklit etmiştir."
   },
   {
     "id": 13,
@@ -246,7 +245,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Öğrencilerin duyguları, kaygıları ve içsel güdülenme süreçleri' seçeneğidir."
+    "explanation_tr": "Geleneksel ve yapısalcı yöntemlerin (GÜM, Doğrudan, İşitsel-Dilsel) hiçbirinde öğrencinin duyuşsal özellikleri, kaygısı ve içsel motivasyonu kuramsal bir yer bulamamıştır."
   },
   {
     "id": 14,
@@ -265,7 +264,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Ezberleme ve kural uygulama becerisi' seçeneğidir."
+    "explanation_tr": "GÜM'ün temel amacı öğrencilere soyut dil bilgisi kurallarını ezberletmek ve bu kuralları yazılı çevirilerde hatasız uygulatmaktır."
   },
   {
     "id": 15,
@@ -284,7 +283,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Ders esnasında yoğunluk olarak hedef dili kullanması' seçeneğidir."
+    "explanation_tr": "GÜM'de ders dili hedef dil değil ana dildir; bu nedenle öğretmenin ders boyunca yoğun biçimde hedef dili konuşması beklenmez."
   },
   {
     "id": 16,
@@ -303,7 +302,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "ASTP (Ordu Özel Eğitim Programı), II. Dünya Savaşı'nda askerlere hızla konuşma becerisi kazandırmak için kurulmuş ve yönteme zemin hazırlamıştır."
+    "explanation_tr": "Derslerinde etkileşime yer vermeyip çeviri, boşluk doldurma ve kural ezberine odaklanan ve sadece okuma-yazmayı hedefleyen yaklaşım Dil Bilgisi - Çeviri Yöntemi'dir (GÜM)."
   },
   {
     "id": 17,
@@ -322,7 +321,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Wilhelm Viëtor'un 1882 tarihli bildirisi, canlı dillerin ölü Latince kurallarıyla öğretilmesine karşı çıkarak Reform Hareketi'ni başlatmıştır."
+    "explanation_tr": "Wilhelm Viëtor 1882 tarihli 'Der Sprachunterricht muss umkehren!' bildirisiyle ölü kurallara karşı çıkmış ve Reform Hareketi'ni başlatmıştır."
   },
   {
     "id": 18,
@@ -341,7 +340,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Dil bilgisi kurallarını öğrenmek ve çeviri yapmak' seçeneğidir."
+    "explanation_tr": "GÜM'ün temel hedefi öğrencilere hedef dilin dil bilgisi sistemini öğretmek ve klasik metinleri ana dile eksiksiz çevirtmektir."
   },
   {
     "id": 19,
@@ -360,7 +359,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Önce kural açıklanır, sonra örnekler verilir' seçeneğidir."
+    "explanation_tr": "GÜM'de tümdengelimli (deduktiv) sıra izlenir; öğretmen önce soyut kuralı tahtaya yazar ve formüle eder, ardından alıştırmalara geçilir."
   },
   {
     "id": 20,
@@ -379,7 +378,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'latince' seçeneğidir."
+    "explanation_tr": "Dilbilgisi-Çeviri Yöntemi ilk olarak Latince ve Antik Yunanca gibi ölü klasik dillerin öğretiminde geliştirildiği için 'Klasik Yöntem' olarak da bilinir."
   },
   {
     "id": 21,
@@ -398,7 +397,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'yazma, okuma, konuşma temel becerilerdir' seçeneğidir."
+    "explanation_tr": "GÜM'de konuşma becerisine yer verilmez; temel beceriler yalnızca yazma ve okuma ile sınırlıdır."
   },
   {
     "id": 22,
@@ -417,7 +416,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Boşluk doldurma, tek cümle çevirisi' seçeneğidir."
+    "explanation_tr": "GÜM sınıf pratiğinin tipik alıştırmaları tek cümlelik çeviriler, boşluk doldurma ve çekim tablolarını ezberden yazmadır."
   },
   {
     "id": 23,
@@ -436,7 +435,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Öğrencinin uluslararası bağlantılar kurabilmesi' seçeneğidir."
+    "explanation_tr": "GÜM edebi ve zihinsel eğitime odaklanır; öğrencilere uluslararası iletişim veya pratik bağlantılar kurma hedefi yüklemez."
   },
   {
     "id": 24,
@@ -455,7 +454,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Dilbilgisi-Çeviri Yöntemi' seçeneğidir."
+    "explanation_tr": "Yabancı dil öğretiminin kurumsal ve pedagojik bir sistem olarak okullarda ilk ortaya çıkışı Dilbilgisi-Çeviri Yöntemi (GÜM) iledir."
   },
   {
     "id": 25,
@@ -474,7 +473,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Wilhelm Viëtor' seçeneğidir."
+    "explanation_tr": "19. yüzyılın sonlarında GÜM'ün ezberci ve konuşmadan kopuk yapısına karşı Reform Hareketi'nin öncüsü ve simgesi Wilhelm Viëtor olmuştur."
   },
   {
     "id": 26,
@@ -493,7 +492,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "GÜM'de dersler tümdengelimli (dedüktif) işlenir; önce soyut kural verilir, ardından çeviri alıştırmalarıyla pekiştirilir."
+    "explanation_tr": "GÜM'de tümdengelim yaklaşımı gereği öğretmen derse doğrudan yeni dil bilgisi kuralını ana dilde formüle edip açıklayarak başlar."
   },
   {
     "id": 27,
@@ -512,7 +511,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Yunanca ve Latince gibi dillerin öğretiminde ortaya çıktığı için' seçeneğidir."
+    "explanation_tr": "GÜM, Latince ve Yunanca gibi klasik edebiyat dillerinin öğretim geleneğinden türediği için 'Klasik Yöntem' adıyla da anılır."
   },
   {
     "id": 28,
@@ -531,7 +530,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'de doğal sıralama (Dinleme &rarr; Konuşma &rarr; Okuma &rarr; Yazma) esastır; konuşma her zaman yazıdan önce gelir."
+    "explanation_tr": "GÜM'e yöneltilen en yaygın eleştiri, öğrencilere konuşma ve dinleme gibi sözlü iletişim becerilerini kazandırmamasıdır."
   },
   {
     "id": 29,
@@ -550,7 +549,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "GÜM'de edebi metinlerin çevirisine odaklanıldığından konuşma ve dinleme ihmal edilir; sadece okuma ve yazmaya ağırlık verilir."
+    "explanation_tr": "GÜM dersleri yazılı metin analizi ve çeviriye odaklandığından yalnızca okuma ve yazma becerilerini geliştirir."
   },
   {
     "id": 30,
@@ -569,7 +568,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Klasik Yöntem' seçeneğidir."
+    "explanation_tr": "Klasik dillerin öğretiminden uyarlandığı için Dilbilgisi-Çeviri Yöntemi literatürde 'Klasik Yöntem' olarak da anılmaktadır."
   },
   {
     "id": 31,
@@ -588,7 +587,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Formale Bildung – Dil öğreniminin asıl değerinin zihni keskinleştirmek ve kişiliği biçimlendirmek olduğu görüşü' seçeneğidir."
+    "explanation_tr": "Formale Bildung kavramı, yabancı dil öğreniminin temel değerinin zihni keskinleştirmek ve düşünce disiplini kazandırmak olduğunu savunur."
   },
   {
     "id": 32,
@@ -607,7 +606,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Akademik meşruiyet kazanabilmek için kendilerini kabul görmüş Latince ve Yunanca öğretim modeline benzetme ihtiyacı' seçeneğidir."
+    "explanation_tr": "Modern diller, 19. yüzyılda saygın Gymnasium müfredatında yer alabilmek için kabul görmüş Latince öğretim modelini benimsemiştir."
   },
   {
     "id": 33,
@@ -626,7 +625,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Okuma, Yazma, Çeviri, Dilbilgisi' seçeneğidir."
+    "explanation_tr": "GÜM odaklı bir derste tüm dikkat okuma, yazma, çeviri ve dil bilgisi kurallarının doğruluğuna yöneliktir."
   },
   {
     "id": 34,
@@ -645,26 +644,26 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Televangelism(Deduction)' seçeneğidir."
+    "explanation_tr": "GÜM ders akışı tümdengelim (Deduktion) ilkesine dayanır; genel kuraldan tekil örnek ve uygulamalara inilir."
   },
   {
     "id": 35,
     "method": "gum",
     "category": "gum",
     "type": "multiple_choice",
-    "question": "Güm ile iglili verilen aşağıdaki bilgilerden hangisi doğrudur?",
+    "question": "Güm ile ilgili verilen aşağıdaki bilgilerden hangisi doğrudur?",
     "question_de": "",
-    "question_tr": "Güm ile iglili verilen aşağıdaki bilgilerden hangisi doğrudur?",
+    "question_tr": "Güm ile ilgili verilen aşağıdaki bilgilerden hangisi doğrudur?",
     "options": [
       "Ders dili anadildir.",
       "Tümevarımsal bir ders işleyişi vardır.",
       "İletişim ağırlıklıdır.",
       "Öğrenciler kuralları kendileri bulurlar."
     ],
-    "correctAnswer": 3,
-    "correct": 3,
+    "correctAnswer": 0,
+    "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Öğrenciler kuralları kendileri bulurlar' seçeneğidir."
+    "explanation_tr": "Dil Bilgisi - Çeviri Yöntemi'nde (GÜM) ders dili ana dildir; kurallar ana dilde açıklanır ve kural çözümlemeleri tümdengelimli olarak yapılır."
   },
   {
     "id": 36,
@@ -683,7 +682,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "GÜM'de dersler tümdengelimli (dedüktif) işlenir; önce soyut kural verilir, ardından çeviri alıştırmalarıyla pekiştirilir."
+    "explanation_tr": "Edward Anthony'nin hiyerarşisinde tümdengelimli anlatım dersin genel yöntemini/yaklaşımını, tek cümle çevirisi ise sınıfta uygulanan somut tekniği temsil eder."
   },
   {
     "id": 37,
@@ -702,7 +701,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Yazılı cevapların doğruluklarına göre değerlendirilir' seçeneğidir."
+    "explanation_tr": "GÜM'de öğrenci başarısı sözlü iletişimle değil, yapılan yazılı çeviri ve dil bilgisi testlerindeki doğrulukla ölçülür."
   },
   {
     "id": 38,
@@ -721,7 +720,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Formale Bildung / Zihinsel disiplin' seçeneğidir."
+    "explanation_tr": "Dil öğreniminin zihinsel melekeleri geliştiren ve kişiliği biçimlendiren bir disiplin aracı olduğunu savunan kavram 'Formale Bildung'dur."
   },
   {
     "id": 39,
@@ -740,16 +739,16 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'öğrencinin güdülenmesi, kaygı ve duyguları yöntemde ele alınmaz' seçeneğidir."
+    "explanation_tr": "GÜM kuramında öğrencinin psikolojik durumu, duyuşsal filtreleri, kaygısı ve içsel güdülenmesi tamamen kapsam dışı bırakılmıştır."
   },
   {
     "id": 40,
     "method": "gum",
     "category": "gum",
     "type": "multiple_choice",
-    "question": "Güm yönteminin ana temsilcileri arasında aşağıdakilerden hangi isim yer alm9az?",
+    "question": "Güm yönteminin ana temsilcileri arasında aşağıdakilerden hangi isim yer almaz?",
     "question_de": "",
-    "question_tr": "Güm yönteminin ana temsilcileri arasında aşağıdakilerden hangi isim yer alm9az?",
+    "question_tr": "Güm yönteminin ana temsilcileri arasında aşağıdakilerden hangi isim yer almaz?",
     "options": [
       "Johann Valentin Meidinger",
       "Johann Christan Seidenstücker",
@@ -759,7 +758,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Burrhus Frederic Skinner' seçeneğidir."
+    "explanation_tr": "B. F. Skinner davranışçı psikolojinin öncüsü olup İşitsel-Dilsel Yöntem'in kuramsal dayanağıdır; GÜM temsilcisi değildir."
   },
   {
     "id": 41,
@@ -778,7 +777,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "GÜM'de dersler tümdengelimli (dedüktif) işlenir; önce soyut kural verilir, ardından çeviri alıştırmalarıyla pekiştirilir."
+    "explanation_tr": "GÜM ders akışı tümdengelimseldir: önce kural ana dilde açıklanır, ardından bu kuralı uygulayan örnekler ve çeviri alıştırmaları yaptırılır."
   },
   {
     "id": 42,
@@ -797,7 +796,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Dil Bilgisi-Çeviri Yöntemi (GÜM) ilkelerine göre doğru yanıt 'Öğretmen sınıfın otoritesidir; bir hata ortaya çıktığında doğru biçimi hemen kendisi verir ve değerlendirme çoğunlukla yazılı yapılır' seçeneğidir."
+    "explanation_tr": "GÜM'de öğretmen mutlak bilgi kaynağı ve otoritedir; hatalar anında öğretmen tarafından düzeltilir ve yazılı başarı esastır."
   },
   {
     "id": 43,
@@ -816,7 +815,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Sandalyeyi işaret edip \"Das ist ein Stuhl\" diyerek' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de ana dil kullanılmaz; somut nesneler doğrudan gösterilerek hedef dilde adlandırılır (örn. 'Das ist ein Stuhl')."
   },
   {
     "id": 44,
@@ -835,7 +834,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Kalabalık sınıfa uyumsuz oluşu' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem yoğun öğretmen-öğrenci etkileşimi ve bireysel konuşma pratiği gerektirdiğinden kalabalık sınıflarda uygulanması zordur."
   },
   {
     "id": 45,
@@ -854,7 +853,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Doğrudan Yöntem adı, ana dili aradan çıkarıp hedefe direkt ulaşmayı vurguladığı için benimsenmiştir' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem (Direkte Methode) adı, ana dili tamamen devre dışı bırakıp anlam ile hedef dil formu arasında aracısız bağ kurmayı simgeler."
   },
   {
     "id": 46,
@@ -873,7 +872,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Ana dile hiç uğramadan hedef dilde düşünme ve Sprachgefühl geliştirme' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'in nihai amacı, öğrencinin ana dilde çeviri yapmadan hedef dilde düşünmesini ve sezgisel bir dil hissi (Sprachgefühl) edinmesini sağlamaktır."
   },
   {
     "id": 47,
@@ -892,7 +891,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Dili kullanması istenerek: sözlü görüşme, konu üzerine paragraf yazma' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de ölçme-değerlendirme çoktan seçmeli dil bilgisi testleriyle değil, öğrencinin dili sözlü ve yazılı kullanma becerisiyle yapılır."
   },
   {
     "id": 48,
@@ -911,7 +910,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Öğrenciler yalnızca öğretmenin sorduğu soruları yanıtlar; derste kendi sorularını sormaları beklenmez' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de öğrenci aktif iletişim ortağıdır; sınıfta hem soru sorar hem yanıt verir, pasif alıcı değildir."
   },
   {
     "id": 49,
@@ -930,7 +929,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Maximilian Berlitz, Doğrudan Yöntem'i kurduğu ticari dil okulları zinciriyle kitleselleştirmiş ve kurumsal hale getirmiştir."
+    "explanation_tr": "Maximilian Berlitz, ticari dil okullarında bu yaklaşımı uygulamış ancak 'Doğrudan Yöntem' terimi yerine tescilli 'Berlitz Yöntemi' adını kullanmıştır."
   },
   {
     "id": 50,
@@ -949,7 +948,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'F. Franke' seçeneğidir."
+    "explanation_tr": "F. Franke, hedef dil sözcüğü ile kavram arasında ana dil aracılığı olmadan doğrudan çağrışım kurulmasının psikolojik ilkelerini formüle etmiştir."
   },
   {
     "id": 51,
@@ -968,7 +967,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt '\"Doğrudan Yöntem\" adının, yabancı dile ana dil üzerinden değil, doğrudan erişim sağlayan radikal yeniliği ve tek dillilik ilkesini doğrudan işaret etmesi' seçeneğidir."
+    "explanation_tr": "'Doğrudan Yöntem' adı, ana dili aradan çıkarıp nesne ile hedef dil sözcüğü arasında doğrudan psikolojik bağ kurulmasını ifade ettiği için benimsenmiştir."
   },
   {
     "id": 52,
@@ -987,7 +986,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Çeviriyi tamamen reddetmek. Anlam, doğrudan hedef dilde görsel ögeler, jestler, mimikler ve bağlam yoluyla açıklanır' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de çeviri kesinlikle yasaktır; yeni sözcükler görseller, nesneler, mimikler ve durumsal bağlam ile öğretilir."
   },
   {
     "id": 53,
@@ -1006,7 +1005,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Öğrenciler dil sezgilerini geliştirerek kural ve yapıları konuşma örneklerinden hareketle kendileri çıkarır' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de dil bilgisi tümevarımlı (induktiv) işlenir; öğrenci bol konuşma ve örnek bağlamından kuralı kendi sezer."
   },
   {
     "id": 54,
@@ -1025,7 +1024,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Sprachgefühl' seçeneğidir."
+    "explanation_tr": "Öğrencinin kuralları ezberlemeden, bol pratikle dilin doğru kullanımını sezgisel olarak kavraması durumuna 'Sprachgefühl' (dil hissi) denir."
   },
   {
     "id": 55,
@@ -1044,7 +1043,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Maximilian Berlitz' seçeneğidir."
+    "explanation_tr": "Maximilian Berlitz, Amerika Birleşik Devletleri'nde açtığı özel dil okulları zinciriyle Doğrudan Yöntem'in kitlesel olarak tanınmasını sağlamıştır."
   },
   {
     "id": 56,
@@ -1063,7 +1062,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Konuşma pratiği: ders sonunda öğrenci, öğrendiklerini özetleyerek anlatır' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de konuşma pratiği ders sonu özetiyle sınırlı değildir; dersin ilk anından itibaren karşılıklı soru-cevap ve diyalogla yürütülür."
   },
   {
     "id": 57,
@@ -1082,7 +1081,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Dilbilgisi-Çeviri Yöntemi’nin (GÜM) öğrencilere hedef dili iletişimsel olarak kullandırmadaki yetersizliği' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem, GÜM'ün öğrencilere hedef dilde konuşma ve iletişim kurma yetisi kazandıramamasına bir tepki olarak doğmuştur."
   },
   {
     "id": 58,
@@ -1101,7 +1100,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem'de dil bilgisi kuralları tümevarımlı (induktiv) olarak öğretilir; öğrenci kuralı sunulan örneklerden kendisi sezer."
+    "explanation_tr": "Doğrudan Yöntem'de öğretmen kuralı hazır vermez; tümevarımlı (induktiv) olarak sunduğu zengin örneklerle kuralı öğrencinin keşfetmesini sağlar."
   },
   {
     "id": 59,
@@ -1120,7 +1119,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'F. Franke' seçeneğidir."
+    "explanation_tr": "F. Franke, sözcük ile anlam arasında ana dilsiz doğrudan çağrışım kurulması gerektiğini psikolojik temellere dayandıran öncüdür."
   },
   {
     "id": 60,
@@ -1139,7 +1138,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Wilhelm Viëtor'un 1882 tarihli bildirisi, canlı dillerin ölü Latince kurallarıyla öğretilmesine karşı çıkarak Reform Hareketi'ni başlatmıştır."
+    "explanation_tr": "Wilhelm Viëtor, 1882'de yayımladığı 'Der Sprachunterricht muss umkehren!' broşürüyle dil öğretiminde Reform Hareketi'nin fitilini ateşlemiştir."
   },
   {
     "id": 61,
@@ -1158,7 +1157,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Doğal Yöntem' seçeneğidir."
+    "explanation_tr": "L. Sauveur'ün Boston'daki okulunda uyguladığı ve çocukların ana dil edinimini model alan bu yaklaşım başlangıçta 'Doğal Yöntem' (Natural Method) olarak adlandırılmıştır."
   },
   {
     "id": 62,
@@ -1177,7 +1176,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'de hatalar anında düzeltilir; aksi takdirde yanlış kullanımın kalıcı bir kötü alışkanlığa dönüşeceğine inanılır."
+    "explanation_tr": "Sınıf otoritesi olup kuralları Türkçe anlatan Burak Öğretmen GÜM'ü; ana dili yasaklayıp hedef dili ve görselleri kullanan Pınar Öğretmen ise Doğrudan Yöntem'i temsil eder."
   },
   {
     "id": 63,
@@ -1196,7 +1195,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Dinlediğini anlama becerisi' seçeneğidir."
+    "explanation_tr": "Dilsiz bir harita üzerinde öğretmenin hedef dildeki sözlü yönergelerini dinleyip etiketleme yapmak, dinlediğini anlama becerisini somut ürüne dönüştürür."
   },
   {
     "id": 64,
@@ -1215,7 +1214,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt '“Dili bilmek”ten, “dili iletişim için kullanabilmek” hedefine yöneliş' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'in devrim niteliğindeki çıkış noktası, dili kuramsal olarak 'bilmek' yerine onu iletişim için 'kullanabilmek'tir."
   },
   {
     "id": 65,
@@ -1234,7 +1233,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "François Gouin, çocukların dil edinimini gözlemleyerek eylemleri mantıksal bir zaman dizisi halinde öğreten 'Diziler Yöntemi'ni geliştirmiştir."
+    "explanation_tr": "François Gouin, çocukların dili eylemler dizisi üzerinden edindiğini gözlemleyerek 'Diziler Yöntemi'ni (Gouin Series) geliştirmiştir."
   },
   {
     "id": 66,
@@ -1253,7 +1252,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Öğrencinin yaptığı bir hatada öğretmenin doğru cevabı hemen söyleyerek öğrenciyi pasif bir alıcı konumunda tutması' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de öğretmen hata anında hemen doğruyu dikte etmez; ipuçları ve alternatifler vererek öğrencinin kendi hatasını düzeltmesini (self-correction) sağlar."
   },
   {
     "id": 67,
@@ -1272,7 +1271,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Görseller, nesneler ve gösterimler kullanılarak' seçeneğidir."
+    "explanation_tr": "Direkte Methode'de çeviri yerine gerçek nesneler (Realien), resimler, mimikler ve görsel canlandırmalar kullanılır."
   },
   {
     "id": 68,
@@ -1291,7 +1290,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Gösterim, jest, mimik, gerçek nesneler ve görsel araçlar kullanılarak' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de anlam aktarımı ana dille değil; jestler, mimikler, gerçek objeler ve bağlamsal gösterimlerle gerçekleştirilir."
   },
   {
     "id": 69,
@@ -1310,7 +1309,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem'de dil bilgisi kuralları tümevarımlı (induktiv) olarak öğretilir; öğrenci kuralı sunulan örneklerden kendisi sezer."
+    "explanation_tr": "Doğrudan Yöntem'de kural açıkça dikte edilmez; öğrenciler sunulan zengin dil örneklerinden yola çıkarak kuralları tümevarımlı (induktiv) biçimde keşfeder."
   },
   {
     "id": 70,
@@ -1329,7 +1328,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem'in tek dillilik ilkesi; anlam aktarımı, alıştırma süreci ve sınıf iletişim dili olmak üzere üç temel boyutta uygulanır."
+    "explanation_tr": "Doğrudan Yöntem'in katı tek dillilik ilkesine göre soyut kavramlar için dahi ana dilde Türkçe karşılık söylemek yöntemin özüne aykırıdır."
   },
   {
     "id": 71,
@@ -1348,7 +1347,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Maximilian Berlitz – Yazdığı eserlerde ilk kez “doğrudan yöntem” (direkte Methode) terimini kavramsallaştırarak resmi eğitim literatürüne kazandırmıştır' seçeneğidir."
+    "explanation_tr": "Maximilian Berlitz kendi kurumlarında bu yöntemi 'Berlitz Yöntemi' olarak adlandırmış, 'Doğrudan Yöntem' kavramını literatüre kazandıran kişi olmamıştır."
   },
   {
     "id": 72,
@@ -1367,7 +1366,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Öğretmen kuralları öğrenciye direct olarak verir' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de öğretmen kuralı doğrudan formüle edip vermez; öğrencinin örneklerden sezgisel olarak çıkarmasını sağlar."
   },
   {
     "id": 73,
@@ -1386,7 +1385,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem'de dil bilgisi kuralları tümevarımlı (induktiv) olarak öğretilir; öğrenci kuralı sunulan örneklerden kendisi sezer."
+    "explanation_tr": "Doğrudan Yöntem'in temel ders işleyiş mantığı, örneklerden genel kurallara ulaşılan tümevarım (Induktion) ilkesidir."
   },
   {
     "id": 74,
@@ -1405,7 +1404,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Çeviriye fazla yer verilmesi' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de ana dil ve çeviri tamamen yasaklandığından, bu yönteme 'çeviriye fazla yer verilmesi' eleştirisi yöneltilemez."
   },
   {
     "id": 75,
@@ -1424,7 +1423,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Klasik edebî metinlerin dersin merkezine yerleştirilmesi' seçeneğidir."
+    "explanation_tr": "Klasik edebi metinlerin merkeze alınması GÜM'e aittir; Doğrudan Yöntem edebi metinler yerine günlük konuşma dilini merkeze alır."
   },
   {
     "id": 76,
@@ -1443,7 +1442,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Güm e karşı yürütülen reform çalışmalarından oluşmuştur' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem, 19. yüzyıl sonunda GÜM'ün teorik ve konuşmadan uzak yapısına karşı başlatılan Reform Hareketi ile ortaya çıkmıştır."
   },
   {
     "id": 77,
@@ -1462,7 +1461,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Öğrenci bu yöntemde edilgin alıcı konumundadır' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem'de öğrenci edilgin (pasif) bir alıcı değildir; derste öğretmenle sürekli sözlü etkileşim kuran etkin bir iletişim ortağıdır."
   },
   {
     "id": 78,
@@ -1481,7 +1480,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Hepsi' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem; tek dillilik, tümevarım, sözlü öncelik ve günlük konuşma dili ilkelerinin tümünü bütüncül olarak kapsar."
   },
   {
     "id": 79,
@@ -1500,7 +1499,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "Doğrudan Yöntem ilkelerine göre doğru yanıt 'Yalnızca hedef dil' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem derslerinde ana dil kesinlikle yasaktır; sınıf içi iletişimin tamamı yalnızca hedef dilde gerçekleştirilir."
   },
   {
     "id": 80,
@@ -1519,7 +1518,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Kalıp alıştırması (Pattern drill)' seçeneğidir."
+    "explanation_tr": "Öğretmenin 'Ich fahre nach Berlin' modeline 'wir' ipucunu verip öğrencilerden 'Wir fahren nach Berlin' alması tipik bir Kalıp Alıştırması (Pattern Drill - ikame/yer değiştirme) örneğidir."
   },
   {
     "id": 81,
@@ -1538,7 +1537,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'de hatalar anında düzeltilir; aksi takdirde yanlış kullanımın kalıcı bir kötü alışkanlığa dönüşeceğine inanılır."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'de hatalar anında düzeltilir; aksi takdirde yanlış kullanımın öğrencide kalıcı bir 'kötü alışkanlığa' (bad habit) dönüşeceğinden korkulur."
   },
   {
     "id": 82,
@@ -1557,7 +1556,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem davranışçı psikolojiye dayanır; dili mekanik bir 'uyarıcı-tepki-pekiştirme' süreci olarak açıklar."
+    "explanation_tr": "İşitsel-Dilsel Yöntem, dil edinimini çevresel uyaranlara verilen mekanik 'uyarıcı-tepki-pekiştirme' zinciri olarak gören Davranışçı (Behaviorist) psikolojiye dayanır."
   },
   {
     "id": 83,
@@ -1576,7 +1575,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Psikoloji ve dilbilim ile temellendirilişi' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem, Leonard Bloomfield'in yapısal dilbilimi ile B. F. Skinner'ın davranışçı psikolojisini birleştirerek güçlü bir kuramsal temel kazanmıştır."
   },
   {
     "id": 84,
@@ -1588,14 +1587,14 @@ const yaklasimlarQuestions = [
     "question_tr": "İşitsel-Dilsel Yöntemin öğrenciyi koşullaması neden önemlidir?",
     "options": [
       "Öğrencinin doğal bir dil edinimi gerçekleştirmesi için",
-      "Öğrencinin ama dilin getirdiği alışkanlıklardan ayrılarak yeni dilinkileri benimsemesi",
+      "Öğrencinin ana dilin getirdiği alışkanlıklardan ayrılarak yeni dilinkileri benimsemesi",
       "Sınıfta uygulanabilitesinin yüksekliği",
       "Öğrenci motivasyonunu artırması"
     ],
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Öğrencinin ama dilin getirdiği alışkanlıklardan ayrılarak yeni dilinkileri benimsemesi' seçeneğidir."
+    "explanation_tr": "Davranışçı yaklaşıma göre yabancı dil öğrenmek, ana dilin oluşturduğu alışkanlık zincirini kırıp yeni dilin mekanik alışkanlıklarını kazanmaktır."
   },
   {
     "id": 85,
@@ -1614,26 +1613,26 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Okullarda dil laboratuvarlarının yaygınlaşması ile' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem, II. Dünya Savaşı sonrası okullara teyp kasetleri ve Sprachlabor (dil laboratuvarı) teknolojisinin girmesiyle hızla yaygınlaşmıştır."
   },
   {
     "id": 86,
     "method": "isitsel",
     "category": "isitsel",
     "type": "multiple_choice",
-    "question": "İşitsel – Dilsel Yöntemin öncülü kabul edilen ASTP dönenimde kullanılan Bilgi Veren Yöntemi ile ilgili aşağıdakilerden hangisi doğrudur?",
+    "question": "İşitsel – Dilsel Yöntemin öncülü kabul edilen ASTP döneminde kullanılan Bilgi Veren Yöntemi ile ilgili aşağıdakilerden hangisi doğrudur?",
     "question_de": "",
-    "question_tr": "İşitsel – Dilsel Yöntemin öncülü kabul edilen ASTP dönenimde kullanılan Bilgi Veren Yöntemi ile ilgili aşağıdakilerden hangisi doğrudur?",
+    "question_tr": "İşitsel – Dilsel Yöntemin öncülü kabul edilen ASTP döneminde kullanılan Bilgi Veren Yöntemi ile ilgili aşağıdakilerden hangisi doğrudur?",
     "options": [
       "Dilbilimcinin öğretilen dili anadili gibi kusursuz bilmesi şarttır.",
-      "Bilgi verem kişi, dil kurallarını sınıfa tümdengelimli olarak açıklar.",
+      "Bilgi veren kişi, dil kurallarını sınıfa tümdengelimli olarak açıklar.",
       "Bilgi veren kişi yalnızca doğal dil kaynağıdır, dilbilimci ise dilden yapıyı çıkarmayı yönlendirir.",
       "Dersler yazılı gramer kitapları üzerinden teorik olarak işlenir."
     ],
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "ASTP (Ordu Özel Eğitim Programı), II. Dünya Savaşı'nda askerlere hızla konuşma becerisi kazandırmak için kurulmuş ve yönteme zemin hazırlamıştır."
+    "explanation_tr": "ASTP'de uygulanan Bilgi Veren (Informant) tekniğinde yerli konuşucu yalnızca doğal ses ve cümle modelidir; yapıyı analiz edip yönlendiren ise dilbilimcidir."
   },
   {
     "id": 87,
@@ -1652,7 +1651,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Her soruda dilin yalnızca tek bir spesifik noktasına odaklanması' seçeneğidir."
+    "explanation_tr": "Yapısal dilbilime dayanan ayrık nokta (discrete-point) testleri, dili bileşenlerine ayırarak her soruda tek bir hedeflenmiş dil bilgisi veya ses unsurunu ölçer."
   },
   {
     "id": 88,
@@ -1671,7 +1670,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Bütün okullarda metin temelli, hızlı sessiz okumayı öne çıkaran bir modeli benimsetmesi' seçeneğidir."
+    "explanation_tr": "1929 Coleman Raporu, yabancı dilde konuşmanın ulaşılamaz olduğunu savunarak Amerikan okullarında yalnızca sessiz okuma öğretilmesini zorunlu kılmıştır."
   },
   {
     "id": 89,
@@ -1690,7 +1689,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'in dilbilim temeli, Leonard Bloomfield ve Charles Fries'in Amerikan yapısalcı dilbilimine dayanır."
+    "explanation_tr": "Charles Fries, 1945 yılında Michigan Üniversitesi bünyesinde yapısal dilbilim ilkelerini dil eğitimine uyarladığı için yöntem 'Michigan Yöntemi' olarak da bilinir."
   },
   {
     "id": 90,
@@ -1709,7 +1708,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Açıkça tanımlanmış bir dilbilim ve ruhbilim temeline dayanmasıyla' seçeneğidir."
+    "explanation_tr": "Doğrudan Yöntem pratik ve sezgiselken, İşitsel-Dilsel Yöntem yapısalcı dilbilim ve davranışçı ruhbilim gibi net ve bilimsel iki kurama dayanır."
   },
   {
     "id": 91,
@@ -1728,7 +1727,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "Geriye doğru genişletme tekniğinde (Backward Build-up), cümlenin son öbeğinden başlanarak ritim ve tonlama bozulmadan cümle tamamlatılır."
+    "explanation_tr": "Geriye doğru genişletme (Backward Build-up) tekniğinde cümlenin son parçasından başlanarak ritim, tonlama ve doğal vurgunun bozulmadan korunması sağlanır."
   },
   {
     "id": 92,
@@ -1747,7 +1746,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Asıl odak noktası sözcük ezberlemek değil, ses sistemini ve dilbilgisel yapıları otomatikleşmiş alışkanlıklar haline getirmek olduğu için' seçeneğidir."
+    "explanation_tr": "Başlangıçta kelime sayısı bilinçli olarak asgari tutulur; amaç kelime ezberletmek değil, temel ses ve kalıp yapılarını otomatik alışkanlık kılmaktır."
   },
   {
     "id": 93,
@@ -1766,7 +1765,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Kelimeleri rastgele durumlar içinde vermek yerine cümle kalıplarını sistemli çalıştırması ve dilbilim ile psikolojiye dayanan güçlü bir kuramsal temelinin olması' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem, Doğrudan Yöntem'den farklı olarak rastgele durumlar yerine yapısal kalıp alıştırmaları ve sağlam bir kuramsal temel kullanır."
   },
   {
     "id": 94,
@@ -1785,7 +1784,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Konuşmanın dilin kendisi olduğu; yani dilin önce söylenen, ikincil olarak yazılan bir şey olduğu ilkesi' seçeneğidir."
+    "explanation_tr": "Yapısalcı dilbilimin en temel ilkesi 'dil konuşmadır' aksiyomudur; dil öncelikle sözlü bir dizgedir, yazı ise onun ikincil grafik temsilidir."
   },
   {
     "id": 95,
@@ -1804,7 +1803,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "ASTP (Ordu Özel Eğitim Programı), II. Dünya Savaşı'nda askerlere hızla konuşma becerisi kazandırmak için kurulmuş ve yönteme zemin hazırlamıştır."
+    "explanation_tr": "ASTP'nin (Ordu Programı) başarısı teorisinden çok, günde 10 saati bulan yoğun eğitim temposu ve askerlerin yüksek motivasyonundan kaynaklanmıştır."
   },
   {
     "id": 96,
@@ -1823,7 +1822,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'in dilbilim temeli, Leonard Bloomfield ve Charles Fries'in Amerikan yapısalcı dilbilimine dayanır."
+    "explanation_tr": "Yazılı kaynağı olmayan diller için Bloomfield tarafından uygulanan, anadili konuşucusu ile dilbilimciyi birleştiren teknik 'Bilgi Veren Yöntemi'dir (Informant Method)."
   },
   {
     "id": 97,
@@ -1842,7 +1841,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Çeviri yöntemi' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem; Aural-Oral, Michigan veya Ordu Yöntemi olarak adlandırılır ancak çeviriyi kesinlikle reddettiği için 'Çeviri yöntemi' denemez."
   },
   {
     "id": 98,
@@ -1861,7 +1860,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Kalıp alıştırması (Pattern Drill)' seçeneğidir."
+    "explanation_tr": "Öğrencilerin mekanik tekrarlarla cümle yapılarını otomatikleşmiş alışkanlık haline getirmesini sağlayan teknik Kalıp Alıştırmaları'dır (Pattern Drills)."
   },
   {
     "id": 99,
@@ -1880,7 +1879,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Coleman Raporu'nun okuma vurgusuna' seçeneğidir."
+    "explanation_tr": "Amerikan yapısal dilbilimi ve İşitsel-Dilsel yaklaşım, okullarda sözlü dili dışlayıp sadece okumayı dayatan 1929 Coleman Raporu'na tepki olarak doğmuştur."
   },
   {
     "id": 100,
@@ -1899,7 +1898,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'İki kişi arasında geçen kısa bir diyalogla' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem dersleri tipik olarak iki kişi arasında geçen, hedeflenen kalıpları içeren kısa ve ritmik bir diyalogla başlar."
   },
   {
     "id": 101,
@@ -1918,7 +1917,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'En küçük çift alıştırması' seçeneğidir."
+    "explanation_tr": "Yalnızca tek bir fonem (ses) bakımından farklılaşan sözcükler üzerinde yapılan telaffuz çalışmasına 'En Küçük Çift Alıştırması' (Minimal Pairs) denir."
   },
   {
     "id": 102,
@@ -1937,7 +1936,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Önce sözlü olarak tanıtılmış olmalıdır' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'de doğal edinim sırası esastır; öğrencinin yazacağı her ifade mutlaka daha önce sözlü olarak dinlenmiş ve söylenmiş olmalıdır."
   },
   {
     "id": 103,
@@ -1956,7 +1955,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Uyaran (Stimulus) - Tepki (Response)' seçeneğidir."
+    "explanation_tr": "Davranışçı öğrenme kuramında öğretmenin sunduğu dilsel girdi 'Uyaran' (Stimulus), öğrencinin buna verdiği sözel karşılık ise 'Tepki'dir (Response)."
   },
   {
     "id": 104,
@@ -1975,7 +1974,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Teyp kaydı' seçeneğidir."
+    "explanation_tr": "Öğretmen hedef dilin ana dili konuşuru değilse, kusursuz telaffuz ve tonlama modeli sunmak amacıyla dil laboratuvarındaki teyp kayıtlarından yararlanılır."
   },
   {
     "id": 105,
@@ -1994,7 +1993,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Öğretmen öğrencilerin dil davranışını yönlendirir ve denetler' seçeneğidir."
+    "explanation_tr": "Öğretmenin 'orkestra şefi' olarak tanımlanması, sınıftaki tüm konuşma ritmini, koro tekrarlarını ve dönütleri mutlak olarak yönetip denetlemesini ifade eder."
   },
   {
     "id": 106,
@@ -2013,7 +2012,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Güçlük noktalarını önceden görüp hatayı baştan önleme olanağı' seçeneğidir."
+    "explanation_tr": "Kontrastif analiz (karşılaştırmalı çözümleme), ana dil ile hedef dil arasındaki yapısal farkları saptayarak öğrencinin yapabileceği hataları önceden kestirmeyi sağlar."
   },
   {
     "id": 107,
@@ -2032,7 +2031,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Dil öğrenmek, alışkanlık oluşturmaktır' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'in özü, dil öğrenimini mekanik bir 'alışkanlık oluşturma' (habit formation) süreci olarak tanımlamasıdır."
   },
   {
     "id": 108,
@@ -2051,7 +2050,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Ordu Özel Eğitim Programı (Army Specialized Training Program, ASTP)' seçeneğidir."
+    "explanation_tr": "1942'de II. Dünya Savaşı sırasında Amerikan ordusunun askerlere hızlı konuşma yetisi kazandırmak için kurduğu program ASTP'dir (Army Specialized Training Program)."
   },
   {
     "id": 109,
@@ -2063,14 +2062,14 @@ const yaklasimlarQuestions = [
     "question_tr": "Audiolinguale Methode'de öğretmen öğrencinin doğru dil kullanımını nasıl destekler?",
     "options": [
       "Ana dilde sürekli çeviri yaptırarak",
-      "Doğru cevapları pekiştirerek ve hataları düzelterek (doğru)",
+      "Doğru cevapları pekiştirerek ve hataları düzelterek",
       "Sadece yazılı sınav uygulayarak",
       "Hataları görmezden gelerek"
     ],
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Doğru cevapları pekiştirerek ve hataları düzelterek (doğru)' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'de öğretmen doğru sözel tepkileri pekiştirir (reinforcement) ve hataları anında düzelterek kötü alışkanlık oluşmasını engeller."
   },
   {
     "id": 110,
@@ -2084,12 +2083,12 @@ const yaklasimlarQuestions = [
       "Serbest okuma yaparak",
       "Uzun yazılı kompozisyonlar yazarak",
       "Dil bilgisi kurallarını çevirerek",
-      "Diyalogları dinleyip taklit ederek ve tekrar ederek (doğru)"
+      "Diyalogları dinleyip taklit ederek ve tekrar ederek"
     ],
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Diyalogları dinleyip taklit ederek ve tekrar ederek (doğru)' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'de dil yapıları diyalogların koro ve bireysel olarak dinlenmesi, taklit edilmesi ve mekanik olarak tekrar edilmesiyle öğrenilir."
   },
   {
     "id": 111,
@@ -2108,7 +2107,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'in dilbilim temeli, Leonard Bloomfield ve Charles Fries'in Amerikan yapısalcı dilbilimine dayanır."
+    "explanation_tr": "Charles Fries'in Ann Arbor Michigan Üniversitesi'nde yapısal dilbilim ilkelerini uygulaması nedeniyle bu yöntem 'Michigan Yöntemi' olarak da bilinir."
   },
   {
     "id": 112,
@@ -2127,16 +2126,16 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Hatalar öğrenme sürecinin doğal ve faydalı bir parçasıdır' seçeneğidir."
+    "explanation_tr": "Davranışçı modele göre hatalar kesinlikle hoş görülmez; anında düzeltilmeyen hataların kalıcı kötü alışkanlıklara (bad habits) dönüşeceğine inanılır."
   },
   {
     "id": 113,
     "method": "isitsel",
     "category": "isitsel",
     "type": "multiple_choice",
-    "question": "İşitsel-Dilsel Yönteme göre aşağadaki öğrenci özelliklerinden hangisi yanlıştır?",
+    "question": "İşitsel-Dilsel Yönteme göre aşağıdaki öğrenci özelliklerinden hangisi yanlıştır?",
     "question_de": "",
-    "question_tr": "İşitsel-Dilsel Yönteme göre aşağadaki öğrenci özelliklerinden hangisi yanlıştır?",
+    "question_tr": "İşitsel-Dilsel Yönteme göre aşağıdaki öğrenci özelliklerinden hangisi yanlıştır?",
     "options": [
       "Öğrenci dersin gidişatının yönlendirilmesinde söz sahibidir.",
       "Öğrencinin duygularına önem verilmez.",
@@ -2146,7 +2145,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Öğrenci dersin gidişatının yönlendirilmesinde söz sahibidir' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem tamamen öğretmen merkezlidir; öğrencinin dersin gidişatını veya içeriğini yönlendirmede hiçbir söz hakkı yoktur."
   },
   {
     "id": 114,
@@ -2165,7 +2164,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 2,
     "correct": 2,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Öğrenci, öğretmenden aldığı bilgilere karşı öğretmeni tarafından verilen uyarılara tepki verip, bilgileri pekiştirerek öğrenir' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'de öğrenci, öğretmenden veya kasetteki uyarandan aldığı modele tepki veren ve aldığı dönütle bilgiyi pekiştiren bir uygulayıcıdır."
   },
   {
     "id": 115,
@@ -2184,7 +2183,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 0,
     "correct": 0,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'in dilbilim temeli, Leonard Bloomfield ve Charles Fries'in Amerikan yapısalcı dilbilimine dayanır."
+    "explanation_tr": "İşitsel-Dilsel Yöntem, Leonard Bloomfield'in Yapısal Dilbilimi ile B. F. Skinner'ın Davranışçı Psikolojisi disiplinleri üzerine inşa edilmiştir."
   },
   {
     "id": 116,
@@ -2203,7 +2202,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem'in dilbilim temeli, Leonard Bloomfield ve Charles Fries'in Amerikan yapısalcı dilbilimine dayanır."
+    "explanation_tr": "Yöntem dinleme &rarr; konuşma &rarr; okuma &rarr; yazma sırasını izler; erken aşamada sözcük sayısı temel yapı kalıplarını otomatikleştirmek için asgari tutulur."
   },
   {
     "id": 117,
@@ -2222,7 +2221,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Çeviriye dayalı klasik metin çözümlemesi' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem çeviriyi tamamen reddeder; çeviriye dayalı metin çözümlemesi bu yöntemin değil, GÜM'ün tekniğidir."
   },
   {
     "id": 118,
@@ -2241,16 +2240,16 @@ const yaklasimlarQuestions = [
     "correctAnswer": 1,
     "correct": 1,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Yöntemin çekirdek savı dil öğrenmenin çeviri ve ezber yönüyle gerçekleşmesidir' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem çeviri ve zihinsel ezbere kesinlikle karşıdır; dilin mekanik tekrarlar ve koşullanma yoluyla kazanılacağını savunur."
   },
   {
     "id": 119,
     "method": "isitsel",
     "category": "isitsel",
     "type": "multiple_choice",
-    "question": "İşitsel Dilsel yöntemde kullanılan alıştırmalardan hangisi KalıpmAlıştırmaları ( Pattern Drills) kategorisinde yer almamaktadır?",
+    "question": "İşitsel Dilsel yöntemde kullanılan alıştırmalardan hangisi Kalıp Alıştırmaları ( Pattern Drills) kategorisinde yer almamaktadır?",
     "question_de": "",
-    "question_tr": "İşitsel Dilsel yöntemde kullanılan alıştırmalardan hangisi KalıpmAlıştırmaları ( Pattern Drills) kategorisinde yer almamaktadır?",
+    "question_tr": "İşitsel Dilsel yöntemde kullanılan alıştırmalardan hangisi Kalıp Alıştırmaları ( Pattern Drills) kategorisinde yer almamaktadır?",
     "options": [
       "Tekrar alıştırması",
       "Geriye doğru genişletme",
@@ -2260,7 +2259,7 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Dil bilgisi oyunu' seçeneğidir."
+    "explanation_tr": "Tekrar, ikame ve genişletme tipik kalıp alıştırmalarıdır; dil bilgisi oyunları ise kalıp alıştırması (pattern drill) kategorisinde yer almaz."
   },
   {
     "id": 120,
@@ -2279,6 +2278,6 @@ const yaklasimlarQuestions = [
     "correctAnswer": 3,
     "correct": 3,
     "explanation_de": "",
-    "explanation_tr": "İşitsel-Dilsel Yöntem ilkelerine göre doğru yanıt 'Ezber ve tekrar çalışmalarının gerçek iletişim becerilerine her zaman aktarılamaması' seçeneğidir."
+    "explanation_tr": "İşitsel-Dilsel Yöntem'e yöneltilen en büyük eleştiri, mekanik kalıp ezberlerinin sınıf dışındaki gerçek, spontane iletişim ortamlarına aktarılamamasıdır."
   }
 ];
