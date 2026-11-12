@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akademik Çalışma ve Sınav Portalı — Philologie & Didaktik</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css?v=2.7" />
+  <link rel="stylesheet" href="style.css?v=2.8" />
 </head>
 <body class="selection:bg-[#c86d51]/30">
 
@@ -103,34 +103,57 @@
     <!-- =========================================================================
          SCREEN 1: LANDING PAGE & COURSE SELECTION
          ========================================================================= -->
-    <section id="landing-screen" class="space-y-4 animate-sheet max-w-md mx-auto pt-8 sm:pt-16">
+    <section id="landing-screen" class="space-y-4 animate-sheet max-w-3xl mx-auto pt-8 sm:pt-16">
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
         <!-- OPTION 1: EDEBİYAT -->
         <button
           type="button"
           data-start-course="edebiyat"
-          class="landing-card p-6 text-center cursor-pointer group hover:border-[var(--accent-primary)] transition-all flex flex-col items-center justify-center gap-3"
+          class="landing-card p-6 text-center cursor-pointer group hover:border-[var(--accent-primary)] transition-all flex flex-col items-center justify-between gap-4"
         >
-          <h3 class="font-serif-editorial text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
-            Edebiyat
-          </h3>
+          <div class="flex flex-col items-center justify-center min-h-[3.25rem]">
+            <h3 class="font-serif-editorial text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+              Edebiyat
+            </h3>
+          </div>
           <span class="nav-btn nav-btn-primary w-full !py-2.5 !text-xs text-center justify-center pointer-events-none">
             Testi Başlat
           </span>
         </button>
 
-        <!-- OPTION 2: YAKLAŞIMLAR -->
+        <!-- OPTION 2: YAKLAŞIMLAR (TÜMÜ) -->
         <button
           type="button"
           data-start-course="yaklasimlar"
-          class="landing-card landing-card-brass p-6 text-center cursor-pointer group hover:border-[var(--accent-brass)] transition-all flex flex-col items-center justify-center gap-3"
+          class="landing-card landing-card-brass p-6 text-center cursor-pointer group hover:border-[var(--accent-brass)] transition-all flex flex-col items-center justify-between gap-4"
         >
-          <h3 class="font-serif-editorial text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors">
-            Yaklaşımlar
-          </h3>
+          <div class="flex flex-col items-center justify-center min-h-[3.25rem]">
+            <h3 class="font-serif-editorial text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-brass)] transition-colors">
+              Yaklaşımlar
+            </h3>
+          </div>
           <span class="nav-btn nav-btn-primary w-full !py-2.5 !text-xs text-center justify-center !bg-[var(--accent-brass)] !border-[var(--accent-brass)] pointer-events-none">
+            Testi Başlat
+          </span>
+        </button>
+
+        <!-- OPTION 3: YAKLAŞIMLAR (SADECE ZOR SORULAR) -->
+        <button
+          type="button"
+          data-start-course="yaklasimlar_zor"
+          class="landing-card landing-card-crimson p-6 text-center cursor-pointer group hover:border-[#b84a39] transition-all flex flex-col items-center justify-between gap-4"
+        >
+          <div class="flex flex-col items-center justify-center min-h-[3.25rem]">
+            <h3 class="font-serif-editorial text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-[#b84a39] transition-colors leading-tight">
+              Yaklaşımlar
+            </h3>
+            <span class="text-[11px] font-mono-tabular uppercase tracking-wider text-[#b84a39] font-semibold mt-1">
+              (Sadece Zor Sorular)
+            </span>
+          </div>
+          <span class="nav-btn nav-btn-primary w-full !py-2.5 !text-xs text-center justify-center !bg-[#b84a39] !border-[#b84a39] hover:!bg-[#9e3d2f] pointer-events-none">
             Testi Başlat
           </span>
         </button>
@@ -387,8 +410,9 @@
 
   </main>
 
-  <script src="questions.js?v=2.7"></script>
-  <script src="yaklasimlar_questions.js?v=2.7"></script>
-  <script src="app.js?v=2.7"></script>
+  <script src="questions.js?v=2.8"></script>
+  <script src="yaklasimlar_questions.js?v=2.8"></script>
+  <script src="yaklasimlar_zor_questions.js?v=2.8"></script>
+  <script src="app.js?v=2.8"></script>
 </body>
 </html>

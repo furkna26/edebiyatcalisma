@@ -477,6 +477,14 @@ body.hide-tr .tr-text {
   border-top-color: var(--accent-brass);
 }
 
+.landing-card-crimson {
+  border-top-color: #b84a39;
+}
+
+.landing-card-crimson:hover {
+  border-top-color: #d15643;
+}
+
 .landing-tag {
   font-family: var(--font-mono);
   font-size: 0.65rem;

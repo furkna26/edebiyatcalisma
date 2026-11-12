@@ -42,6 +42,27 @@
         return `Yöntem · ${catMap[q.category] || 'Didaktik'}`;
       },
       gridColsClass: 'grid-cols-11 sm:grid-cols-18'
+    },
+    yaklasimlar_zor: {
+      id: 'yaklasimlar_zor',
+      titleDe: 'Yaklaşımlar (Zor Sorular)',
+      subtitleDe: 'Didaktik Arşivi · 75 Soru',
+      titleTr: 'Yaklaşımlar ve Yöntemler (Sadece Zor Sorular)',
+      fullTitle: 'Yaklaşımlar ve Yöntemler (Sadece Zor Sorular) — 75 Soru',
+      badgeName: 'Fremdsprachendidaktik · Zor Sorular',
+      getQuestions: () => (typeof yaklasimlarZorQuestions !== 'undefined' ? yaklasimlarZorQuestions : []),
+      filters: [
+        { id: 'all', label: 'Tümü', count: 75 },
+        { id: 'gum', label: 'GÜM', count: 21 },
+        { id: 'dogrudan', label: 'Doğrudan', count: 22 },
+        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 32 }
+      ],
+      filterFn: (q, f) => (f === 'all' ? true : q.category === f),
+      badgeFn: (q) => {
+        const catMap = { gum: 'GÜM (Zor)', dogrudan: 'Doğrudan (Zor)', isitsel: 'İşitsel-Dilsel (Zor)' };
+        return `Zor Soru · ${catMap[q.category] || 'Didaktik'}`;
+      },
+      gridColsClass: 'grid-cols-11 sm:grid-cols-18'
     }
   };
 
@@ -342,7 +363,7 @@
     const total = activeQuestions.length;
     const record = userAnswers[q.id];
     const isAnswered = record && record.status === 'answered';
-    const isYaklasimlar = currentCourse && currentCourse.id === 'yaklasimlar';
+    const isYaklasimlar = currentCourse && (currentCourse.id === 'yaklasimlar' || currentCourse.id === 'yaklasimlar_zor');
 
     // Header Metadata
     if (questionTypeBadge && currentCourse) {
@@ -649,7 +670,7 @@
   function renderReviewList() {
     if (!reviewList || !currentCourse) return;
     reviewList.innerHTML = '';
-    const isYaklasimlar = currentCourse && currentCourse.id === 'yaklasimlar';
+    const isYaklasimlar = currentCourse && (currentCourse.id === 'yaklasimlar' || currentCourse.id === 'yaklasimlar_zor');
 
     const filtered = activeQuestions.filter((q) => {
       const record = userAnswers[q.id];
@@ -824,7 +845,7 @@
 
     // TR toggle button only relevant for bilingual courses (Edebiyat)
     if (toggleTrBtn) {
-      if (courseId === 'yaklasimlar') {
+      if (courseId === 'yaklasimlar' || courseId === 'yaklasimlar_zor') {
         toggleTrBtn.classList.add('hidden');
       } else {
         toggleTrBtn.classList.remove('hidden');
