@@ -25,16 +25,16 @@
     yaklasimlar: {
       id: 'yaklasimlar',
       titleDe: 'Yaklaşımlar ve Yöntemler',
-      subtitleDe: 'Didaktik Arşivi · 171 Soru',
+      subtitleDe: 'Didaktik Arşivi · 120 Soru',
       titleTr: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler',
-      fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (171 Soru)',
+      fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (120 Soru)',
       badgeName: 'Fremdsprachendidaktik & Methoden',
       getQuestions: () => (typeof yaklasimlarQuestions !== 'undefined' ? yaklasimlarQuestions : []),
       filters: [
-        { id: 'all', label: 'Tümü', count: 171 },
-        { id: 'gum', label: 'GÜM', count: 64 },
-        { id: 'dogrudan', label: 'Doğrudan', count: 53 },
-        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 54 }
+        { id: 'all', label: 'Tümü', count: 120 },
+        { id: 'gum', label: 'GÜM', count: 42 },
+        { id: 'dogrudan', label: 'Doğrudan', count: 37 },
+        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 41 }
       ],
       filterFn: (q, f) => (f === 'all' ? true : q.category === f),
       badgeFn: (q) => {
