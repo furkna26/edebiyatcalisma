@@ -1,5 +1,5 @@
 // Akademik Çalışma ve Sınav Portalı — Editorial Multi-Course Exam Engine
-// Handles: Deutsche Literaturwissenschaft (66 Q) & Fremdsprachendidaktik (68 Q)
+// Handles: Deutsche Literaturwissenschaft (66 Q) & Fremdsprachendidaktik (68 Q - Purely Turkish)
 // Features: Landing portal, dynamic filtering, dual shuffle, timer, TR toggle, review ledger & keyboard shortcuts
 
 (function () {
@@ -24,8 +24,8 @@
     },
     yaklasimlar: {
       id: 'yaklasimlar',
-      titleDe: 'Fremdsprachendidaktik',
-      subtitleDe: 'Yaklaşımlar & Yöntemler · 68 Soru',
+      titleDe: 'Yaklaşımlar ve Yöntemler',
+      subtitleDe: 'Didaktik Arşivi · 68 Soru',
       titleTr: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler',
       fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (68 Soru)',
       badgeName: 'Fremdsprachendidaktik & Methoden',
@@ -184,21 +184,17 @@
     const baseList = rawQuestions.filter((q) => course.filterFn(q, filterType));
 
     let cloned = baseList.map((q) => {
-      const originalOptions = q.options.map((opt) =>
-        typeof opt === 'string' ? { de: opt, tr: opt } : { de: opt.de, tr: opt.tr }
-      );
-
       if (!shouldShuffle) {
         return {
           ...q,
-          options: originalOptions,
+          options: [...q.options],
           correctAnswer: q.correctAnswer
         };
       }
 
       // Option Shuffle while preserving correct answer
-      const indexedOptions = originalOptions.map((opt, idx) => ({
-        ...opt,
+      const indexedOptions = q.options.map((opt, idx) => ({
+        val: typeof opt === 'string' ? opt : { ...opt },
         isCorrect: idx === q.correctAnswer
       }));
 
@@ -211,7 +207,7 @@
       const newCorrectIndex = indexedOptions.findIndex((opt) => opt.isCorrect);
       return {
         ...q,
-        options: indexedOptions.map(({ de, tr }) => ({ de, tr })),
+        options: indexedOptions.map((item) => item.val),
         correctAnswer: newCorrectIndex
       };
     });
@@ -338,6 +334,7 @@
     const total = activeQuestions.length;
     const record = userAnswers[q.id];
     const isAnswered = record && record.status === 'answered';
+    const isYaklasimlar = currentCourse && currentCourse.id === 'yaklasimlar';
 
     // Header Metadata
     if (questionTypeBadge && currentCourse) {
@@ -366,12 +363,23 @@
       }
     }
 
-    // Question Stems
-    if (questionDe) {
-      questionDe.textContent = q.question_de;
-    }
-    if (questionTr) {
-      questionTr.textContent = q.question_tr;
+    // Question Stems: Pure Turkish for Yaklasimlar, DE + TR for Edebiyat
+    if (isYaklasimlar) {
+      if (questionDe) {
+        questionDe.textContent = q.question || q.question_tr;
+      }
+      if (questionTr) {
+        questionTr.textContent = '';
+        questionTr.style.display = 'none';
+      }
+    } else {
+      if (questionDe) {
+        questionDe.textContent = q.question_de;
+      }
+      if (questionTr) {
+        questionTr.textContent = q.question_tr;
+        questionTr.style.display = '';
+      }
     }
 
     // Progress Bar & Counter
@@ -412,17 +420,29 @@
           }
         }
 
-        btn.innerHTML = `
-          <span class="option-key">${keyLabel}</span>
-          <div class="space-y-0.5 flex-1 min-w-0">
-            <p class="text-xs sm:text-[14px] font-medium leading-snug text-[var(--text-primary)]">
-              ${opt.de}
-            </p>
-            <p class="tr-text text-[11px] sm:text-[12.5px] leading-snug text-[var(--text-tr)]">
-              ${opt.tr}
-            </p>
-          </div>
-        `;
+        if (isYaklasimlar) {
+          const optText = typeof opt === 'string' ? opt : (opt.tr || opt.de);
+          btn.innerHTML = `
+            <span class="option-key">${keyLabel}</span>
+            <div class="space-y-0.5 flex-1 min-w-0">
+              <p class="text-xs sm:text-[14px] font-medium leading-snug text-[var(--text-primary)]">
+                ${optText}
+              </p>
+            </div>
+          `;
+        } else {
+          btn.innerHTML = `
+            <span class="option-key">${keyLabel}</span>
+            <div class="space-y-0.5 flex-1 min-w-0">
+              <p class="text-xs sm:text-[14px] font-medium leading-snug text-[var(--text-primary)]">
+                ${opt.de}
+              </p>
+              <p class="tr-text text-[11px] sm:text-[12.5px] leading-snug text-[var(--text-tr)]">
+                ${opt.tr}
+              </p>
+            </div>
+          `;
+        }
 
         btn.addEventListener('click', () => {
           selectAnswer(idx);
@@ -432,12 +452,23 @@
       });
     }
 
-    // Explanation Box
+    // Explanation Box: Pure Turkish for Yaklasimlar, DE + TR for Edebiyat
     if (explanationBox) {
       if (isAnswered) {
         explanationBox.classList.remove('hidden');
-        if (explanationDe) explanationDe.textContent = q.explanation_de || '';
-        if (explanationTr) explanationTr.textContent = q.explanation_tr || '';
+        if (isYaklasimlar) {
+          if (explanationDe) explanationDe.textContent = q.explanation || q.explanation_tr || '';
+          if (explanationTr) {
+            explanationTr.textContent = '';
+            explanationTr.style.display = 'none';
+          }
+        } else {
+          if (explanationDe) explanationDe.textContent = q.explanation_de || '';
+          if (explanationTr) {
+            explanationTr.textContent = q.explanation_tr || '';
+            explanationTr.style.display = '';
+          }
+        }
       } else {
         explanationBox.classList.add('hidden');
       }
@@ -610,6 +641,7 @@
   function renderReviewList() {
     if (!reviewList || !currentCourse) return;
     reviewList.innerHTML = '';
+    const isYaklasimlar = currentCourse && currentCourse.id === 'yaklasimlar';
 
     const filtered = activeQuestions.filter((q) => {
       const record = userAnswers[q.id];
@@ -667,18 +699,35 @@
           }
 
           const optKey = q.type === 'true_false' ? (optIdx === 0 ? 'R' : 'F') : String.fromCharCode(65 + optIdx);
+          const optText = typeof opt === 'string' ? opt : (opt.tr || opt.de);
 
-          return `
-            <div style="${itemStyle}" class="rounded p-2 flex items-start gap-2 text-xs">
-              <span style="${keyStyle}" class="w-5 h-5 rounded flex items-center justify-center font-mono-tabular font-bold shrink-0 text-[10px]">${optKey}</span>
-              <div class="min-w-0 flex-1">
-                <p class="font-medium text-[var(--text-primary)] leading-tight">${opt.de}</p>
-                <p class="tr-text text-[11px] text-[var(--text-tr)] mt-0.5 leading-tight">${opt.tr}</p>
+          if (isYaklasimlar) {
+            return `
+              <div style="${itemStyle}" class="rounded p-2 flex items-start gap-2 text-xs">
+                <span style="${keyStyle}" class="w-5 h-5 rounded flex items-center justify-center font-mono-tabular font-bold shrink-0 text-[10px]">${optKey}</span>
+                <div class="min-w-0 flex-1">
+                  <p class="font-medium text-[var(--text-primary)] leading-tight">${optText}</p>
+                </div>
               </div>
-            </div>
-          `;
+            `;
+          } else {
+            return `
+              <div style="${itemStyle}" class="rounded p-2 flex items-start gap-2 text-xs">
+                <span style="${keyStyle}" class="w-5 h-5 rounded flex items-center justify-center font-mono-tabular font-bold shrink-0 text-[10px]">${optKey}</span>
+                <div class="min-w-0 flex-1">
+                  <p class="font-medium text-[var(--text-primary)] leading-tight">${opt.de}</p>
+                  <p class="tr-text text-[11px] text-[var(--text-tr)] mt-0.5 leading-tight">${opt.tr}</p>
+                </div>
+              </div>
+            `;
+          }
         })
         .join('');
+
+      const qTitle = isYaklasimlar ? (q.question || q.question_tr) : q.question_de;
+      const qSub = isYaklasimlar ? '' : `<p class="tr-text text-xs text-[var(--text-tr)] leading-snug">${q.question_tr}</p>`;
+      const explMain = isYaklasimlar ? (q.explanation || q.explanation_tr || '') : (q.explanation_de || '');
+      const explSub = isYaklasimlar ? '' : `<p class="tr-text text-[11px] text-[var(--text-tr)] leading-snug">${q.explanation_tr || ''}</p>`;
 
       card.innerHTML = `
         <div class="flex items-center justify-between gap-2 border-b border-[var(--border-hairline)] pb-2 flex-wrap">
@@ -689,19 +738,17 @@
         </div>
         <div class="space-y-0.5">
           <h4 class="font-serif-editorial text-[15px] sm:text-[16px] font-semibold text-[var(--text-primary)] leading-snug">
-            ${q.question_de}
+            ${qTitle}
           </h4>
-          <p class="tr-text text-xs text-[var(--text-tr)] leading-snug">
-            ${q.question_tr}
-          </p>
+          ${qSub}
         </div>
         <div class="grid grid-cols-1 gap-1.5 pt-1">
           ${optionsHtml}
         </div>
         <div class="footnote-box text-xs space-y-1 mt-2">
           <span class="font-mono-tabular text-[9.5px] uppercase tracking-widest text-[var(--accent-brass)] font-semibold block">Açıklama / Not</span>
-          <p class="text-[var(--text-primary)] font-medium leading-snug">${q.explanation_de || ''}</p>
-          <p class="tr-text text-[11px] text-[var(--text-tr)] leading-snug">${q.explanation_tr || ''}</p>
+          <p class="text-[var(--text-primary)] font-medium leading-snug">${explMain}</p>
+          ${explSub}
         </div>
       `;
 
@@ -765,8 +812,16 @@
       timerContainer.classList.add('flex');
     }
     if (shuffleBtn) shuffleBtn.classList.remove('hidden');
-    if (toggleTrBtn) toggleTrBtn.classList.remove('hidden');
     if (finishExamBtn) finishExamBtn.classList.remove('hidden');
+
+    // TR toggle button only relevant for bilingual courses (Edebiyat)
+    if (toggleTrBtn) {
+      if (courseId === 'yaklasimlar') {
+        toggleTrBtn.classList.add('hidden');
+      } else {
+        toggleTrBtn.classList.remove('hidden');
+      }
+    }
 
     // Screen transitions
     landingScreen.classList.add('hidden');
