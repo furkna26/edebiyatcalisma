@@ -450,31 +450,31 @@ body.hide-tr .tr-text {
 .landing-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  border-left: 3px solid var(--accent-primary);
-  border-radius: 6px;
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 8px;
   box-shadow: var(--shadow-sheet);
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
   width: 100%;
 }
 
 .landing-card:hover {
   transform: translateY(-2px);
   border-color: var(--border-strong);
-  border-left-color: var(--accent-primary);
+  border-top-color: var(--accent-primary);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
 .landing-card-brass {
-  border-left-color: var(--accent-brass);
+  border-top-color: var(--accent-brass);
 }
 
 .landing-card-brass:hover {
-  border-left-color: var(--accent-brass);
+  border-top-color: var(--accent-brass);
 }
 
 .landing-tag {
