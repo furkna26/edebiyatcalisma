@@ -1702,3 +1702,8 @@ const questions = [
     "explanation_tr": "Yanlış! Lessing bir Reform dönemi din adamı (Reformator) değil, 18. yüzyıl Aydınlanma Çağı'nın (Aufklärung) en önemli yazar ve oyun yazarıdır."
   }
 ];
+
+if (typeof window !== 'undefined') {
+  window.questions = questions;
+  window.QUESTIONS = questions;
+}

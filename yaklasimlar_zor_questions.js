@@ -1895,3 +1895,8 @@ window.YAKLASIMLAR_ZOR_QUESTIONS = [
     ]
   }
 ];
+
+if (typeof window !== 'undefined') {
+  window.yaklasimlarZorQuestions = window.YAKLASIMLAR_ZOR_QUESTIONS;
+}
+var yaklasimlarZorQuestions = window.YAKLASIMLAR_ZOR_QUESTIONS;

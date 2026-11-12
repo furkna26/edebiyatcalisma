@@ -12,7 +12,11 @@
       titleTr: 'Deutsche Literaturwissenschaft',
       fullTitle: 'Deutsche Literaturwissenschaft — Sınav Arşivi (66 Soru)',
       badgeName: 'Deutsche Literaturwissenschaft',
-      getQuestions: () => (typeof questions !== 'undefined' ? questions : []),
+      getQuestions: () => {
+        if (typeof window !== 'undefined' && window.QUESTIONS) return window.QUESTIONS;
+        if (typeof questions !== 'undefined') return questions;
+        return [];
+      },
       filters: [
         { id: 'all', label: 'Tümü', count: 66 },
         { id: 'multiple_choice', label: 'Çoktan Seçmeli', count: 56 },
@@ -29,7 +33,12 @@
       titleTr: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler',
       fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (120 Soru)',
       badgeName: 'Fremdsprachendidaktik & Methoden',
-      getQuestions: () => (typeof yaklasimlarQuestions !== 'undefined' ? yaklasimlarQuestions : []),
+      getQuestions: () => {
+        if (typeof window !== 'undefined' && window.YAKLASIMLAR_QUESTIONS) return window.YAKLASIMLAR_QUESTIONS;
+        if (typeof window !== 'undefined' && window.yaklasimlarQuestions) return window.yaklasimlarQuestions;
+        if (typeof yaklasimlarQuestions !== 'undefined') return yaklasimlarQuestions;
+        return [];
+      },
       filters: [
         { id: 'all', label: 'Tümü', count: 120 },
         { id: 'gum', label: 'GÜM', count: 42 },
@@ -46,16 +55,21 @@
     yaklasimlar_zor: {
       id: 'yaklasimlar_zor',
       titleDe: 'Yaklaşımlar (Zor Sorular)',
-      subtitleDe: 'Didaktik Arşivi · 75 Soru',
+      subtitleDe: 'Didaktik Arşivi · 77 Soru',
       titleTr: 'Yaklaşımlar ve Yöntemler (Sadece Zor Sorular)',
-      fullTitle: 'Yaklaşımlar ve Yöntemler (Sadece Zor Sorular) — 75 Soru',
+      fullTitle: 'Yaklaşımlar ve Yöntemler (Sadece Zor Sorular) — 77 Soru',
       badgeName: 'Fremdsprachendidaktik · Zor Sorular',
-      getQuestions: () => (typeof yaklasimlarZorQuestions !== 'undefined' ? yaklasimlarZorQuestions : []),
+      getQuestions: () => {
+        if (typeof window !== 'undefined' && window.YAKLASIMLAR_ZOR_QUESTIONS) return window.YAKLASIMLAR_ZOR_QUESTIONS;
+        if (typeof window !== 'undefined' && window.yaklasimlarZorQuestions) return window.yaklasimlarZorQuestions;
+        if (typeof yaklasimlarZorQuestions !== 'undefined') return yaklasimlarZorQuestions;
+        return [];
+      },
       filters: [
-        { id: 'all', label: 'Tümü', count: 75 },
-        { id: 'gum', label: 'GÜM', count: 21 },
-        { id: 'dogrudan', label: 'Doğrudan', count: 22 },
-        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 32 }
+        { id: 'all', label: 'Tümü', count: 77 },
+        { id: 'gum', label: 'GÜM', count: 22 },
+        { id: 'dogrudan', label: 'Doğrudan', count: 24 },
+        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 31 }
       ],
       filterFn: (q, f) => (f === 'all' ? true : q.category === f),
       badgeFn: (q) => {

@@ -2281,3 +2281,8 @@ window.YAKLASIMLAR_QUESTIONS = [
     "explanation_tr": "İşitsel-Dilsel Yöntem'e yöneltilen en büyük eleştiri, mekanik kalıp ezberlerinin sınıf dışındaki gerçek, spontane iletişim ortamlarına aktarılamamasıdır."
   }
 ];
+
+if (typeof window !== 'undefined') {
+  window.yaklasimlarQuestions = window.YAKLASIMLAR_QUESTIONS;
+}
+var yaklasimlarQuestions = window.YAKLASIMLAR_QUESTIONS;
