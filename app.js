@@ -1,13 +1,54 @@
-// Deutsche Literaturwissenschaft — Editorial & Archival Exam Engine
-// Preserves full 66-question state machine, dual-level shuffle, timer, TR toggle & review filter
+// Akademik Çalışma ve Sınav Portalı — Editorial Multi-Course Exam Engine
+// Handles: Deutsche Literaturwissenschaft (66 Q) & Fremdsprachendidaktik (68 Q)
+// Features: Landing portal, dynamic filtering, dual shuffle, timer, TR toggle, review ledger & keyboard shortcuts
 
 (function () {
+  // Course Registries
+  const COURSES = {
+    edebiyat: {
+      id: 'edebiyat',
+      titleDe: 'Deutsche Literatur',
+      subtitleDe: 'Klausurarchiv · 66 Fragen',
+      titleTr: 'Deutsche Literaturwissenschaft',
+      fullTitle: 'Deutsche Literaturwissenschaft — Sınav Arşivi (66 Soru)',
+      badgeName: 'Deutsche Literaturwissenschaft',
+      getQuestions: () => (typeof questions !== 'undefined' ? questions : []),
+      filters: [
+        { id: 'all', label: 'Tümü', count: 66 },
+        { id: 'multiple_choice', label: 'Çoktan Seçmeli', count: 56 },
+        { id: 'true_false', label: 'R / F', count: 10 }
+      ],
+      filterFn: (q, f) => (f === 'all' ? true : q.type === f),
+      badgeFn: (q) => (q.type === 'multiple_choice' ? 'I. Multiple Choice' : 'II. Richtig / Falsch'),
+      gridColsClass: 'grid-cols-11 sm:grid-cols-16'
+    },
+    yaklasimlar: {
+      id: 'yaklasimlar',
+      titleDe: 'Fremdsprachendidaktik',
+      subtitleDe: 'Yaklaşımlar & Yöntemler · 68 Soru',
+      titleTr: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler',
+      fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (68 Soru)',
+      badgeName: 'Fremdsprachendidaktik & Methoden',
+      getQuestions: () => (typeof yaklasimlarQuestions !== 'undefined' ? yaklasimlarQuestions : []),
+      filters: [
+        { id: 'all', label: 'Tümü', count: 68 },
+        { id: 'gum', label: 'GÜM', count: 20 },
+        { id: 'dogrudan', label: 'Doğrudan', count: 20 },
+        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 28 }
+      ],
+      filterFn: (q, f) => (f === 'all' ? true : q.category === f),
+      badgeFn: (q) => (q.categoryLabel ? `Didaktik · ${q.categoryLabel}` : 'Didaktik Yöntem'),
+      gridColsClass: 'grid-cols-12 sm:grid-cols-17'
+    }
+  };
+
   // State
+  let currentCourse = null;
   let activeFilter = 'all';
   let activeReviewFilter = 'all';
   let activeQuestions = [];
   let currentIndex = 0;
-  // userAnswers stores: { [questionId]: { status: 'answered' | 'skipped', selectedIndex: number | null } }
+  // userAnswers: { [questionId]: { status: 'answered' | 'skipped', selectedIndex: number | null } }
   let userAnswers = {};
   let showTurkish = true;
   let isShuffled = false;
@@ -15,13 +56,14 @@
   let timerInterval = null;
   let isExamFinished = false;
 
-  // DOM Elements
+  // Header & Global DOM Elements
   const mainHeader = document.getElementById('main-header');
+  const headerBackBtn = document.getElementById('header-back-btn');
+  const headerTitle = document.getElementById('header-title');
+  const headerSubtitle = document.getElementById('header-subtitle');
+  const timerContainer = document.getElementById('timer-container');
   const timerDisplay = document.getElementById('timer-display');
   const shuffleBtn = document.getElementById('shuffle-btn');
-  const inlineShuffleBtn = document.getElementById('inline-shuffle-btn');
-  const restartShuffleBtn = document.getElementById('restart-shuffle-btn');
-  const shuffleModeBadge = document.getElementById('shuffle-mode-badge');
   const toggleTrBtn = document.getElementById('toggle-tr-btn');
   const toggleTrDot = document.getElementById('toggle-tr-dot');
   const toggleTrLabel = document.getElementById('toggle-tr-label');
@@ -29,11 +71,13 @@
   const themeToggleLabel = document.getElementById('theme-toggle-label');
   const finishExamBtn = document.getElementById('finish-exam-btn');
 
+  // Screens
+  const landingScreen = document.getElementById('landing-screen');
   const quizScreen = document.getElementById('quiz-screen');
   const resultScreen = document.getElementById('result-screen');
 
-  const filterButtons = document.querySelectorAll('[data-filter]');
-  const reviewFilterButtons = document.querySelectorAll('[data-review-filter]');
+  // Quiz DOM Elements
+  const quizFilterContainer = document.getElementById('quiz-filter-container');
   const liveCorrect = document.getElementById('live-correct');
   const liveWrong = document.getElementById('live-wrong');
   const liveSkipped = document.getElementById('live-skipped');
@@ -43,6 +87,7 @@
   const progressBar = document.getElementById('progress-bar');
 
   const questionTypeBadge = document.getElementById('question-type-badge');
+  const shuffleModeBadge = document.getElementById('shuffle-mode-badge');
   const questionStatusBadge = document.getElementById('question-status-badge');
   const questionDe = document.getElementById('question-de');
   const questionTr = document.getElementById('question-tr');
@@ -57,14 +102,19 @@
   const nextBtn = document.getElementById('next-btn');
   const nextBtnLabel = document.getElementById('next-btn-label');
   const questionGrid = document.getElementById('question-grid');
+  const matrixCourseLabel = document.getElementById('matrix-course-label');
 
-  // Results DOM
+  // Results DOM Elements
+  const resCourseName = document.getElementById('res-course-name');
   const resTime = document.getElementById('res-time');
   const resCorrect = document.getElementById('res-correct');
   const resWrong = document.getElementById('res-wrong');
   const resSkipped = document.getElementById('res-skipped');
   const resPercent = document.getElementById('res-percent');
   const restartBtn = document.getElementById('restart-btn');
+  const restartShuffleBtn = document.getElementById('restart-shuffle-btn');
+  const changeCourseBtn = document.getElementById('change-course-btn');
+  const reviewFilterButtons = document.querySelectorAll('[data-review-filter]');
   const reviewList = document.getElementById('review-list');
 
   // Theme Initialization (Editorial Ink Dark vs Archival Paper Light)
@@ -97,143 +147,155 @@
     'scroll',
     () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 28) {
+      if (currentScrollY > lastScrollY && currentScrollY > 32) {
         mainHeader.classList.add('header-hidden');
       } else {
         mainHeader.classList.remove('header-hidden');
       }
-      lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+      lastScrollY = currentScrollY;
     },
     { passive: true }
   );
 
-  // Fisher-Yates Array Shuffle
-  function shuffleArray(arr) {
-    const copy = [...arr];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
+  // Timer Management
+  function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      elapsedSeconds++;
+      updateTimerDisplay();
+    }, 1000);
+    updateTimerDisplay();
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+  }
+
+  function updateTimerDisplay() {
+    const mins = Math.floor(elapsedSeconds / 60);
+    const secs = elapsedSeconds % 60;
+    const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if (timerDisplay) timerDisplay.textContent = formatted;
   }
 
   // Deep Clone and optionally Shuffle Questions & Options
-  function buildQuestionList(filterType, shouldShuffle) {
-    const baseList =
-      filterType === 'all'
-        ? questions
-        : questions.filter((q) => q.type === filterType);
+  function buildQuestionList(course, filterType, shouldShuffle) {
+    const rawQuestions = course.getQuestions();
+    const baseList = rawQuestions.filter((q) => course.filterFn(q, filterType));
 
-    let cloned = baseList.map((q) => ({
-      ...q,
-      options: q.options.map((opt) => ({ ...opt }))
-    }));
+    let cloned = baseList.map((q) => {
+      const originalOptions = q.options.map((opt) =>
+        typeof opt === 'string' ? { de: opt, tr: opt } : { de: opt.de, tr: opt.tr }
+      );
 
-    if (shouldShuffle) {
-      cloned = shuffleArray(cloned);
-
-      cloned = cloned.map((q) => {
-        const taggedOptions = q.options.map((opt, idx) => ({
-          opt,
-          isCorrect: idx === q.correctAnswer
-        }));
-        const shuffledTagged = shuffleArray(taggedOptions);
-        const newCorrectIndex = shuffledTagged.findIndex((item) => item.isCorrect);
+      if (!shouldShuffle) {
         return {
           ...q,
-          options: shuffledTagged.map((item) => item.opt),
-          correctAnswer: newCorrectIndex
+          options: originalOptions,
+          correctAnswer: q.correctAnswer
         };
-      });
+      }
+
+      // Option Shuffle while preserving correct answer
+      const indexedOptions = originalOptions.map((opt, idx) => ({
+        ...opt,
+        isCorrect: idx === q.correctAnswer
+      }));
+
+      // Fisher-Yates for options
+      for (let i = indexedOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indexedOptions[i], indexedOptions[j]] = [indexedOptions[j], indexedOptions[i]];
+      }
+
+      const newCorrectIndex = indexedOptions.findIndex((opt) => opt.isCorrect);
+      return {
+        ...q,
+        options: indexedOptions.map(({ de, tr }) => ({ de, tr })),
+        correctAnswer: newCorrectIndex
+      };
+    });
+
+    if (shouldShuffle) {
+      // Fisher-Yates for questions
+      for (let i = cloned.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cloned[i], cloned[j]] = [cloned[j], cloned[i]];
+      }
     }
 
     return cloned;
   }
 
-  // Format question text with dynamic index when shuffled
-  function formatQuestionTitle(rawText, displayNumber) {
-    if (!isShuffled) return rawText;
-    const stripped = rawText.replace(/^(\d+[-.]\s*|R\/F\s*\d+:\s*|D\/Y\s*\d+:\s*)/i, '');
-    return `${displayNumber}. ${stripped}`;
+  // Build Quiz Filter Tab Bar dynamically based on current course
+  function renderFilterTabs() {
+    if (!quizFilterContainer || !currentCourse) return;
+    quizFilterContainer.innerHTML = '';
+
+    currentCourse.filters.forEach((filter) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `filter-tab ${activeFilter === filter.id ? 'active' : ''}`;
+      btn.setAttribute('data-filter', filter.id);
+      btn.innerHTML = `${filter.label} <span class="font-mono-tabular text-[10px] opacity-75">(${filter.count})</span>`;
+      btn.addEventListener('click', () => {
+        applyFilter(filter.id, isShuffled);
+      });
+      quizFilterContainer.appendChild(btn);
+    });
+
+    // Add inline shuffle button
+    const inlineShuffle = document.createElement('button');
+    inlineShuffle.type = 'button';
+    inlineShuffle.className = 'filter-tab !text-[var(--accent-primary)] hover:!bg-[var(--accent-primary-soft)] font-semibold';
+    inlineShuffle.title = 'Soru sırasını ve şıkların yerini karıştır';
+    inlineShuffle.innerHTML = '↻ Karıştır';
+    inlineShuffle.addEventListener('click', () => {
+      applyFilter(activeFilter, true);
+    });
+    quizFilterContainer.appendChild(inlineShuffle);
   }
 
-  // Format seconds as MM:SS
-  function formatTime(totalSeconds) {
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-  }
-
-  function startTimer() {
-    stopTimer();
-    timerInterval = setInterval(() => {
-      elapsedSeconds++;
-      timerDisplay.textContent = formatTime(elapsedSeconds);
-    }, 1000);
-  }
-
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  }
-
-  // Initialize / Reset Quiz
-  function initQuiz(filterType = activeFilter, shuffleMode = isShuffled) {
+  // Apply Filter or Shuffle mode
+  function applyFilter(filterType, shuffleMode) {
+    if (!currentCourse) return;
     activeFilter = filterType;
     isShuffled = shuffleMode;
-    activeQuestions = buildQuestionList(activeFilter, isShuffled);
-
+    activeQuestions = buildQuestionList(currentCourse, activeFilter, isShuffled);
     currentIndex = 0;
-    userAnswers = {};
-    elapsedSeconds = 0;
-    isExamFinished = false;
-    timerDisplay.textContent = '00:00';
 
-    quizScreen.classList.remove('hidden');
-    resultScreen.classList.add('hidden');
-    finishExamBtn.classList.remove('hidden');
+    // Update filter tabs active state
+    const tabs = quizFilterContainer.querySelectorAll('[data-filter]');
+    tabs.forEach((tab) => {
+      if (tab.getAttribute('data-filter') === activeFilter) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
 
-    if (isShuffled) {
-      shuffleModeBadge.classList.remove('hidden');
-      shuffleModeBadge.classList.add('inline-flex');
-    } else {
-      shuffleModeBadge.classList.add('hidden');
-      shuffleModeBadge.classList.remove('inline-flex');
+    // Update shuffle badges & button label
+    if (shuffleModeBadge) {
+      if (isShuffled) {
+        shuffleModeBadge.classList.remove('hidden');
+        shuffleModeBadge.classList.add('inline-flex');
+      } else {
+        shuffleModeBadge.classList.add('hidden');
+        shuffleModeBadge.classList.remove('inline-flex');
+      }
     }
 
-    updateFilterButtonsUI();
-    startTimer();
+    if (shuffleBtn) {
+      shuffleBtn.classList.toggle('ctrl-btn-accent', isShuffled);
+    }
+
     renderCurrentQuestion();
-    updateLiveStats();
     renderQuestionGrid();
+    updateLiveLedger();
   }
 
-  function updateFilterButtonsUI() {
-    filterButtons.forEach((btn) => {
-      const f = btn.getAttribute('data-filter');
-      if (f === activeFilter) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-  }
-
-  function updateReviewFilterButtonsUI() {
-    reviewFilterButtons.forEach((btn) => {
-      const rf = btn.getAttribute('data-review-filter');
-      if (rf === activeReviewFilter) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-  }
-
-  // Compute Stats
-  function getStats() {
+  // Calculate live D / Y / B scores
+  function calculateStats() {
     let correct = 0;
     let wrong = 0;
     let skipped = 0;
@@ -241,10 +303,10 @@
     activeQuestions.forEach((q) => {
       const record = userAnswers[q.id];
       if (!record || record.status === 'skipped') {
-        if (record && record.status === 'skipped') {
-          skipped++;
-        }
-      } else if (record.status === 'answered') {
+        if (record && record.status === 'skipped') skipped++;
+        return;
+      }
+      if (record.status === 'answered') {
         if (record.selectedIndex === q.correctAnswer) {
           correct++;
         } else {
@@ -257,170 +319,168 @@
     return {
       correct,
       wrong,
-      explicitSkipped: skipped,
-      finalSkipped: totalUnansweredOrSkipped
+      skipped,
+      totalUnansweredOrSkipped
     };
   }
 
-  function updateLiveStats() {
-    const stats = getStats();
-    liveCorrect.textContent = stats.correct;
-    liveWrong.textContent = stats.wrong;
-    liveSkipped.textContent = stats.explicitSkipped;
+  function updateLiveLedger() {
+    const stats = calculateStats();
+    if (liveCorrect) liveCorrect.textContent = stats.correct;
+    if (liveWrong) liveWrong.textContent = stats.wrong;
+    if (liveSkipped) liveSkipped.textContent = stats.skipped;
   }
 
   // Render Current Question
   function renderCurrentQuestion() {
+    if (!activeQuestions || activeQuestions.length === 0) return;
     const q = activeQuestions[currentIndex];
     const total = activeQuestions.length;
     const record = userAnswers[q.id];
     const isAnswered = record && record.status === 'answered';
-    const isSkipped = record && record.status === 'skipped';
 
-    // Tabular Progress Bar
-    const pct = Math.round(((currentIndex + 1) / total) * 100);
-    const numStr = String(currentIndex + 1).padStart(2, '0');
-    const totalStr = String(total).padStart(2, '0');
-    progressText.textContent = `${numStr} / ${totalStr}`;
-    progressPercent.textContent = `(${pct}%)`;
-    progressBar.style.width = `${pct}%`;
-
-    // Editorial Section Classification
-    if (q.type === 'true_false') {
-      questionTypeBadge.textContent = 'II. Richtig / Falsch · Doğru / Yanlış';
-    } else {
-      questionTypeBadge.textContent = 'I. Multiple Choice · Çoktan Seçmeli';
+    // Header Metadata
+    if (questionTypeBadge && currentCourse) {
+      questionTypeBadge.textContent = currentCourse.badgeFn(q);
     }
 
-    // Status Stamp on Question Sheet
-    if (isAnswered) {
-      const isRight = record.selectedIndex === q.correctAnswer;
-      questionStatusBadge.classList.remove('hidden');
-      if (isRight) {
-        questionStatusBadge.textContent = 'Richtig · Doğru';
-        questionStatusBadge.style.backgroundColor = 'var(--status-correct-bg)';
-        questionStatusBadge.style.borderColor = 'var(--status-correct-border)';
-        questionStatusBadge.style.color = 'var(--status-correct-text)';
-      } else {
-        questionStatusBadge.textContent = 'Falsch · Yanlış';
-        questionStatusBadge.style.backgroundColor = 'var(--status-wrong-bg)';
-        questionStatusBadge.style.borderColor = 'var(--status-wrong-border)';
-        questionStatusBadge.style.color = 'var(--status-wrong-text)';
-      }
-    } else if (isSkipped) {
-      questionStatusBadge.classList.remove('hidden');
-      questionStatusBadge.textContent = 'Übersprungen · Boş';
-      questionStatusBadge.style.backgroundColor = 'var(--status-skip-bg)';
-      questionStatusBadge.style.borderColor = 'var(--status-skip-border)';
-      questionStatusBadge.style.color = 'var(--status-skip-text)';
-    } else {
-      questionStatusBadge.classList.add('hidden');
-    }
-
-    // Question Stem
-    questionDe.textContent = formatQuestionTitle(q.question_de, currentIndex + 1);
-    questionTr.textContent = formatQuestionTitle(q.question_tr, currentIndex + 1);
-
-    // Options Layout
-    if (q.type === 'true_false') {
-      optionsContainer.className = 'grid grid-cols-2 gap-2.5 pt-0.5';
-    } else {
-      optionsContainer.className = 'grid grid-cols-1 gap-2 pt-0.5';
-    }
-
-    optionsContainer.innerHTML = '';
-    const letters = ['A', 'B', 'C', 'D'];
-
-    q.options.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.disabled = isAnswered;
-
-      let stateClass = 'option-btn';
-      if (isAnswered) {
-        if (idx === q.correctAnswer) {
-          stateClass += ' option-correct';
-        } else if (idx === record.selectedIndex && idx !== q.correctAnswer) {
-          stateClass += ' option-wrong';
+    // Status Badge (Doğru / Yanlış / Boş)
+    if (questionStatusBadge) {
+      if (record) {
+        questionStatusBadge.classList.remove('hidden');
+        if (record.status === 'skipped') {
+          questionStatusBadge.className =
+            'font-mono-tabular text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border border-[var(--status-skip-border)] text-[var(--status-skip-text)] bg-[var(--status-skip-bg)]';
+          questionStatusBadge.textContent = 'Boş Bırakıldı';
+        } else if (record.selectedIndex === q.correctAnswer) {
+          questionStatusBadge.className =
+            'font-mono-tabular text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border border-[var(--status-correct-border)] text-[var(--status-correct-text)] bg-[var(--status-correct-bg)]';
+          questionStatusBadge.textContent = 'Doğru Cevap';
         } else {
-          stateClass += ' option-muted';
+          questionStatusBadge.className =
+            'font-mono-tabular text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border border-[var(--status-wrong-border)] text-[var(--status-wrong-text)] bg-[var(--status-wrong-bg)]';
+          questionStatusBadge.textContent = 'Yanlış Cevap';
         }
+      } else {
+        questionStatusBadge.classList.add('hidden');
       }
-
-      btn.className = stateClass;
-
-      const keyLabel =
-        q.type === 'true_false'
-          ? opt.de.toLowerCase().includes('richtig')
-            ? 'R'
-            : 'F'
-          : letters[idx];
-
-      btn.innerHTML = `
-        <span class="option-key">${keyLabel}</span>
-        <div class="space-y-0.5 flex-1 min-w-0">
-          <div class="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] leading-snug">${opt.de}</div>
-          <div class="tr-text text-[11.5px] sm:text-xs text-[var(--text-tr)] leading-snug">${opt.tr}</div>
-        </div>
-      `;
-
-      btn.addEventListener('click', () => handleSelectOption(idx));
-      optionsContainer.appendChild(btn);
-    });
-
-    // Explanation Footnote Box
-    if (isAnswered) {
-      explanationDe.textContent = q.explanation_de;
-      explanationTr.textContent = q.explanation_tr;
-      explanationBox.classList.remove('hidden');
-    } else {
-      explanationBox.classList.add('hidden');
     }
 
-    // Navigation Controls State
-    prevBtn.disabled = currentIndex === 0;
-    skipBtn.disabled = isAnswered;
-
-    if (currentIndex === total - 1) {
-      nextBtnLabel.textContent = 'Auswertung (Bitir)';
-    } else {
-      nextBtnLabel.textContent = 'Weiter (İleri)';
+    // Question Stems
+    if (questionDe) {
+      questionDe.textContent = q.question_de;
+    }
+    if (questionTr) {
+      questionTr.textContent = q.question_tr;
     }
 
+    // Progress Bar & Counter
+    const numDisplay = String(currentIndex + 1).padStart(2, '0');
+    const totalDisplay = String(total).padStart(2, '0');
+    const percent = Math.round(((currentIndex + 1) / total) * 100);
+    if (progressText) progressText.textContent = `${numDisplay} / ${totalDisplay}`;
+    if (progressPercent) progressPercent.textContent = `(${percent}%)`;
+    if (progressBar) progressBar.style.width = `${percent}%`;
+
+    // Render Options
+    if (optionsContainer) {
+      optionsContainer.innerHTML = '';
+      const isTrueFalse = q.type === 'true_false';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn group';
+        btn.disabled = isAnswered;
+
+        // Keycap label
+        let keyLabel = '';
+        if (isTrueFalse) {
+          keyLabel = idx === 0 ? 'R' : 'F';
+        } else {
+          keyLabel = String.fromCharCode(65 + idx); // A, B, C, D
+        }
+
+        // Apply Answered Styles
+        if (isAnswered) {
+          if (idx === q.correctAnswer) {
+            btn.classList.add('option-correct');
+          } else if (idx === record.selectedIndex) {
+            btn.classList.add('option-wrong');
+          } else {
+            btn.classList.add('option-muted');
+          }
+        }
+
+        btn.innerHTML = `
+          <span class="option-key">${keyLabel}</span>
+          <div class="space-y-0.5 flex-1 min-w-0">
+            <p class="text-xs sm:text-[14px] font-medium leading-snug text-[var(--text-primary)]">
+              ${opt.de}
+            </p>
+            <p class="tr-text text-[11px] sm:text-[12.5px] leading-snug text-[var(--text-tr)]">
+              ${opt.tr}
+            </p>
+          </div>
+        `;
+
+        btn.addEventListener('click', () => {
+          selectAnswer(idx);
+        });
+
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    // Explanation Box
+    if (explanationBox) {
+      if (isAnswered) {
+        explanationBox.classList.remove('hidden');
+        if (explanationDe) explanationDe.textContent = q.explanation_de || '';
+        if (explanationTr) explanationTr.textContent = q.explanation_tr || '';
+      } else {
+        explanationBox.classList.add('hidden');
+      }
+    }
+
+    // Update Bottom Nav Buttons
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) {
+      if (currentIndex === total - 1) {
+        if (nextBtnLabel) nextBtnLabel.textContent = 'Sonucu Gör (Abschließen)';
+      } else {
+        if (nextBtnLabel) nextBtnLabel.textContent = 'Weiter (İleri)';
+      }
+    }
+
+    updateQuestionGridHighlight();
+  }
+
+  // Option selection handler
+  function selectAnswer(selectedIndex) {
+    const q = activeQuestions[currentIndex];
+    userAnswers[q.id] = {
+      status: 'answered',
+      selectedIndex: selectedIndex
+    };
+
+    updateLiveLedger();
+    renderCurrentQuestion();
     renderQuestionGrid();
   }
 
-  // Handle Option Selection
-  function handleSelectOption(selectedIndex) {
+  // Skip question handler
+  function skipCurrentQuestion() {
     const q = activeQuestions[currentIndex];
-    if (!q || selectedIndex < 0 || selectedIndex >= q.options.length) return;
-
-    const existing = userAnswers[q.id];
-    if (existing && existing.status === 'answered') {
-      return;
-    }
-
-    userAnswers[q.id] = {
-      status: 'answered',
-      selectedIndex
-    };
-
-    updateLiveStats();
-    renderCurrentQuestion();
-  }
-
-  // Handle Skip ("Boş Bırak")
-  function handleSkipQuestion() {
-    const q = activeQuestions[currentIndex];
-    const existing = userAnswers[q.id];
-    if (!existing || existing.status !== 'answered') {
+    if (!userAnswers[q.id] || userAnswers[q.id].status !== 'answered') {
       userAnswers[q.id] = {
         status: 'skipped',
         selectedIndex: null
       };
     }
 
-    updateLiveStats();
+    updateLiveLedger();
+    renderQuestionGrid();
 
     if (currentIndex < activeQuestions.length - 1) {
       currentIndex++;
@@ -430,277 +490,476 @@
     }
   }
 
-  // Render 66-Question Matrix Grid
+  // Navigation handlers
+  function goToPrev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderCurrentQuestion();
+    }
+  }
+
+  function goToNext() {
+    if (currentIndex < activeQuestions.length - 1) {
+      currentIndex++;
+      renderCurrentQuestion();
+    } else {
+      finishExam();
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    if (idx >= 0 && idx < activeQuestions.length) {
+      currentIndex = idx;
+      renderCurrentQuestion();
+    }
+  }
+
+  // Render collapsible question index matrix
   function renderQuestionGrid() {
+    if (!questionGrid || !currentCourse) return;
     questionGrid.innerHTML = '';
+    questionGrid.className = `grid ${currentCourse.gridColsClass} gap-1 pt-2.5 mt-2 border-t border-[var(--border-hairline)]`;
+
+    if (matrixCourseLabel) {
+      matrixCourseLabel.textContent = `(${activeQuestions.length})`;
+    }
+
     activeQuestions.forEach((q, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = String(idx + 1).padStart(2, '0');
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'matrix-cell';
+      cell.textContent = String(idx + 1).padStart(2, '0');
+      cell.title = `Soru ${idx + 1}`;
 
       const record = userAnswers[q.id];
-      let cellClass = 'matrix-cell';
-
-      if (record && record.status === 'answered') {
-        if (record.selectedIndex === q.correctAnswer) {
-          cellClass += ' is-correct';
-        } else {
-          cellClass += ' is-wrong';
+      if (record) {
+        if (record.status === 'skipped') {
+          cell.classList.add('is-skipped');
+        } else if (record.status === 'answered') {
+          if (record.selectedIndex === q.correctAnswer) {
+            cell.classList.add('is-correct');
+          } else {
+            cell.classList.add('is-wrong');
+          }
         }
-      } else if (record && record.status === 'skipped') {
-        cellClass += ' is-skipped';
       }
 
       if (idx === currentIndex) {
-        cellClass += ' is-current';
+        cell.classList.add('is-current');
       }
 
-      btn.className = cellClass;
-      btn.addEventListener('click', () => {
-        currentIndex = idx;
-        renderCurrentQuestion();
+      cell.addEventListener('click', () => {
+        jumpToQuestion(idx);
       });
 
-      questionGrid.appendChild(btn);
+      questionGrid.appendChild(cell);
     });
   }
 
-  // Finish Exam & Transition to Evaluation Dossier
+  function updateQuestionGridHighlight() {
+    if (!questionGrid) return;
+    const cells = questionGrid.querySelectorAll('.matrix-cell');
+    cells.forEach((cell, idx) => {
+      if (idx === currentIndex) {
+        cell.classList.add('is-current');
+      } else {
+        cell.classList.remove('is-current');
+      }
+    });
+  }
+
+  // Complete Exam and Switch to Results
   function finishExam() {
     isExamFinished = true;
     stopTimer();
 
-    const stats = getStats();
+    const stats = calculateStats();
     const total = activeQuestions.length;
-    const percentage = total > 0 ? Math.round((stats.correct / total) * 100) : 0;
+    const successRate = total > 0 ? Math.round((stats.correct / total) * 100) : 0;
 
-    resTime.textContent = formatTime(elapsedSeconds);
-    resCorrect.textContent = stats.correct;
-    resWrong.textContent = stats.wrong;
-    resSkipped.textContent = stats.finalSkipped;
-    resPercent.textContent = `${percentage}%`;
+    if (resCourseName && currentCourse) {
+      resCourseName.textContent = currentCourse.fullTitle;
+    }
 
-    activeReviewFilter = 'all';
-    updateReviewFilterButtonsUI();
+    const mins = Math.floor(elapsedSeconds / 60);
+    const secs = elapsedSeconds % 60;
+    if (resTime) {
+      resTime.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+    if (resCorrect) resCorrect.textContent = stats.correct;
+    if (resWrong) resWrong.textContent = stats.wrong;
+    if (resSkipped) resSkipped.textContent = total - (stats.correct + stats.wrong);
+    if (resPercent) resPercent.textContent = `%${successRate}`;
 
+    // Switch Screens
+    landingScreen.classList.add('hidden');
     quizScreen.classList.add('hidden');
-    finishExamBtn.classList.add('hidden');
     resultScreen.classList.remove('hidden');
 
+    // Controls visibility in result screen
+    if (finishExamBtn) finishExamBtn.classList.add('hidden');
+    if (shuffleBtn) shuffleBtn.classList.add('hidden');
+    if (headerBackBtn) headerBackBtn.classList.remove('hidden');
+
+    activeReviewFilter = 'all';
     renderReviewList();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Render Review List with Filter Support
+  // Render Detailed Review List in Result Screen
   function renderReviewList() {
+    if (!reviewList || !currentCourse) return;
     reviewList.innerHTML = '';
-    const letters = ['A', 'B', 'C', 'D'];
-    let visibleCount = 0;
 
-    activeQuestions.forEach((q, idx) => {
+    const filtered = activeQuestions.filter((q) => {
       const record = userAnswers[q.id];
-      const isAnswered = record && record.status === 'answered';
-      const isRight = isAnswered && record.selectedIndex === q.correctAnswer;
-      const isWrong = isAnswered && !isRight;
-      const isSkippedOrBlank = !isAnswered;
-
-      if (activeReviewFilter === 'correct' && !isRight) return;
-      if (activeReviewFilter === 'wrong' && !isWrong) return;
-      if (activeReviewFilter === 'skipped' && !isSkippedOrBlank) return;
-
-      visibleCount++;
-
-      let statusStamp = '';
-      if (isRight) {
-        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-correct-bg);border-color:var(--status-correct-border);color:var(--status-correct-text)">Richtig · Doğru</span>`;
-      } else if (isWrong) {
-        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-wrong-bg);border-color:var(--status-wrong-border);color:var(--status-wrong-text)">Falsch · Yanlış</span>`;
-      } else {
-        statusStamp = `<span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border" style="background:var(--status-skip-bg);border-color:var(--status-skip-border);color:var(--status-skip-text)">Offen · Boş</span>`;
+      if (activeReviewFilter === 'all') return true;
+      if (activeReviewFilter === 'correct') {
+        return record && record.status === 'answered' && record.selectedIndex === q.correctAnswer;
       }
+      if (activeReviewFilter === 'wrong') {
+        return record && record.status === 'answered' && record.selectedIndex !== q.correctAnswer;
+      }
+      if (activeReviewFilter === 'skipped') {
+        return !record || record.status === 'skipped';
+      }
+      return true;
+    });
 
-      const userOpt = isAnswered ? q.options[record.selectedIndex] : null;
-      const correctOpt = q.options[q.correctAnswer];
-
-      const userPrefix =
-        isAnswered && q.type === 'multiple_choice' ? `[${letters[record.selectedIndex]}] ` : '';
-      const correctPrefix =
-        q.type === 'multiple_choice' ? `[${letters[q.correctAnswer]}] ` : '';
-
-      const userAnswerHtml = userOpt
-        ? `<div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:${
-            isRight ? 'var(--status-correct-border)' : 'var(--status-wrong-border)'
-          }">
-            <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:${
-              isRight ? 'var(--status-correct-text)' : 'var(--status-wrong-text)'
-            }">Senin Cevabın · Deine Antwort</div>
-            <div class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">${userPrefix}${userOpt.de}</div>
-            <div class="tr-text text-[11px] text-[var(--text-tr)]">${userOpt.tr}</div>
-          </div>`
-        : `<div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:var(--status-skip-border)">
-            <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:var(--status-skip-text)">Senin Cevabın · Deine Antwort</div>
-            <div class="text-xs sm:text-sm font-medium text-[var(--text-secondary)]">Boş Bırakıldı · Übersprungen</div>
-          </div>`;
-
-      const correctAnswerHtml = `
-        <div class="editorial-subsheet p-2.5 border-l-2" style="border-left-color:var(--status-correct-border)">
-          <div class="font-mono-tabular text-[10px] uppercase tracking-wider mb-0.5" style="color:var(--status-correct-text)">Doğru Cevap · Richtige Antwort</div>
-          <div class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">${correctPrefix}${correctOpt.de}</div>
-          <div class="tr-text text-[11px] text-[var(--text-tr)]">${correctOpt.tr}</div>
+    if (filtered.length === 0) {
+      reviewList.innerHTML = `
+        <div class="editorial-sheet p-6 text-center text-[var(--text-muted)] text-xs font-mono-tabular">
+          Bu filtreye uygun soru bulunamadı.
         </div>
       `;
+      return;
+    }
+
+    filtered.forEach((q, idx) => {
+      const record = userAnswers[q.id];
+      const isAnswered = record && record.status === 'answered';
+      const isCorrect = isAnswered && record.selectedIndex === q.correctAnswer;
+      const isSkipped = !record || record.status === 'skipped';
+
+      let statusBadgeHtml = '';
+      if (isCorrect) {
+        statusBadgeHtml = `<span class="px-2 py-0.5 rounded text-[10px] font-mono-tabular font-semibold border border-[var(--status-correct-border)] text-[var(--status-correct-text)] bg-[var(--status-correct-bg)]">Doğru</span>`;
+      } else if (isSkipped) {
+        statusBadgeHtml = `<span class="px-2 py-0.5 rounded text-[10px] font-mono-tabular font-semibold border border-[var(--status-skip-border)] text-[var(--status-skip-text)] bg-[var(--status-skip-bg)]">Boş</span>`;
+      } else {
+        statusBadgeHtml = `<span class="px-2 py-0.5 rounded text-[10px] font-mono-tabular font-semibold border border-[var(--status-wrong-border)] text-[var(--status-wrong-text)] bg-[var(--status-wrong-bg)]">Yanlış</span>`;
+      }
 
       const card = document.createElement('article');
       card.className = 'editorial-sheet p-3.5 sm:p-4 space-y-2.5';
+
+      const optionsHtml = q.options
+        .map((opt, optIdx) => {
+          let itemStyle = 'background-color: var(--bg-subtle); border: 1px solid var(--border-hairline);';
+          let keyStyle = 'background-color: var(--bg-elevated); border: 1px solid var(--border-hairline); color: var(--text-secondary);';
+
+          if (optIdx === q.correctAnswer) {
+            itemStyle = 'background-color: var(--status-correct-bg); border: 1px solid var(--status-correct-border); border-left: 3px solid var(--status-correct-border);';
+            keyStyle = 'background-color: var(--status-correct-border); color: #fff;';
+          } else if (isAnswered && optIdx === record.selectedIndex && !isCorrect) {
+            itemStyle = 'background-color: var(--status-wrong-bg); border: 1px solid var(--status-wrong-border); border-left: 3px solid var(--status-wrong-border);';
+            keyStyle = 'background-color: var(--status-wrong-border); color: #fff;';
+          }
+
+          const optKey = q.type === 'true_false' ? (optIdx === 0 ? 'R' : 'F') : String.fromCharCode(65 + optIdx);
+
+          return `
+            <div style="${itemStyle}" class="rounded p-2 flex items-start gap-2 text-xs">
+              <span style="${keyStyle}" class="w-5 h-5 rounded flex items-center justify-center font-mono-tabular font-bold shrink-0 text-[10px]">${optKey}</span>
+              <div class="min-w-0 flex-1">
+                <p class="font-medium text-[var(--text-primary)] leading-tight">${opt.de}</p>
+                <p class="tr-text text-[11px] text-[var(--text-tr)] mt-0.5 leading-tight">${opt.tr}</p>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
       card.innerHTML = `
-        <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-[var(--border-hairline)]">
-          <span class="font-mono-tabular text-[11px] font-semibold text-[var(--text-muted)]">
-            #${String(idx + 1).padStart(2, '0')} · ${
-              q.type === 'true_false' ? 'Richtig / Falsch' : 'Multiple Choice'
-            }
+        <div class="flex items-center justify-between gap-2 border-b border-[var(--border-hairline)] pb-2 flex-wrap">
+          <span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)]">
+            Soru ${idx + 1} · ${currentCourse.badgeFn(q)}
           </span>
-          ${statusStamp}
+          ${statusBadgeHtml}
         </div>
         <div class="space-y-0.5">
-          <h4 class="font-serif-editorial text-sm sm:text-[16px] font-semibold text-[var(--text-primary)] leading-snug">${formatQuestionTitle(
-            q.question_de,
-            idx + 1
-          )}</h4>
-          <p class="tr-text text-xs text-[var(--text-tr)] leading-snug">${formatQuestionTitle(
-            q.question_tr,
-            idx + 1
-          )}</p>
+          <h4 class="font-serif-editorial text-[15px] sm:text-[16px] font-semibold text-[var(--text-primary)] leading-snug">
+            ${q.question_de}
+          </h4>
+          <p class="tr-text text-xs text-[var(--text-tr)] leading-snug">
+            ${q.question_tr}
+          </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          ${userAnswerHtml}
-          ${correctAnswerHtml}
+        <div class="grid grid-cols-1 gap-1.5 pt-1">
+          ${optionsHtml}
         </div>
-        <div class="footnote-box space-y-0.5">
-          <div class="font-mono-tabular text-[10px] font-semibold uppercase tracking-widest text-[var(--accent-brass)]">Anmerkung · Açıklama</div>
-          <p class="text-xs text-[var(--text-primary)] leading-snug">${q.explanation_de}</p>
-          <p class="tr-text text-[11px] text-[var(--text-tr)] leading-snug">${q.explanation_tr}</p>
+        <div class="footnote-box text-xs space-y-1 mt-2">
+          <span class="font-mono-tabular text-[9.5px] uppercase tracking-widest text-[var(--accent-brass)] font-semibold block">Açıklama / Not</span>
+          <p class="text-[var(--text-primary)] font-medium leading-snug">${q.explanation_de || ''}</p>
+          <p class="tr-text text-[11px] text-[var(--text-tr)] leading-snug">${q.explanation_tr || ''}</p>
         </div>
       `;
 
       reviewList.appendChild(card);
     });
-
-    if (visibleCount === 0) {
-      reviewList.innerHTML = `
-        <div class="editorial-sheet p-6 text-center text-xs font-mono-tabular text-[var(--text-muted)]">
-          Bu filtrede görüntülenecek soru bulunmuyor.
-        </div>
-      `;
-    }
   }
 
-  // Shuffle All Trigger
-  function handleShuffleAll() {
-    initQuiz(activeFilter, true);
+  // Switch to Landing Screen (Course Selection Portal)
+  function showLanding() {
+    stopTimer();
+    currentCourse = null;
+    isExamFinished = false;
+    userAnswers = {};
+
+    landingScreen.classList.remove('hidden');
+    quizScreen.classList.add('hidden');
+    resultScreen.classList.add('hidden');
+
+    // Controls visibility
+    if (headerBackBtn) headerBackBtn.classList.add('hidden');
+    if (timerContainer) {
+      timerContainer.classList.add('hidden');
+      timerContainer.classList.remove('flex');
+    }
+    if (shuffleBtn) shuffleBtn.classList.add('hidden');
+    if (toggleTrBtn) toggleTrBtn.classList.add('hidden');
+    if (finishExamBtn) finishExamBtn.classList.add('hidden');
+
+    if (headerTitle) headerTitle.textContent = 'Akademik Portal';
+    if (headerSubtitle) headerSubtitle.textContent = 'Philologie & Didaktik';
+    document.title = 'Akademik Çalışma ve Sınav Portalı — Philologie & Didaktik';
+
+    try {
+      history.pushState(null, '', window.location.pathname);
+    } catch (_) {}
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Keyboard Navigation & Option Selection on Desktop
-  window.addEventListener('keydown', (e) => {
-    if (isExamFinished) return;
-    if (e.target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+  // Start / Select Course
+  function selectCourse(courseId, shouldShuffle) {
+    const course = COURSES[courseId];
+    if (!course) return;
 
-    const q = activeQuestions[currentIndex];
-    if (!q) return;
+    currentCourse = course;
+    activeFilter = 'all';
+    isShuffled = !!shouldShuffle;
+    isExamFinished = false;
+    userAnswers = {};
+    elapsedSeconds = 0;
 
-    const key = e.key.toLowerCase();
+    // Header updates
+    if (headerTitle) headerTitle.textContent = course.titleDe;
+    if (headerSubtitle) headerSubtitle.textContent = course.subtitleDe;
+    document.title = course.fullTitle;
 
-    if (q.type === 'multiple_choice') {
-      if (key === '1' || key === 'a') handleSelectOption(0);
-      else if (key === '2' || key === 'b') handleSelectOption(1);
-      else if (key === '3' || key === 'c') handleSelectOption(2);
-      else if (key === '4' || key === 'd') handleSelectOption(3);
-    } else if (q.type === 'true_false') {
-      if (key === '1') handleSelectOption(0);
-      else if (key === '2') handleSelectOption(1);
-      else if (key === 'r' || key === 'd') {
-        const rIdx = q.options.findIndex((o) => o.de.toLowerCase().includes('richtig'));
-        if (rIdx !== -1) handleSelectOption(rIdx);
-      } else if (key === 'f' || key === 'y') {
-        const fIdx = q.options.findIndex((o) => o.de.toLowerCase().includes('falsch'));
-        if (fIdx !== -1) handleSelectOption(fIdx);
+    // Controls visibility
+    if (headerBackBtn) headerBackBtn.classList.remove('hidden');
+    if (timerContainer) {
+      timerContainer.classList.remove('hidden');
+      timerContainer.classList.add('flex');
+    }
+    if (shuffleBtn) shuffleBtn.classList.remove('hidden');
+    if (toggleTrBtn) toggleTrBtn.classList.remove('hidden');
+    if (finishExamBtn) finishExamBtn.classList.remove('hidden');
+
+    // Screen transitions
+    landingScreen.classList.add('hidden');
+    resultScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+
+    // Build questions & filters
+    renderFilterTabs();
+    applyFilter('all', isShuffled);
+    startTimer();
+
+    try {
+      history.pushState(null, '', `?course=${courseId}`);
+    } catch (_) {}
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Keyboard Navigation & Shortcuts
+  function setupKeyboard() {
+    window.addEventListener('keydown', (e) => {
+      // Ignore if focus is in an input or modal
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+      // Only active during quiz screen
+      if (quizScreen.classList.contains('hidden') || isExamFinished) return;
+
+      const q = activeQuestions[currentIndex];
+      if (!q) return;
+
+      // Option Selection: 1, 2, 3, 4 OR A, B, C, D OR R, F
+      const key = e.key.toUpperCase();
+      let selectedOption = -1;
+
+      if (['1', 'A'].includes(key)) selectedOption = 0;
+      else if (['2', 'B'].includes(key)) selectedOption = 1;
+      else if (['3', 'C'].includes(key) && q.options.length > 2) selectedOption = 2;
+      else if (['4', 'D'].includes(key) && q.options.length > 3) selectedOption = 3;
+      else if (q.type === 'true_false') {
+        if (key === 'R') selectedOption = 0;
+        else if (key === 'F') selectedOption = 1;
       }
-    }
 
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      nextBtn.click();
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      prevBtn.click();
-    } else if (key === 's') {
-      e.preventDefault();
-      if (!skipBtn.disabled) skipBtn.click();
-    }
-  });
+      if (selectedOption !== -1) {
+        e.preventDefault();
+        const record = userAnswers[q.id];
+        if (!record || record.status !== 'answered') {
+          selectAnswer(selectedOption);
+        }
+        return;
+      }
+
+      // Navigation: Left / Right Arrows
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNext();
+      }
+
+      // Skip: S or Space
+      if (key === 'S') {
+        e.preventDefault();
+        skipCurrentQuestion();
+      }
+    });
+  }
 
   // Event Listeners
-  shuffleBtn.addEventListener('click', handleShuffleAll);
-  inlineShuffleBtn.addEventListener('click', handleShuffleAll);
-  restartShuffleBtn.addEventListener('click', handleShuffleAll);
-
-  toggleTrBtn.addEventListener('click', () => {
-    showTurkish = !showTurkish;
-    if (showTurkish) {
-      document.body.classList.remove('hide-tr');
-      toggleTrLabel.textContent = 'TR';
-      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-[#3b825a]';
-    } else {
-      document.body.classList.add('hide-tr');
-      toggleTrLabel.textContent = 'TR Kapalı';
-      toggleTrDot.className = 'w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]';
+  function setupEvents() {
+    // Header Back button to Landing
+    if (headerBackBtn) {
+      headerBackBtn.addEventListener('click', () => {
+        if (!isExamFinished && Object.keys(userAnswers).length > 0) {
+          const confirmExit = confirm('Mevcut sınav oturumunu sonlandırıp ders seçim ekranına dönmek istiyor musunuz?');
+          if (!confirmExit) return;
+        }
+        showLanding();
+      });
     }
-  });
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', toggleTheme);
+    // Landing Screen Course Start Buttons
+    const startButtons = document.querySelectorAll('[data-start-course]');
+    startButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const courseId = btn.getAttribute('data-start-course');
+        selectCourse(courseId, false);
+      });
+    });
+
+    // Theme Toggle
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', toggleTheme);
+    }
+
+    // Turkish Translation Toggle
+    if (toggleTrBtn) {
+      toggleTrBtn.addEventListener('click', () => {
+        showTurkish = !showTurkish;
+        document.body.classList.toggle('hide-tr', !showTurkish);
+        if (toggleTrDot) {
+          toggleTrDot.className = `w-1.5 h-1.5 rounded-full ${showTurkish ? 'bg-[#3b825a]' : 'bg-[var(--text-muted)]'}`;
+        }
+      });
+    }
+
+    // Top Shuffle Button
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener('click', () => {
+        applyFilter(activeFilter, !isShuffled);
+      });
+    }
+
+    // Finish Exam Button
+    if (finishExamBtn) {
+      finishExamBtn.addEventListener('click', () => {
+        const stats = calculateStats();
+        if (stats.totalUnansweredOrSkipped > 0) {
+          const confirmFinish = confirm(
+            `Henüz cevaplamadığınız veya boş bıraktığınız ${stats.totalUnansweredOrSkipped} soru var. Sınavı bitirmek istiyor musunuz?`
+          );
+          if (!confirmFinish) return;
+        }
+        finishExam();
+      });
+    }
+
+    // Bottom Navigation
+    if (prevBtn) prevBtn.addEventListener('click', goToPrev);
+    if (nextBtn) nextBtn.addEventListener('click', goToNext);
+    if (skipBtn) skipBtn.addEventListener('click', skipCurrentQuestion);
+
+    // Results Actions
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => {
+        if (currentCourse) selectCourse(currentCourse.id, false);
+      });
+    }
+
+    if (restartShuffleBtn) {
+      restartShuffleBtn.addEventListener('click', () => {
+        if (currentCourse) selectCourse(currentCourse.id, true);
+      });
+    }
+
+    if (changeCourseBtn) {
+      changeCourseBtn.addEventListener('click', showLanding);
+    }
+
+    // Review Filters in Result Screen
+    reviewFilterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        reviewFilterButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeReviewFilter = btn.getAttribute('data-review-filter');
+        renderReviewList();
+      });
+    });
+
+    // Popstate (Browser Back/Forward navigation)
+    window.addEventListener('popstate', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseParam = urlParams.get('course');
+      if (courseParam && COURSES[courseParam]) {
+        selectCourse(courseParam, false);
+      } else {
+        showLanding();
+      }
+    });
   }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderCurrentQuestion();
-    }
-  });
+  // Initial Boot
+  function init() {
+    initTheme();
+    setupEvents();
+    setupKeyboard();
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex < activeQuestions.length - 1) {
-      currentIndex++;
-      renderCurrentQuestion();
+    // Check URL parameters for direct course links (e.g., ?course=edebiyat or ?course=yaklasimlar)
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseParam = urlParams.get('course');
+
+    if (courseParam && COURSES[courseParam]) {
+      selectCourse(courseParam, false);
     } else {
-      finishExam();
+      showLanding();
     }
-  });
+  }
 
-  skipBtn.addEventListener('click', handleSkipQuestion);
-  finishExamBtn.addEventListener('click', finishExam);
-
-  restartBtn.addEventListener('click', () => {
-    initQuiz(activeFilter, false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  filterButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const selectedFilter = btn.getAttribute('data-filter');
-      initQuiz(selectedFilter, isShuffled);
-    });
-  });
-
-  reviewFilterButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      activeReviewFilter = btn.getAttribute('data-review-filter');
-      updateReviewFilterButtonsUI();
-      renderReviewList();
-    });
-  });
-
-  // Initialize Theme & Start Quiz
-  initTheme();
-  initQuiz('all', false);
+  // Execute on DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

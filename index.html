@@ -3,47 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deutsche Literaturwissenschaft — Sınav Arşivi (66 Soru)</title>
+  <title>Akademik Çalışma ve Sınav Portalı — Philologie & Didaktik</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css?v=2.1" />
+  <link rel="stylesheet" href="style.css?v=2.2" />
 </head>
 <body class="selection:bg-[#c86d51]/30">
 
   <!-- TOP EDITORIAL MASTHEAD (SCROLL-TO-HIDE) -->
   <header id="main-header" class="sticky top-0 z-30">
-    <div class="max-w-3xl mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2">
-      <!-- Brand / Archival Title -->
+    <div class="max-w-4xl mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2">
+      <!-- Left: Back Button & Archival Brand -->
       <div class="flex items-center gap-2 min-w-0">
+        <!-- Back to Courses Button (Hidden on Landing, Visible in Quiz & Results) -->
+        <button
+          id="header-back-btn"
+          type="button"
+          class="ctrl-btn hidden text-[var(--accent-primary)] font-semibold shrink-0"
+          title="Ders Seçim Ekranına Geri Dön"
+        >
+          <span class="font-mono-tabular">&larr;</span>
+          <span>Dersler</span>
+        </button>
+
         <span class="font-serif-editorial text-base sm:text-lg font-bold tracking-tight text-[var(--accent-primary)] select-none shrink-0">
           §
         </span>
         <div class="min-w-0">
-          <h1 class="font-serif-editorial font-semibold text-sm sm:text-base tracking-tight text-[var(--text-primary)] truncate leading-none">
-            Deutsche Literatur
+          <h1 id="header-title" class="font-serif-editorial font-semibold text-sm sm:text-base tracking-tight text-[var(--text-primary)] truncate leading-none">
+            Akademik Portal
           </h1>
-          <p class="text-[10px] font-mono-tabular uppercase tracking-widest text-[var(--text-muted)] hidden sm:block mt-0.5">
-            Klausurarchiv · 66 Fragen
+          <p id="header-subtitle" class="text-[10px] font-mono-tabular uppercase tracking-widest text-[var(--text-muted)] hidden sm:block mt-0.5">
+            Philologie & Didaktik
           </p>
         </div>
       </div>
 
       <!-- Right Controls: Timer, Shuffle, TR Toggle, Theme Toggle, Finish -->
       <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
-        <!-- Tabular Timer -->
+        <!-- Tabular Timer (Hidden on Landing) -->
         <div
-          class="font-mono-tabular text-[11px] sm:text-xs font-medium px-2 py-1 rounded border border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--text-secondary)] flex items-center gap-1"
+          id="timer-container"
+          class="hidden font-mono-tabular text-[11px] sm:text-xs font-medium px-2 py-1 rounded border border-[var(--border-hairline)] bg-[var(--bg-subtle)] text-[var(--text-secondary)] items-center gap-1"
           title="Geçen Süre / Bearbeitungszeit"
         >
           <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)]"></span>
           <span id="timer-display">00:00</span>
         </div>
 
-        <!-- Shuffle (KARIŞTIR) Button -->
+        <!-- Shuffle (KARIŞTIR) Button (Hidden on Landing) -->
         <button
           id="shuffle-btn"
           type="button"
-          class="ctrl-btn ctrl-btn-accent"
-          title="Soruları ve şıkları rastgele karıştır (Fragen & Optionen mischen)"
+          class="ctrl-btn ctrl-btn-accent hidden"
+          title="Soruları ve şıkları rastgele karıştır"
         >
           <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path>
@@ -51,18 +63,18 @@
           <span id="shuffle-btn-label">Karıştır</span>
         </button>
 
-        <!-- Turkish Translation Toggle -->
+        <!-- Turkish Translation Toggle (Hidden on Landing) -->
         <button
           id="toggle-tr-btn"
           type="button"
-          class="ctrl-btn"
+          class="ctrl-btn hidden"
           title="Türkçe çevirileri göster veya gizle"
         >
           <span id="toggle-tr-dot" class="w-1.5 h-1.5 rounded-full bg-[#3b825a]"></span>
           <span id="toggle-tr-label">TR</span>
         </button>
 
-        <!-- Theme Toggle (Ink Dark / Archival Paper Light) -->
+        <!-- Theme Toggle (Ink Dark / Archival Paper Light) - Always Visible -->
         <button
           id="theme-toggle-btn"
           type="button"
@@ -72,11 +84,11 @@
           <span id="theme-toggle-label">Kağıt</span>
         </button>
 
-        <!-- Finish Exam Button -->
+        <!-- Finish Exam Button (Hidden on Landing) -->
         <button
           id="finish-exam-btn"
           type="button"
-          class="ctrl-btn hover:!border-[#b84a39] hover:!text-[#e58576]"
+          class="ctrl-btn hover:!border-[#b84a39] hover:!text-[#e58576] hidden"
           title="Sınavı sonlandır ve değerlendirme ekranına geç"
         >
           Bitir
@@ -86,33 +98,200 @@
   </header>
 
   <!-- MAIN WORKSPACE -->
-  <main class="max-w-3xl mx-auto px-3 sm:px-5 py-2.5 sm:py-4">
+  <main class="max-w-4xl mx-auto px-3 sm:px-5 py-3 sm:py-5">
 
-    <!-- ==================== QUIZ SCREEN ==================== -->
-    <section id="quiz-screen" class="space-y-2.5 sm:space-y-3">
+    <!-- =========================================================================
+         SCREEN 1: LANDING PAGE & COURSE SELECTION
+         ========================================================================= -->
+    <section id="landing-screen" class="space-y-5 sm:space-y-6 animate-sheet">
+
+      <!-- Hero Introduction Banner -->
+      <div class="editorial-sheet p-4 sm:p-6 space-y-2.5">
+        <div class="flex items-center gap-2">
+          <span class="font-mono-tabular text-[10px] sm:text-[11px] uppercase tracking-widest text-[var(--accent-primary)] font-semibold">
+            § KURS- & PRÜFUNGSPORTAL
+          </span>
+          <span class="text-[10px] text-[var(--text-muted)] font-mono-tabular">· 2026/27</span>
+        </div>
+        <h2 class="font-serif-editorial text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)] leading-tight">
+          Akademik Çalışma ve Sınav Portalı
+        </h2>
+        <p class="text-xs sm:text-[14px] text-[var(--text-secondary)] leading-relaxed max-w-2xl">
+          Alman Dili ve Edebiyatı lisans müfredatına ait derslerin kanonik metinleri, geçmiş sınav soruları ve yöntembilimsel analizleri tek bir çatı altında toplanmıştır. Çalışmak istediğiniz dersi seçerek başlayabilirsiniz.
+        </p>
+      </div>
+
+      <!-- Two Editorial Course Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+
+        <!-- COURSE 1: DEUTSCHE LITERATURWISSENSCHAFT -->
+        <article class="landing-card p-4 sm:p-5 justify-between">
+          <div class="space-y-3">
+            <!-- Badge & Meta -->
+            <div class="flex items-center justify-between gap-2 border-b border-[var(--border-hairline)] pb-2.5">
+              <span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold text-[var(--accent-primary)]">
+                Klausurarchiv · 66 Soru
+              </span>
+              <span class="font-mono-tabular text-[10px] text-[var(--text-muted)]">
+                I. Dönem Arşivi
+              </span>
+            </div>
+
+            <!-- Title & Sub -->
+            <div class="space-y-1">
+              <h3 class="font-serif-editorial text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
+                Deutsche Literaturwissenschaft
+              </h3>
+              <p class="text-xs sm:text-[13px] text-[var(--accent-primary)] font-medium">
+                Alman Edebiyatı Bilimi (Barock &ndash; Klassik)
+              </p>
+            </div>
+
+            <!-- Description -->
+            <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
+              Alman edebiyat tarihi, edebiyat kuramları, edebi türler ve kanonik yazarların (Goethe, Schiller, Lessing, Opitz, Gryphius vb.) eser analizleri üzerine 66 soruluk interaktif sınav arşivi.
+            </p>
+
+            <!-- Specs Grid -->
+            <ul class="editorial-subsheet p-2.5 space-y-1.5 text-[11px] sm:text-xs text-[var(--text-secondary)] list-none font-mono-tabular">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)] shrink-0"></span>
+                <span><strong>56</strong> Çoktan Seçmeli + <strong>10</strong> Doğru / Yanlış (R/F)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)] shrink-0"></span>
+                <span>Almanca orijinal soru metinleri ve Türkçe çeviriler</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)] shrink-0"></span>
+                <span>Her soru için detaylı filolojik &amp; tarihi açıklama</span>
+              </li>
+            </ul>
+
+            <!-- Tags -->
+            <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+              <span class="landing-tag">Barock</span>
+              <span class="landing-tag">Aufklärung</span>
+              <span class="landing-tag">Sturm und Drang</span>
+              <span class="landing-tag">Weimarer Klassik</span>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button
+            type="button"
+            data-start-course="edebiyat"
+            class="nav-btn nav-btn-primary w-full mt-4 justify-between !py-2.5 !text-xs sm:!text-[13px]"
+          >
+            <span>Dersi Başlat (66 Soru)</span>
+            <span class="font-mono-tabular">&rarr;</span>
+          </button>
+        </article>
+
+        <!-- COURSE 2: YABANCI DİL ÖĞRETİMİNDE YAKLAŞIMLAR -->
+        <article class="landing-card landing-card-brass p-4 sm:p-5 justify-between">
+          <div class="space-y-3">
+            <!-- Badge & Meta -->
+            <div class="flex items-center justify-between gap-2 border-b border-[var(--border-hairline)] pb-2.5">
+              <span class="font-mono-tabular text-[10px] uppercase tracking-wider font-semibold text-[var(--accent-brass)]">
+                Didaktik Arşivi · 68 Soru
+              </span>
+              <span class="font-mono-tabular text-[10px] text-[var(--text-muted)]">
+                Yöntembilim
+              </span>
+            </div>
+
+            <!-- Title & Sub -->
+            <div class="space-y-1">
+              <h3 class="font-serif-editorial text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
+                Yaklaşımlar ve Yöntemler
+              </h3>
+              <p class="text-xs sm:text-[13px] text-[var(--accent-brass)] font-medium">
+                Fremdsprachendidaktik (GÜM, Doğrudan &amp; İşitsel-Dilsel)
+              </p>
+            </div>
+
+            <!-- Description -->
+            <p class="text-xs sm:text-[13px] text-[var(--text-secondary)] leading-relaxed">
+              Geleneksel ve yapısalcı dil öğretim yöntemlerinin kuramsal ilkeleri, psikolojik temelleri, sınıf içi pratikleri ve alıştırma teknikleri üzerine 68 özgün sorudan oluşan pedagojik çalışma seti.
+            </p>
+
+            <!-- Specs Grid -->
+            <ul class="editorial-subsheet p-2.5 space-y-1.5 text-[11px] sm:text-xs text-[var(--text-secondary)] list-none font-mono-tabular">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)] shrink-0"></span>
+                <span><strong>20</strong> GÜM + <strong>20</strong> Doğrudan + <strong>28</strong> İşitsel-Dilsel</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)] shrink-0"></span>
+                <span>Anthony hiyerarşisi, tek dillilik, Sprachlabor ve ASTP</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-brass)] shrink-0"></span>
+                <span>Akademik gerekçelendirilmiş didaktik çözümlemeler</span>
+              </li>
+            </ul>
+
+            <!-- Tags -->
+            <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+              <span class="landing-tag">GÜM</span>
+              <span class="landing-tag">Direkte Methode</span>
+              <span class="landing-tag">Audiolingual</span>
+              <span class="landing-tag">Bloomfield &amp; Skinner</span>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button
+            type="button"
+            data-start-course="yaklasimlar"
+            class="nav-btn nav-btn-primary w-full mt-4 justify-between !py-2.5 !text-xs sm:!text-[13px] !bg-[var(--accent-brass)] !border-[var(--accent-brass)] hover:!opacity-95"
+          >
+            <span>Dersi Başlat (68 Soru)</span>
+            <span class="font-mono-tabular">&rarr;</span>
+          </button>
+        </article>
+
+      </div>
+
+      <!-- Bottom Platform Features Grid -->
+      <div class="editorial-sheet p-3.5 sm:p-4">
+        <h4 class="font-mono-tabular text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-semibold mb-3">
+          Sınav ve Çalışma Motoru Özellikleri
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-xs">
+          <div class="landing-feature-item">
+            <p class="font-semibold text-[var(--text-primary)]">↻ Çift Yönlü Karıştırma</p>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5">Sorular ve seçenek dizilimleri bağımsız permütasyonla karıştırılır.</p>
+          </div>
+          <div class="landing-feature-item">
+            <p class="font-semibold text-[var(--text-primary)]">⚡ Anında Dönüt &amp; Notlar</p>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5">Seçim yapıldığı anda doğru/yanlış durumu ve akademik not belirir.</p>
+          </div>
+          <div class="landing-feature-item">
+            <p class="font-semibold text-[var(--text-primary)]">⌨️ Tam Klavye Desteği</p>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5">[A-D], [1-4], [&larr;/&rarr;] ve [S] tuşlarıyla hızlı gezinim.</p>
+          </div>
+          <div class="landing-feature-item">
+            <p class="font-semibold text-[var(--text-primary)]">📊 Filtreli İnceleme Karnesi</p>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5">Sınav bitiminde yanlış ve boş bırakılan sorular filtrelenerek tekrar edilebilir.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         SCREEN 2: INTERACTIVE QUIZ SCREEN
+         ========================================================================= -->
+    <section id="quiz-screen" class="hidden space-y-2.5 sm:space-y-3">
 
       <!-- Unified Index & Ledger Bar -->
       <div class="editorial-sheet overflow-hidden">
         <div class="px-2.5 sm:px-3.5 py-2 flex flex-wrap items-center justify-between gap-2">
-          <!-- Category Filter Tabs + Inline Shuffle -->
-          <div class="flex items-center gap-1 flex-wrap">
-            <button data-filter="all" class="filter-tab active">
-              Tümü <span class="font-mono-tabular text-[10px] opacity-75">(66)</span>
-            </button>
-            <button data-filter="multiple_choice" class="filter-tab">
-              Çoktan Seçmeli <span class="font-mono-tabular text-[10px] opacity-75">(56)</span>
-            </button>
-            <button data-filter="true_false" class="filter-tab">
-              R / F <span class="font-mono-tabular text-[10px] opacity-75">(10)</span>
-            </button>
-            <button
-              id="inline-shuffle-btn"
-              type="button"
-              class="filter-tab !text-[var(--accent-primary)] hover:!bg-[var(--accent-primary-soft)] font-semibold"
-              title="Soru sırasını ve şıkların yerini karıştır"
-            >
-              ↻ Karıştır
-            </button>
+          <!-- Dynamic Category Filter Tabs + Inline Shuffle -->
+          <div id="quiz-filter-container" class="flex items-center gap-1 flex-wrap">
+            <!-- Populated dynamically based on active course -->
           </div>
 
           <!-- Tabular Live Ledger (D / Y / B) + Question Counter -->
@@ -234,7 +413,7 @@
             <span class="font-mono-tabular text-[11px] uppercase tracking-wider font-semibold text-[var(--text-primary)]">
               Fragenverzeichnis · Soru Dizini
             </span>
-            <span class="text-[11px] text-[var(--text-muted)]">(Tümü)</span>
+            <span id="matrix-course-label" class="text-[11px] text-[var(--text-muted)]">(Tümü)</span>
           </div>
           <div class="flex items-center gap-3 text-[11px] font-mono-tabular text-[var(--text-muted)]">
             <span class="inline-flex items-center gap-1">
@@ -252,13 +431,15 @@
           id="question-grid"
           class="grid grid-cols-11 sm:grid-cols-16 gap-1 pt-2.5 mt-2 border-t border-[var(--border-hairline)]"
         >
-          <!-- 66 Question Index Buttons -->
+          <!-- Question Index Buttons rendered by app.js -->
         </div>
       </details>
 
     </section>
 
-    <!-- ==================== RESULTS SCREEN (AUSWERTUNG) ==================== -->
+    <!-- =========================================================================
+         SCREEN 3: RESULTS SCREEN (AUSWERTUNG)
+         ========================================================================= -->
     <section id="result-screen" class="hidden space-y-4 sm:space-y-5 animate-sheet">
 
       <!-- Evaluation Summary Sheet -->
@@ -272,7 +453,7 @@
               Değerlendirme Tamamlandı
             </h2>
           </div>
-          <span class="font-mono-tabular text-xs text-[var(--text-muted)]">
+          <span id="res-course-name" class="font-mono-tabular text-xs text-[var(--text-muted)]">
             Deutsche Literaturwissenschaft
           </span>
         </div>
@@ -314,6 +495,10 @@
           <button id="restart-shuffle-btn" type="button" class="nav-btn">
             <span>↻ Karıştırarak Yeniden Başlat</span>
           </button>
+
+          <button id="change-course-btn" type="button" class="nav-btn text-[var(--accent-primary)] border-[var(--accent-primary)]/40 hover:!border-[var(--accent-primary)]">
+            <span>&larr; Başka Ders Seç</span>
+          </button>
         </div>
       </div>
 
@@ -344,7 +529,8 @@
 
   </main>
 
-  <script src="questions.js?v=2.1"></script>
-  <script src="app.js?v=2.1"></script>
+  <script src="questions.js?v=2.2"></script>
+  <script src="yaklasimlar_questions.js?v=2.2"></script>
+  <script src="app.js?v=2.2"></script>
 </body>
 </html>
