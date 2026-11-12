@@ -25,20 +25,23 @@
     yaklasimlar: {
       id: 'yaklasimlar',
       titleDe: 'Yaklaşımlar ve Yöntemler',
-      subtitleDe: 'Didaktik Arşivi · 68 Soru',
+      subtitleDe: 'Didaktik Arşivi · 171 Soru',
       titleTr: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler',
-      fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (68 Soru)',
+      fullTitle: 'Yabancı Dil Öğretiminde Yaklaşımlar ve Yöntemler — Sınav Arşivi (171 Soru)',
       badgeName: 'Fremdsprachendidaktik & Methoden',
       getQuestions: () => (typeof yaklasimlarQuestions !== 'undefined' ? yaklasimlarQuestions : []),
       filters: [
-        { id: 'all', label: 'Tümü', count: 68 },
-        { id: 'gum', label: 'GÜM', count: 20 },
-        { id: 'dogrudan', label: 'Doğrudan', count: 20 },
-        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 28 }
+        { id: 'all', label: 'Tümü', count: 171 },
+        { id: 'gum', label: 'GÜM', count: 64 },
+        { id: 'dogrudan', label: 'Doğrudan', count: 53 },
+        { id: 'isitsel', label: 'İşitsel-Dilsel', count: 54 }
       ],
       filterFn: (q, f) => (f === 'all' ? true : q.category === f),
-      badgeFn: (q) => (q.categoryLabel ? `Didaktik · ${q.categoryLabel}` : 'Didaktik Yöntem'),
-      gridColsClass: 'grid-cols-12 sm:grid-cols-17'
+      badgeFn: (q) => {
+        const catMap = { gum: 'GÜM', dogrudan: 'Doğrudan Yöntem', isitsel: 'İşitsel-Dilsel Yöntem' };
+        return `Yöntem · ${catMap[q.category] || 'Didaktik'}`;
+      },
+      gridColsClass: 'grid-cols-11 sm:grid-cols-18'
     }
   };
 
@@ -184,18 +187,19 @@
     const baseList = rawQuestions.filter((q) => course.filterFn(q, filterType));
 
     let cloned = baseList.map((q) => {
+      const correctVal = q.correctAnswer !== undefined ? q.correctAnswer : q.correct;
       if (!shouldShuffle) {
         return {
           ...q,
           options: [...q.options],
-          correctAnswer: q.correctAnswer
+          correctAnswer: correctVal
         };
       }
 
       // Option Shuffle while preserving correct answer
       const indexedOptions = q.options.map((opt, idx) => ({
         val: typeof opt === 'string' ? opt : { ...opt },
-        isCorrect: idx === q.correctAnswer
+        isCorrect: idx === correctVal
       }));
 
       // Fisher-Yates for options
@@ -228,12 +232,16 @@
     if (!quizFilterContainer || !currentCourse) return;
     quizFilterContainer.innerHTML = '';
 
+    const allCourseQuestions = currentCourse.getQuestions();
     currentCourse.filters.forEach((filter) => {
+      const dynamicCount = allCourseQuestions.filter((q) => currentCourse.filterFn(q, filter.id)).length;
+      const countDisplay = dynamicCount || filter.count;
+
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = `filter-tab ${activeFilter === filter.id ? 'active' : ''}`;
       btn.setAttribute('data-filter', filter.id);
-      btn.innerHTML = `${filter.label} <span class="font-mono-tabular text-[10px] opacity-75">(${filter.count})</span>`;
+      btn.innerHTML = `${filter.label} <span class="font-mono-tabular text-[10px] opacity-75">(${countDisplay})</span>`;
       btn.addEventListener('click', () => {
         applyFilter(filter.id, isShuffled);
       });
